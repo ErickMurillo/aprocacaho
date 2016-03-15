@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'organizacion',
+    'productores',
     'lugar',
     'sorl.thumbnail',
     'smart_selects',
