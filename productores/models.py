@@ -5,6 +5,7 @@ from django.db import models
 from organizacion.models import *
 from lugar.models import *
 from smart_selects.db_fields import ChainedForeignKey
+from multiselectfield import MultiSelectField
 
 # Create your models here.
 class Profesiones(models.Model):
@@ -26,6 +27,26 @@ class SituacionesPropiedad(models.Model):
 	class Meta:
 		verbose_name = "Situación de la Propiedad"
 		verbose_name_plural = "Situaciones de las Propiedades"
+
+class Tipos_Servicio(models.Model):
+	servicio = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.servicio
+
+	class Meta:
+		verbose_name = "Tipo de Servicio que recibe"
+		verbose_name_plural = "Tipos de Servicios que recibe"
+
+class Beneficios(models.Model):
+	beneficio = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.beneficio
+
+	class Meta:
+		verbose_name = "Beneficio de estar asociado"
+		verbose_name_plural = "Beneficios de estar asociado"
 		
 class Entrevistados(models.Model):
 	nombre =  models.CharField(max_length=200,verbose_name='Nombre del jefe de familia')
@@ -331,3 +352,82 @@ class MitigacionRiesgos(models.Model):
 	class Meta:
 		verbose_name = "7 Mitigación de los riesgos"
 		verbose_name_plural = "7 Mitigación de los riesgos"
+
+class OrganizacionAsociada(models.Model):
+	socio = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Trabaja con alguna Organización/Institución')
+	organizacion = models.ManyToManyField(Organizacion,verbose_name='Organización/Institución con la que trabaja',blank=True)
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "8 Org. productiva-comercial asociado"
+		verbose_name_plural = "8 Org. productiva-comercial asociado"
+
+class ServiciosOrganizado(models.Model):
+	tipos_servicio = models.ManyToManyField(Tipos_Servicio,verbose_name='Tipos de servicios que recibe')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "8 Org. productiva-comercial asociado"
+		verbose_name_plural = "8 Org. productiva-comercial asociado"
+
+class BeneficiosOrganizado(models.Model):
+	beneficios = models.ManyToManyField(Beneficios,verbose_name='Beneficios de estar asociado')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "8 Org. productiva-comercial asociado"
+		verbose_name_plural = "8 Org. productiva-comercial asociado"
+
+class AreaCacao(models.Model):
+	area = models.FloatField(verbose_name='Área total de cacao establecida en finca(Mz)')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "9 Área de cacao en finca"
+		verbose_name_plural = "9 Área de cacao en fincas"
+
+EDAD_PLANTA_CHOICES = (
+	(1,'Menor de un año'),
+	(2,'De 1 a 3 años'),
+	(3,'De 4 a 10 años'),
+	(4,'De 10 a 20 años'),
+	(5,'Mayores de 20 años'),
+	)
+
+class Plantacion(models.Model):
+	edad = models.IntegerField(choices=EDAD_PLANTA_CHOICES)
+	area = models.FloatField(verbose_name='Área en Mz')
+	edad_real = models.FloatField(verbose_name='Edad real de la Plantación (años)')
+	numero_plantas = models.IntegerField(verbose_name='Número de plantas en el área')
+	plantas_semilla = models.IntegerField(verbose_name='Número de plantas establecidas por semilla')
+	plantas_injerto = models.IntegerField(verbose_name='Número de plantas establecidas por injerto')
+	plantas_improductivas = models.IntegerField(verbose_name='Número de plantas improductivas en el área')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "9-1 Edad de la plantación"
+		verbose_name_plural = "9-1 Edad de la plantación"
+
+MESES_CHOICES = (
+	(1,'Enero'),
+	(2,'Febrero'),
+	(3,'Marzo'),
+	(4,'Abril'),
+	(5,'Mayo'),
+	(6,'Junio'),
+	(7,'Julio'),
+	(8,'Agosto'),
+	(9,'Septiembre'),
+	(10,'Octubre'),
+	(11,'Noviembre'),
+	(12,'Diciembre'),
+	)
+
+class ProduccionCacao(models.Model):
+	cacao_baba = models.FloatField(verbose_name='Producción cacao en baba (qq baba/fresco)')
+	meses = MultiSelectField(choices=MESES_CHOICES,verbose_name='Meses de mayor producción de cacao')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "9-2 Producción de cacao último año"
+		verbose_name_plural = "9-2 Producción de cacao último año"

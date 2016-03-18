@@ -63,6 +63,36 @@ class MitigacionRiesgos_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
+class OrganizacionAsociada_Inline(admin.TabularInline):
+	model = OrganizacionAsociada
+	max_num = 1
+	can_delete = False
+
+class ServiciosOrganizado_Inline(admin.TabularInline):
+	model = ServiciosOrganizado
+	max_num = 1
+	can_delete = False
+
+class BeneficiosOrganizado_Inline(admin.TabularInline):
+	model = BeneficiosOrganizado
+	max_num = 1
+	can_delete = False
+
+class AreaCacao_Inline(admin.TabularInline):
+	model = AreaCacao
+	max_num = 1
+	can_delete = False
+
+class Plantacion_Inline(admin.TabularInline):
+	model = Plantacion
+	max_num = 5
+	extra = 1
+
+class ProduccionCacao_Inline(admin.TabularInline):
+	model = ProduccionCacao
+	max_num = 1
+	can_delete = False
+
 class EncuestaAdmin(admin.ModelAdmin):
 	def get_queryset(self, request):
 		if request.user.is_superuser:
@@ -93,7 +123,9 @@ class EncuestaAdmin(admin.ModelAdmin):
 
 	inlines = [Familia_Inline,Educacion_Inline,TenenciaPropiedad_Inline,AreaFinca_Inline,DetalleAreaFinca_Inline,
 				Reforestacion_Inline,CaracterizacionTerreno_Inline,FenomenosNaturales_Inline,RazonesAgricolas_Inline,
-				RazonesMercado_Inline,Inversion_Inline,MitigacionRiesgos_Inline]
+				RazonesMercado_Inline,Inversion_Inline,MitigacionRiesgos_Inline,OrganizacionAsociada_Inline,
+				ServiciosOrganizado_Inline,BeneficiosOrganizado_Inline,AreaCacao_Inline,Plantacion_Inline,
+				ProduccionCacao_Inline]
 
 	list_display = ('entrevistado','organizacion','encuestador')
 	list_display_links = ('organizacion','entrevistado')
@@ -102,6 +134,8 @@ class EncuestaAdmin(admin.ModelAdmin):
 
 admin.site.register(Profesiones)
 admin.site.register(SituacionesPropiedad)
+admin.site.register(Beneficios)
+admin.site.register(Tipos_Servicio)
 admin.site.register(Entrevistados)
 admin.site.register(Encuestadores)
 admin.site.register(Encuesta,EncuestaAdmin)
