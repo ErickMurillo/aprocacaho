@@ -93,6 +93,21 @@ class ProduccionCacao_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
+class Certificacion_Inline(admin.TabularInline):
+	model = Certificacion
+	max_num = 1
+	can_delete = False
+
+class CostoProduccion_Inline(admin.TabularInline):
+	model = CostoProduccion
+	max_num = 1
+	can_delete = False
+
+class TecnicasAplicadas_Inline(admin.TabularInline):
+	model = TecnicasAplicadas
+	max_num = 1
+	can_delete = False
+
 class EncuestaAdmin(admin.ModelAdmin):
 	def get_queryset(self, request):
 		if request.user.is_superuser:
@@ -125,7 +140,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 				Reforestacion_Inline,CaracterizacionTerreno_Inline,FenomenosNaturales_Inline,RazonesAgricolas_Inline,
 				RazonesMercado_Inline,Inversion_Inline,MitigacionRiesgos_Inline,OrganizacionAsociada_Inline,
 				ServiciosOrganizado_Inline,BeneficiosOrganizado_Inline,AreaCacao_Inline,Plantacion_Inline,
-				ProduccionCacao_Inline]
+				ProduccionCacao_Inline,Certificacion_Inline,CostoProduccion_Inline,TecnicasAplicadas_Inline]
 
 	list_display = ('entrevistado','organizacion','encuestador')
 	list_display_links = ('organizacion','entrevistado')
