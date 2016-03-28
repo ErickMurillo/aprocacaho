@@ -28,7 +28,7 @@ class SituacionesPropiedad(models.Model):
 		verbose_name = "Situación de la Propiedad"
 		verbose_name_plural = "Situaciones de las Propiedades"
 
-class Tipos_Servicio(models.Model):
+class TiposServicio(models.Model):
 	servicio = models.CharField(max_length=200)
 
 	def __unicode__(self):
@@ -57,6 +57,36 @@ class QuienCertifica(models.Model):
 	class Meta:
 		verbose_name = "Quién certifica"
 		verbose_name_plural = "Quienes certifican"
+
+class ActividadesProduccion(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Actividad de Producción"
+		verbose_name_plural = "Actividades de Producción"
+
+class DestinoIngresos(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Destino de ingresos percibidos"
+		verbose_name_plural = "Destino de ingresos percibidos"
+
+class OtrosIngresos(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Otra fuente de ingreso en la finca"
+		verbose_name_plural = "Otras fuentes de ingreso en la finca"
 
 class Entrevistados(models.Model):
 	nombre =  models.CharField(max_length=200,verbose_name='Nombre del jefe de familia')
@@ -373,7 +403,7 @@ class OrganizacionAsociada(models.Model):
 		verbose_name_plural = "8 Org. productiva-comercial asociado"
 
 class ServiciosOrganizado(models.Model):
-	tipos_servicio = models.ManyToManyField(Tipos_Servicio,verbose_name='Tipos de servicios que recibe')
+	tipos_servicio = models.ManyToManyField(TiposServicio,verbose_name='Tipos de servicios que recibe')
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
@@ -546,3 +576,158 @@ class TecnicasAplicadas(models.Model):
 	class Meta:
 		verbose_name = "11 Técn. aplicadas área de cacao"
 		verbose_name_plural = "11 Técn. aplicadas área de cacao"
+
+PRODUCTO_CHOICES = (
+	(1,'Mazorca de cacao (unidad)'),
+	(2,'Semilla para siembra (unidad)'),
+	(3,'Cacao en baba (qq)'),
+	(4,'Cacao rojo sin fermentar (qq)'),
+	(5,'Cacao fermentado (qq)'),
+	(6,'Chocolate artesanal (lb)'),
+	(7,'Cacao en polvo (lb)'),
+	(8,'Cacao procesado (lb)'),
+	(9,'Cajeta de cacao (lb)'),
+	(10,'Pasta de cacao (lb)'),
+	(11,'Vino de cacao (lt)'),
+	)
+
+QUIEN_VENDE_CHOICES = (
+	(1,'Comunidad'),
+	(2,'Intermediario'),
+	(3,'Mercado'),
+	(4,'Cooperativa'),
+	)
+
+class ComercializacionCacao(models.Model):
+	producto = models.IntegerField(choices=PRODUCTO_CHOICES)
+	auto_consumo = models.FloatField(verbose_name='Auto-consumo',blank=True, null=True)
+	venta =  models.FloatField(blank=True, null=True)
+	precio_venta = models.FloatField(verbose_name='Precio venta por unidad',blank=True, null=True)
+	quien_vende = MultiSelectField(choices=QUIEN_VENDE_CHOICES,verbose_name='¿A quién le vende?',blank=True, null=True)
+	donde_vende = models.ManyToManyField(Municipio,verbose_name='¿Dónde lo vende? Municipios',blank=True)
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "12 Comercialización de cacao"
+		verbose_name_plural = "12 Comercialización de cacao"
+
+class DistanciaComercioCacao(models.Model):
+	distancia = models.FloatField(verbose_name='Distancia (km)')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "12.1 Distancia recorrida"
+		verbose_name_plural = "12.1 Distancia recorrida"
+
+CAPACITACIONES_CHOICES = (
+	(1,'Regular en sombra'),
+	(2,'Poda'),
+	(3,'Manejo de plagas y enfermedades'),
+	(4,'Elaboración de abonos orgánicos'),
+	(5,'Elaboración de productos para control de plagas'),
+	(6,'Establecimiento de vivero'),
+	(7,'Injertación de cacao'),
+	(8,'Selección de árboles élites para producción de semillas'),
+	(9,'Manejo de post-cosecha (selección, cosecha, fermentado, secado)'),
+	(10,'Manejo de calidad de cacao'),
+	(11,'Certificación orgánica'),
+	)
+
+OPCIONES_CAPACITACIONES_CHOICES = (
+	(1,'Jefe familia varón'),
+	(2,'Jefa familia mujer'),
+	(3,'Hijos'),
+	(4,'Hijas'),
+	)
+
+class CapacitacionesTecnicas(models.Model):
+	capacitaciones = models.IntegerField(choices=CAPACITACIONES_CHOICES)
+	opciones = MultiSelectField(choices=OPCIONES_CAPACITACIONES_CHOICES)
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "13.1 Capacitación familia"
+		verbose_name_plural = "13.1 Capacitaciones familia"
+
+CAPACITACIONES_SOCIO_CHOICES = (
+	(1,'Formación y fortalecimiento organizacional'),
+	(2,'Contabilidad básica y administración'),
+	(3,'Equidad de género'),
+	(4,'Manejo de créditos'),
+	(5,'Administración de pequeños negocios'),
+	(6,'Gestión empresarial'),
+	(7,'Cadena de valor de cacao'),
+	(8,'Transformación de cacao'),
+	)
+
+
+class CapacitacionesSocioeconomicas(models.Model):
+	capacitaciones_socio = models.IntegerField(choices=CAPACITACIONES_SOCIO_CHOICES,verbose_name='Capacitaciones')
+	opciones_socio = MultiSelectField(choices=OPCIONES_CAPACITACIONES_CHOICES,verbose_name='Opciones')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "13.2 Capacitaciones socioeconómico/org"
+		verbose_name_plural = "13.2 Capacitaciones socioeconómico/org"
+
+AREA_1 = (
+	(1,'Baja fertilidad del suelo'),
+	(2,'Plagas y enfermedades'),
+	)
+
+AREA_2 = (
+	(1,'Baja fertilidad del suelo'),
+	(2,'Árboles poco productivos'),
+	(3,'Plagas y enfermedades'),
+	(4,'Poca producción'),
+	(5,'Poca disponibilidad/Mano de obra'),
+	)
+
+AREA_3 = (
+	(1,'Baja fertilidad del suelo'),
+	(2,'Árboles poco productivos'),
+	(3,'Plantaciones muy viejas'),
+	(4,'Plagas y enfermedades'),
+	(5,'Poca producción'),
+	(6,'Poca disponibilidad/Mano de obra'),
+	)
+
+class ProblemasAreaCacao(models.Model):
+	area_1 = MultiSelectField(choices=AREA_1,verbose_name='En áreas de 1 a 3 años')
+	area_2 = MultiSelectField(choices=AREA_2,verbose_name='En áreas de 4 a 10 años')
+	area_3 = MultiSelectField(choices=AREA_3,verbose_name='En áreas de 10 a 20 años')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "13.3 Principales problemas áreas de cacao"
+		verbose_name_plural = "13.3 Principales problemas áreas de cacao"
+
+DECISIONES_CHOICES = (
+	(1,'Decide Usted sobre la siembra de cacao'),
+	(2,'Decide Usted sobre la cosecha de cacao'),
+	(3,'Decide Usted sobre la venta de cacao'),
+	(4,'Decide Usted sobre la Ingresos de cacao'),
+	)
+
+class Genero(models.Model):
+	actividades = models.ManyToManyField(ActividadesProduccion,verbose_name='Actividades en las que participa',blank=True,)
+	ingresos = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Recibe ingresos por las actividades que realiza?')
+	ingreso_mesual_cacao = models.FloatField(null=True,blank=True,verbose_name='Ingreso mensual aproximado percibido (solo por cacao)')
+	ingreso_mesual = models.FloatField(null=True,blank=True,verbose_name='Ingreso mensual aproximado percibido (incluyendo todas las actividades)')
+	destino_ingresos = models.ManyToManyField(DestinoIngresos,verbose_name='Destino de los ingresos percibidos',blank=True)
+	decisiones = MultiSelectField(choices=DECISIONES_CHOICES,verbose_name='Decisiones sobre destino de la producción',blank=True,null=True)
+	otros_ingresos = models.ManyToManyField(OtrosIngresos,verbose_name='Sobre otros Ingresos')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "14 Género"
+		verbose_name_plural = "14 Género"
+
+class AmpliarAreasCacao(models.Model):
+	interes = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Tiene interes en ampliar las áreas de cacao')
+	cuanto = models.FloatField(default='0',verbose_name='Cuantas manzanas')
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "15 Amplición áreas de cacao"
+		verbose_name_plural = "15 Amplición áreas de cacao"

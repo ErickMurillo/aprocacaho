@@ -108,6 +108,41 @@ class TecnicasAplicadas_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
+class ComercializacionCacao_Inline(admin.TabularInline):
+	model = ComercializacionCacao
+	max_num = 11
+	extra = 1
+
+class DistanciaComercioCacao_Inline(admin.TabularInline):
+	model = DistanciaComercioCacao
+	max_num = 1
+	can_delete = False
+
+class CapacitacionesTecnicas_Inline(admin.TabularInline):
+	model = CapacitacionesTecnicas
+	max_num = 11
+	extra = 1
+
+class CapacitacionesSocioeconomicas_Inline(admin.TabularInline):
+	model = CapacitacionesSocioeconomicas
+	max_num = 8
+	extra = 1
+
+class ProblemasAreaCacao_Inline(admin.TabularInline):
+	model = ProblemasAreaCacao
+	max_num = 1
+	can_delete = False
+
+class Genero_Inline(admin.TabularInline):
+	model = Genero
+	max_num = 1
+	can_delete = False
+
+class AmpliarAreasCacao_Inline(admin.TabularInline):
+	model = AmpliarAreasCacao
+	max_num = 1
+	can_delete = False
+
 class EncuestaAdmin(admin.ModelAdmin):
 	def get_queryset(self, request):
 		if request.user.is_superuser:
@@ -140,17 +175,28 @@ class EncuestaAdmin(admin.ModelAdmin):
 				Reforestacion_Inline,CaracterizacionTerreno_Inline,FenomenosNaturales_Inline,RazonesAgricolas_Inline,
 				RazonesMercado_Inline,Inversion_Inline,MitigacionRiesgos_Inline,OrganizacionAsociada_Inline,
 				ServiciosOrganizado_Inline,BeneficiosOrganizado_Inline,AreaCacao_Inline,Plantacion_Inline,
-				ProduccionCacao_Inline,Certificacion_Inline,CostoProduccion_Inline,TecnicasAplicadas_Inline]
+				ProduccionCacao_Inline,Certificacion_Inline,CostoProduccion_Inline,TecnicasAplicadas_Inline,
+				ComercializacionCacao_Inline,DistanciaComercioCacao_Inline,CapacitacionesTecnicas_Inline,
+				CapacitacionesSocioeconomicas_Inline,ProblemasAreaCacao_Inline,Genero_Inline,AmpliarAreasCacao_Inline]
 
 	list_display = ('entrevistado','organizacion','encuestador')
 	list_display_links = ('organizacion','entrevistado')
 	search_fields = ['entrevistado__nombre','encuestador__nombre']
 
+	class Media:
+		js = ('js/admin.js',)
+		css = {
+			'all': ('css/admin.css',)
+		}
 
 admin.site.register(Profesiones)
 admin.site.register(SituacionesPropiedad)
 admin.site.register(Beneficios)
-admin.site.register(Tipos_Servicio)
+admin.site.register(QuienCertifica)
+admin.site.register(TiposServicio)
+admin.site.register(ActividadesProduccion)
+admin.site.register(DestinoIngresos)
+admin.site.register(OtrosIngresos)
 admin.site.register(Entrevistados)
 admin.site.register(Encuestadores)
 admin.site.register(Encuesta,EncuestaAdmin)
