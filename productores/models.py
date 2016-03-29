@@ -88,6 +88,36 @@ class OtrosIngresos(models.Model):
 		verbose_name = "Otra fuente de ingreso en la finca"
 		verbose_name_plural = "Otras fuentes de ingreso en la finca"
 
+class ProblemasArea1(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Problemas en áreas de 1 a 3 años"
+		verbose_name_plural = "Problemas en áreas de 1 a 3 años"
+
+class ProblemasArea2(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Problemas en áreas de 4 a 10 años"
+		verbose_name_plural = "Problemas en áreas de 4 a 10 años"
+
+class ProblemasArea3(models.Model):
+	nombre = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Problemas en áreas de 10 a 20 años"
+		verbose_name_plural = "Problemas en áreas de 10 a 20 años"
+
 class Entrevistados(models.Model):
 	nombre =  models.CharField(max_length=200,verbose_name='Nombre del jefe de familia')
 	cedula = models.CharField(max_length=20,verbose_name='Número de Cedula')
@@ -141,7 +171,7 @@ class Encuesta(models.Model):
                                 chained_model_field="organizacion",
                                 show_all=False, auto_choose=True,
                                 verbose_name='Nombre del jefe de familia')
-                                
+
 	year = models.IntegerField()
 	usuario = models.ForeignKey(User)
 
@@ -500,7 +530,7 @@ class CostoProduccion(models.Model):
 	mantenimiento_cacao = models.FloatField(verbose_name='Mantenimiento de área de cacao (Lps)')
 	mantenimiento_finca = models.FloatField(verbose_name='Mantenimiento de la finca (Lps)')
 	encuesta = models.ForeignKey(Encuesta)
-	
+
 	class Meta:
 		verbose_name = "10.2 Costo de producción"
 		verbose_name_plural = "10.2 Costo de producción"
@@ -670,32 +700,32 @@ class CapacitacionesSocioeconomicas(models.Model):
 		verbose_name = "13.2 Capacitaciones socioeconómico/org"
 		verbose_name_plural = "13.2 Capacitaciones socioeconómico/org"
 
-AREA_1 = (
-	(1,'Baja fertilidad del suelo'),
-	(2,'Plagas y enfermedades'),
-	)
-
-AREA_2 = (
-	(1,'Baja fertilidad del suelo'),
-	(2,'Árboles poco productivos'),
-	(3,'Plagas y enfermedades'),
-	(4,'Poca producción'),
-	(5,'Poca disponibilidad/Mano de obra'),
-	)
-
-AREA_3 = (
-	(1,'Baja fertilidad del suelo'),
-	(2,'Árboles poco productivos'),
-	(3,'Plantaciones muy viejas'),
-	(4,'Plagas y enfermedades'),
-	(5,'Poca producción'),
-	(6,'Poca disponibilidad/Mano de obra'),
-	)
+# AREA_1 = (
+# 	(1,'Baja fertilidad del suelo'),
+# 	(2,'Plagas y enfermedades'),
+# 	)
+#
+# AREA_2 = (
+# 	(1,'Baja fertilidad del suelo'),
+# 	(2,'Árboles poco productivos'),
+# 	(3,'Plagas y enfermedades'),
+# 	(4,'Poca producción'),
+# 	(5,'Poca disponibilidad/Mano de obra'),
+# 	)
+#
+# AREA_3 = (
+# 	(1,'Baja fertilidad del suelo'),
+# 	(2,'Árboles poco productivos'),
+# 	(3,'Plantaciones muy viejas'),
+# 	(4,'Plagas y enfermedades'),
+# 	(5,'Poca producción'),
+# 	(6,'Poca disponibilidad/Mano de obra'),
+# 	)
 
 class ProblemasAreaCacao(models.Model):
-	area_1 = MultiSelectField(choices=AREA_1,verbose_name='En áreas de 1 a 3 años')
-	area_2 = MultiSelectField(choices=AREA_2,verbose_name='En áreas de 4 a 10 años')
-	area_3 = MultiSelectField(choices=AREA_3,verbose_name='En áreas de 10 a 20 años')
+	area_1 = models.ManyToManyField(ProblemasArea1,verbose_name='En áreas de 1 a 3 años')
+	area_2 = models.ManyToManyField(ProblemasArea2,verbose_name='En áreas de 4 a 10 años')
+	area_3 = models.ManyToManyField(ProblemasArea3,verbose_name='En áreas de 10 a 20 años')
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:

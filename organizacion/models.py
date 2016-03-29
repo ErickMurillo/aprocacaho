@@ -10,19 +10,17 @@ from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 STATUS_CHOICES = (
-	(1,'Asociación Sin Fin de lucro'),
-	(2,'Cooperación técnica y/o financiera'),
-	(3, 'Cooperativa'),
-	(4, 'Institución del estado'),
-	(5, 'Unión de Cooperativa'),
+	(1,'ONG'),
+	(2, 'Cooperativa'),
+	(3, 'Unión de Cooperativa'),
 	)
 
 class Organizacion(models.Model):
 	nombre = models.CharField(max_length=200,verbose_name='Nombre de la Organización')
 	siglas = models.CharField(max_length=200)
-	gerente = models.CharField(max_length=200,verbose_name='Representante legal',null=True,blank=True)
-	status = models.IntegerField(verbose_name='Estatus Legal',choices=STATUS_CHOICES)
 	fundacion = models.DateField(verbose_name='Año de fundación',null=True,blank=True)
+	gerente = models.CharField(max_length=200,verbose_name='Presidente/Administrador',null=True,blank=True)
+	status = models.IntegerField(verbose_name='Estatus Legal',choices=STATUS_CHOICES)
 	direccion = models.CharField(max_length=300,null=True,blank=True)
 	departamento = models.ForeignKey(Departamento)
 	municipio = ChainedForeignKey(
@@ -31,9 +29,9 @@ class Organizacion(models.Model):
                                 chained_model_field="departamento",
                                 show_all=False, auto_choose=True)
 	telefono = models.IntegerField(verbose_name='Número telefónico',null=True,blank=True)
-	fax = models.IntegerField(verbose_name='Número fax',null=True,blank=True)
 	email = models.EmailField(null=True,blank=True)
-	web = models.URLField(verbose_name='Página web',null=True,blank=True)
+	web = models.URLField(verbose_name='Sitio web',null=True,blank=True)
+	contacto = models.CharField(max_length=200,verbose_name='Persona de contacto')
 	logo = ImageField(upload_to='logo/',null=True,blank=True)
 	slug = models.SlugField(editable=False, max_length=450)
 
