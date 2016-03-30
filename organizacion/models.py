@@ -31,7 +31,7 @@ class Organizacion(models.Model):
 	telefono = models.IntegerField(verbose_name='Número telefónico',null=True,blank=True)
 	email = models.EmailField(null=True,blank=True)
 	web = models.URLField(verbose_name='Sitio web',null=True,blank=True)
-	contacto = models.CharField(max_length=200,verbose_name='Persona de contacto')
+	contacto = models.CharField(max_length=200,verbose_name='Persona de contacto',null=True,blank=True)
 	logo = ImageField(upload_to='logo/',null=True,blank=True)
 	slug = models.SlugField(editable=False, max_length=450)
 

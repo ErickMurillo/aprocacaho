@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """aprocacaho URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,7 +19,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "Administración Aprocacaho"
+admin.site.site_title = "Administración Aprocacaho"
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
+    # url(r'^productores/', include('productores.urls')),
+    # url(r'^organizaciones/', include('organizacion.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

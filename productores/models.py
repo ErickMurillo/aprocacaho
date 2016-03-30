@@ -700,28 +700,6 @@ class CapacitacionesSocioeconomicas(models.Model):
 		verbose_name = "13.2 Capacitaciones socioeconómico/org"
 		verbose_name_plural = "13.2 Capacitaciones socioeconómico/org"
 
-# AREA_1 = (
-# 	(1,'Baja fertilidad del suelo'),
-# 	(2,'Plagas y enfermedades'),
-# 	)
-#
-# AREA_2 = (
-# 	(1,'Baja fertilidad del suelo'),
-# 	(2,'Árboles poco productivos'),
-# 	(3,'Plagas y enfermedades'),
-# 	(4,'Poca producción'),
-# 	(5,'Poca disponibilidad/Mano de obra'),
-# 	)
-#
-# AREA_3 = (
-# 	(1,'Baja fertilidad del suelo'),
-# 	(2,'Árboles poco productivos'),
-# 	(3,'Plantaciones muy viejas'),
-# 	(4,'Plagas y enfermedades'),
-# 	(5,'Poca producción'),
-# 	(6,'Poca disponibilidad/Mano de obra'),
-# 	)
-
 class ProblemasAreaCacao(models.Model):
 	area_1 = models.ManyToManyField(ProblemasArea1,verbose_name='En áreas de 1 a 3 años')
 	area_2 = models.ManyToManyField(ProblemasArea2,verbose_name='En áreas de 4 a 10 años')
