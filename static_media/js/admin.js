@@ -1,6 +1,6 @@
 (function($){
 
-	$(document).ready( function() 
+	$(document).ready( function()
 	{
 		var dueno = $('#id_tenenciapropiedad_set-0-dueno_propiedad').val();
 			if (dueno === '1' ) {
