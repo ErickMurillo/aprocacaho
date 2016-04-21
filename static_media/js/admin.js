@@ -2,6 +2,10 @@
 
 	$(document).ready( function()
 	{
+		$("#id_organizacion").select2();
+		$("#id_entrevistado").select2();
+		$("#id_encuestador").select2();
+
 		var dueno = $('#id_tenenciapropiedad_set-0-dueno_propiedad').val();
 			if (dueno === '1' ) {
 				$('#id_tenenciapropiedad_set-0-si').show();
