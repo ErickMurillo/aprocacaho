@@ -72,10 +72,10 @@ class InlineRespuestaSi(admin.TabularInline):
     can_delete = False
 
 class EncuestaOrganicacionAdmin(admin.ModelAdmin):
-    def get_queryset(self, request):
-        if request.user.is_superuser:
-            return EncuestaOrganicacion.objects.all()
-        return EncuestaOrganicacion.objects.filter(usuario=request.user)
+    # def get_queryset(self, request):
+    #     if request.user.is_superuser:
+    #         return EncuestaOrganicacion.objects.all()
+    #     return EncuestaOrganicacion.objects.filter(usuario=request.user)
 
     def save_model(self, request, obj, form, change):
         obj.usuario = request.user
@@ -86,6 +86,13 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
                 InlineInfraestructura,InlineComercializacion,InlineCertificacionOrg,
                 InlineDestinoProdCorriente,InlineDestinoProdFermentado,InlineFinanciamiento,
                 InlineFinanciamientoProductores,InlineRespuestaSi]
+
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
+        js = ('js/admin_org.js',)
+
 
 admin.site.register(Organizacion)
 admin.site.register(EncuestaOrganicacion,EncuestaOrganicacionAdmin)
