@@ -23,23 +23,32 @@ class InlineNivelCumplimiento(admin.TabularInline):
 
 class InlineDatosProductivos(admin.TabularInline):
     model = DatosProductivos
-    max_num = 1
-    can_delete = False
+    extra = 1
+    max_num = 4
 
 class InlineDatosProductivosTabla(admin.TabularInline):
     model = DatosProductivosTabla
     extra = 1
-    max_num = 5
+    max_num = 2
 
 class InlineInfraestructura(admin.TabularInline):
     model = Infraestructura
     extra = 1
-    max_num = 11
+
+class InlineTransporte(admin.TabularInline):
+    model = Transporte
+    max_num = 1
+    can_delete = False
 
 class InlineComercializacion(admin.TabularInline):
     model = Comercializacion
     extra = 1
-    max_num = 4
+    max_num = 3
+
+class InlineCacaoComercializado(admin.TabularInline):
+    model = CacaoComercializado
+    max_num = 1
+    can_delete = False
 
 class InlineCertificacionOrg(admin.TabularInline):
     model = CertificacionOrg
@@ -58,18 +67,18 @@ class InlineDestinoProdFermentado(admin.TabularInline):
 
 class InlineFinanciamiento(admin.TabularInline):
     model = Financiamiento
-    extra = 1
-    max_num = 4
+    max_num = 1
+    can_delete = False
 
 class InlineFinanciamientoProductores(admin.TabularInline):
     model = FinanciamientoProductores
-    max_num = 1
-    can_delete = False
+    extra = 1
+    max_num = 5
 
-class InlineRespuestaSi(admin.TabularInline):
-    model = RespuestaSi
-    max_num = 1
-    can_delete = False
+class InlineInfoFinanciamiento(admin.TabularInline):
+    model = InfoFinanciamiento
+    extra = 1
+    max_num = 4
 
 class EncuestaOrganicacionAdmin(admin.ModelAdmin):
     # def get_queryset(self, request):
@@ -83,9 +92,9 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
 
     inlines = [InlineAspectosJuridicos,InlineListaMiembros,InlineDocumentacion,
                 InlineNivelCumplimiento,InlineDatosProductivos,InlineDatosProductivosTabla,
-                InlineInfraestructura,InlineComercializacion,InlineCertificacionOrg,
-                InlineDestinoProdCorriente,InlineDestinoProdFermentado,InlineFinanciamiento,
-                InlineFinanciamientoProductores,InlineRespuestaSi]
+                InlineInfraestructura,InlineTransporte,InlineComercializacion,InlineCacaoComercializado,
+                InlineCertificacionOrg,InlineDestinoProdCorriente,InlineDestinoProdFermentado,
+                InlineFinanciamiento,InlineFinanciamientoProductores,InlineInfoFinanciamiento]
 
     class Media:
         css = {

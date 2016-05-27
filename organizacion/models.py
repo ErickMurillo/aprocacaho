@@ -32,7 +32,8 @@ class Organizacion(models.Model):
 	telefono = models.IntegerField(verbose_name='Número telefónico',null=True,blank=True)
 	email = models.EmailField(null=True,blank=True)
 	web = models.URLField(verbose_name='Sitio web',null=True,blank=True)
-	contacto = models.CharField(max_length=200,verbose_name='Persona de contacto',null=True,blank=True)
+	contacto = models.CharField(max_length=200,verbose_name='Persona de contacto #1',null=True,blank=True)
+	contacto_1 = models.CharField(max_length=200,verbose_name='Persona de contacto #2',null=True,blank=True)
 	logo = ImageField(upload_to='logo/',null=True,blank=True)
 	slug = models.SlugField(editable=False, max_length=450)
 
@@ -70,15 +71,20 @@ SI_NO_CHOICES = (
 	(2,'No'),
 	)
 
+TRAMITE_CHOICES = (
+	(1,'Si'),
+	(2,'No'),
+	(3,'Trámite'),
+)
+
 class AspectosJuridicos(models.Model):
-	tiene_p_juridica = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Personería jurídica')
-	act_p_juridica = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Actualización personería jurídica')
+	tiene_p_juridica = models.IntegerField(choices=TRAMITE_CHOICES,verbose_name='Personería jurídica')
 	solvencia_tributaria = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Cuenta con Registro Tributario Nacional Numérico')
 	junta_directiva = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Junta Directiva certificada')
 	mujeres = models.IntegerField(verbose_name='Miembros mujeres JD')
 	hombres = models.IntegerField(verbose_name='Miembros hombres JD')
 	lista_socios = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Lista socias/os esta actualizada y certificada')
-	ursac = models.CharField(max_length=50,verbose_name='Número de la Unidad de Registro y Seguimiento de las Asociaciones Civiles (URSAC)',null=True,blank=True)
+	numero_registro = models.CharField(max_length=50,verbose_name='Número de Registro de las Cooperativas en CONSUCOOP',null=True,blank=True)
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
@@ -106,6 +112,7 @@ DOCUMENTOS_CHOICES = (
 class Documentacion(models.Model):
 	documentos = models.IntegerField(choices=DOCUMENTOS_CHOICES)
 	si_no = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Si/No')
+	tramite = models.BooleanField(default=False)
 	fecha = models.DateField(verbose_name='Fecha de elaboración u actualización')
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
@@ -126,7 +133,15 @@ class NivelCumplimiento(models.Model):
 	class Meta:
 		verbose_name_plural = "Nivel de cumplimiento"
 
+DATOS_PROD_CHOICES = (
+	(1,'Número de productoras y productores con cacao'),
+	(2,'Área total Establecida (Mz)'),
+	(3,'Área certificadas (Mz)'),
+	(4,'Área convencional (Mz)'),
+)
+
 class DatosProductivos(models.Model):
+	pregunta = models.IntegerField(choices=DATOS_PROD_CHOICES)
 	productores_socios = models.IntegerField()
 	productoras_socias = models.IntegerField()
 	productores_no_socios = models.IntegerField()
@@ -137,11 +152,8 @@ class DatosProductivos(models.Model):
 		verbose_name_plural = 'IV- Información sobre datos productivos'
 
 DATOS_CHOICES = (
-	(1,'Área total Establecida (Mz)'),
-	(2,'Área certificadas (Mz)'),
-	(3,'Área convencional (Mz)'),
-	(4,'Rendimiento promedio de cacao en baba por Mz'),
-	(5,'Rendimiento promedio de cacao seco por Mz'),
+	(1,'Rendimiento promedio de cacao en baba por Mz'),
+	(2,'Rendimiento promedio de cacao seco por Mz'),
 )
 
 class DatosProductivosTabla(models.Model):
@@ -157,14 +169,14 @@ INFRAESTRUCTURA_CHOICES = (
 	(1,'Centro de Acopio central'),
 	(2,'Centro de acopio comunitario'),
 	(3,'Secadoras artificiales'),
-	(4,'Planta de procesamiento'),
-	(5,'Bodegas'),
-	(6,'Cuartos fríos'),
-	(7,'Oficina'),
-	(8,'Medios de Transporte'),
-	(9,'Área de fermentado'),
-	(10,'Secadoras solares'),
-	(11,'Viveros'),
+	# (4,'Planta de procesamiento'),
+	(4,'Bodegas'),
+	# (6,'Cuartos fríos'),
+	(5,'Oficina'),
+	# (8,'Medios de Transporte'),
+	(6,'Área de fermentado'),
+	(7,'Secadoras solares'),
+	# (11,'Viveros'),
 	)
 
 ESTADO_CHOICES = (
@@ -175,7 +187,7 @@ ESTADO_CHOICES = (
 
 class Infraestructura(models.Model):
 	tipo = models.IntegerField(choices=INFRAESTRUCTURA_CHOICES,verbose_name='Tipo de Infraestructura')
-	cantidad = models.IntegerField()
+	# cantidad = models.IntegerField()
 	capacidad = models.FloatField(verbose_name='Capacidad (qq)')
 	anno_construccion = models.DateField(verbose_name='Año de construcción')
 	estado = models.IntegerField(choices=ESTADO_CHOICES,verbose_name='Estado de infraestructura')
@@ -184,21 +196,35 @@ class Infraestructura(models.Model):
 	class Meta:
 		verbose_name_plural = "V. Información sobre instalaciones y equipos"
 
+class Transporte(models.Model):
+	medio_transporte = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Cuenta con medios de transporte propio')
+	estado = models.IntegerField(choices=ESTADO_CHOICES,verbose_name='Estado mecánico de los medios',null=True,blank=True)
+	encuesta = models.ForeignKey(EncuestaOrganicacion)
+
 COMERCIO_CHOICES = (
 	(1,'No. de socios que entregaron cacao al acopio'),
 	(2,'No. de No socios que entregaron cacao al acopio'),
 	(3,'Cantidad de cacao en baba acopiado por la organización'),
-	(4,'Cantidad de cacao seco comercializado por la organización'),
 )
 
 class Comercializacion(models.Model):
 	seleccion = models.IntegerField(choices=COMERCIO_CHOICES)
+	socias_corriente = models.FloatField()
+	socios_corriente = models.FloatField()
+	no_socias_corriente = models.FloatField()
+	no_socios_corriente = models.FloatField()
+	encuesta = models.ForeignKey(EncuestaOrganicacion)
+
+	class Meta:
+		verbose_name_plural = "VI. Información sobre la Comercialización"
+
+class CacaoComercializado(models.Model):
 	corriente = models.FloatField()
 	fermentado = models.FloatField()
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
-		verbose_name_plural = "VI. Información sobre la Comercialización"
+		verbose_name_plural = "Cacao seco comercializado"
 
 CERTIFICACION_CHOICES = (
 	(1,'Orgánico'),
@@ -237,6 +263,29 @@ class DestinoProdFermentado(models.Model):
 	class Meta:
 		verbose_name_plural = "Destino de la producción Cacao fermentado"
 
+class Financiamiento(models.Model):
+	financiamiento = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Brinda financiamiento a productores de cacao')
+	encuesta = models.ForeignKey(EncuestaOrganicacion)
+
+	class Meta:
+		verbose_name_plural = "VII. Información sobre financiamiento"
+
+TIPO_FINANCIAM_CHOICES = (
+	(1,'Infraestructura'),
+	(2,'Post cosecha'),
+	(3,'Riego'),
+	(4,'Vivero'),
+	(5,'Capital trabajo'),
+)
+
+class FinanciamientoProductores(models.Model):
+	tipo = models.IntegerField(choices=TIPO_FINANCIAM_CHOICES,verbose_name='Tipo de financiamiento')
+	monto = models.FloatField(verbose_name='Monto de financiamiento (Lp) total')
+	encuesta = models.ForeignKey(EncuestaOrganicacion)
+
+	class Meta:
+		verbose_name_plural = "Tipo de Financiamiento"
+
 FINANACIA_CHOICES = (
 	(1,'La propia organización'),
 	(2,'Cooperación Internacional'),
@@ -244,25 +293,11 @@ FINANACIA_CHOICES = (
 	(4,'Financiamiento del comprador'),
 )
 
-class Financiamiento(models.Model):
-	seleccion = models.IntegerField(choices=FINANACIA_CHOICES,verbose_name='¿Quién financia la producción?')
-	monto = models.FloatField(verbose_name='Monto de financiamiento (Lp)')
-	encuesta = models.ForeignKey(EncuestaOrganicacion)
-
-	class Meta:
-		verbose_name_plural = "VII. Información sobre financiamiento"
-
-class FinanciamientoProductores(models.Model):
-	financiamiento = models.IntegerField(choices=SI_NO_CHOICES)
-	encuesta = models.ForeignKey(EncuestaOrganicacion)
-
-	class Meta:
-		verbose_name_plural = "Financiamiento a productores"
-
-class RespuestaSi(models.Model):
+class InfoFinanciamiento(models.Model):
+	seleccion = models.IntegerField(choices=FINANACIA_CHOICES,verbose_name='¿Quién financia la organización?')
 	monto = models.FloatField()
-	cantidad_manzanas = models.FloatField()
+	porcentaje = models.FloatField()
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
-		verbose_name_plural = "En el caso que responda “SI”"
+		verbose_name_plural = "VIII- Información sobre financiamiento de la organización"

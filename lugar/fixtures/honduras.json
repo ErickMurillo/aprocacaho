@@ -1,0 +1,714 @@
+[
+{
+  "pk": 2,
+  "model": "lugar.pais",
+  "fields": {
+    "nombre": "Honduras",
+    "codigo": "hr"
+  }
+},
+
+{
+  "pk": 221,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Atl\u00e1ntida",
+    "slug": "Atlantida",
+    "extension": "4.227"
+  }
+},
+
+{
+  "pk": 222,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Col\u00f3n",
+    "slug": "Colon",
+    "extension": "8276"
+  }
+},
+
+{
+  "pk": 223,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Comayagua",
+    "slug": "Comayagua",
+    "extension": "5120"
+  }
+},
+
+{
+  "pk": 224,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Cop\u00e1n",
+    "slug": "Copan",
+    "extension": "3239"
+  }
+},
+
+{
+  "pk": 225,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Cortes",
+    "slug": "Cortes",
+    "extension": "3911"
+  }
+},
+
+{
+  "pk": 226,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Choluteca",
+    "slug": "Choluteca",
+    "extension": "4397"
+  }
+},
+{
+  "pk": 227,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "El Para\u00edso",
+    "slug": "El-paraiso",
+    "extension": "7383"
+  }
+},
+
+{
+  "pk": 228,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Francisco Moraz\u00e1n",
+    "slug": "Francisco-moraza",
+    "extension": "8580"
+  }
+},
+
+{
+  "pk": 229,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Gracias a Dios",
+    "slug": "Gracias-a-dios",
+    "extension": "15876"
+  }
+},
+
+{
+  "pk": 2210,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais":2,
+    "nombre": "Intibuc\u00e1",
+    "slug": "Intibucá",
+    "extension": "3126"
+  }
+},
+
+{
+  "pk": 2211,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Islas de la Bah\u00eda",
+    "slug": "Islas-de-la-bahia",
+    "extension": "229"
+  }
+},
+
+{
+  "pk": 2212,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "La Paz",
+    "slug": "La-paz",
+    "extension": "2534"
+  }
+},
+
+{
+  "pk": 2213,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Lempira",
+    "slug": "Lempira",
+    "extension": "4285"
+  }
+},
+
+{
+  "pk": 2214,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Ocotepeque",
+    "slug": "Ocotepeque",
+    "extension": "1636"
+  }
+},
+
+{
+  "pk": 2215,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Olancho",
+    "slug": "Olancho",
+    "extension": "24038"
+  }
+},
+
+{
+  "pk": 2216,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Santa B\u00e1rbara",
+    "slug": "Santa-barbara",
+    "extension": "5.013"
+  }
+},
+
+{
+  "pk": 2217,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Valle",
+    "slug": "Valle",
+    "extension": "1618"
+  }
+},
+
+{
+  "pk": 2218,
+  "model": "lugar.departamento",
+  "fields": {
+    "pais": 2,
+    "nombre": "Yoro",
+    "slug": "Yoro",
+    "extension": "7787"
+  }
+},
+
+{
+  "pk": 22101,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.770288",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "La Ceiba",
+    "slug": "la-ceiba",
+    "longitud": "-86.791901"
+  }
+},
+
+{
+  "pk": 22102,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.593854",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "El Porvenir",
+    "slug": "el-porvenir",
+    "longitud": "-87.881977"
+  }
+},
+
+{
+  "pk": 22103,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.744516",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "Esparta",
+    "slug": "esparta",
+    "longitud": "-87.269294"
+  }
+},
+
+{
+  "pk": 22104,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.990779",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "Jutiapa",
+    "slug": "Jutiapa",
+    "longitud": "-86.397213"
+  }
+},
+
+{
+  "pk": 22105,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.628025",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "La Masica",
+    "slug": "la-masica",
+    "longitud": "-87.097383"
+  }
+},
+
+{
+  "pk": 22106,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.662383",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "San Francisco",
+    "slug": "san-francisco",
+    "longitud": "-87.037441"
+  }
+},
+
+{
+  "pk": 22107,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.77326",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "Tela",
+    "slug": "tela",
+    "longitud": "-87.46535"
+  }
+},
+
+{
+  "pk": 22108,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.633638",
+    "extension": "0.00",
+    "departamento": 221,
+    "nombre": "Arizona",
+    "slug": "arizona",
+    "longitud": "-87.309068"
+  }
+},
+
+{
+  "pk": 22201,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.911679",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Trujillo",
+    "slug": "trujillo",
+    "longitud": "-85.953447"
+  }
+},
+
+{
+  "pk": 22202,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.769944",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Balfate",
+    "slug": "balfate",
+    "longitud": "-86.393415"
+  }
+},
+
+{
+  "pk": 22203,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.968592",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Iriona",
+    "slug": "iriona",
+    "longitud": "-85.092165"
+  }
+},
+
+{
+  "pk":22204,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.861778",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Lim\u00f3n",
+    "slug": "limon",
+    "longitud": "-85.501995"
+  }
+},
+
+{
+  "pk": 22205,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.521113",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Sab\u00e1",
+    "slug": "Saba",
+    "longitud": "-86.220932"
+  }
+},
+
+{
+  "pk": 22206,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.897739",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Santa Fe",
+    "slug": "santa-fe",
+    "longitud": "-86.031925"
+  }
+},
+
+{
+  "pk": 22207,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.947578",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Santa Rosa de Aguan",
+    "slug": "santa-rosa-de-aguan",
+    "longitud": "-85.687145"
+  }
+},
+
+{
+  "pk": 22208,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.61562",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Sonaguera",
+    "slug": "sonaguera",
+    "longitud": "-86.271723"
+  }
+},
+
+{
+  "pk": 22209,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.657635",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Tocoa",
+    "slug": "tocoa",
+    "longitud": "-85.996848"
+  }
+},
+
+{
+  "pk": 22210,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.746305",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Bonito Oriental",
+    "slug": "bonito-oriental",
+    "longitud": "-85.730767"
+  }
+},
+
+{
+  "pk": 22301,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.449015",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Comayagua",
+    "slug": "comayagua",
+    "longitud": "-87.648247"
+  }
+},
+
+{
+  "pk": 22302,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.382721",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Ajuterique",
+    "slug": "ajuterique",
+    "longitud": "-87.709872"
+  }
+},
+
+{
+  "pk": 22303,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.579291",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "El Rosario",
+    "slug": "el-rosario",
+    "longitud": "-87.725881"
+  }
+},
+
+{
+  "pk": 22304,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.74042",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Esqu\u00edas",
+    "slug": "esquias",
+    "longitud": "-87.374489"
+  }
+},
+
+{
+  "pk": 22305,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.253693",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Humuya",
+    "slug": "humuya",
+    "longitud": "-87.66736"
+  }
+},
+
+{
+  "pk": 22306,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.760186",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "La Libertad",
+    "slug": "la-libertad",
+    "longitud": "-87.606295"
+  }
+},
+
+{
+  "pk": 22307,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.194433",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Lamani",
+    "slug": "lamani",
+    "longitud": "-87.62234"
+  }
+},
+
+{
+  "pk": 22308,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.145885",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "La Trinidad",
+    "slug": "la-trinidad",
+    "longitud": "-87.258102"
+  }
+},
+
+{
+  "pk": 22309,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.366693",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Lejamani",
+    "slug": "lejamani",
+    "longitud": "-87.706177"
+  }
+},
+
+{
+  "pk": 22310,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.785129",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Meambar",
+    "slug": "meambar",
+    "longitud": "-87.768954"
+  }
+},
+
+{
+  "pk": 22311,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.798087",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Minas de Oro",
+    "slug": "minas-de-oro",
+    "longitud": "-87.338877"
+  }
+},
+
+{
+  "pk": 22312,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.70681",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Ojos de Agua",
+    "slug": "ojos-de-agua",
+    "longitud": "-88.817896"
+  }
+},
+
+{
+  "pk": 22313,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.627622",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "San Jeronimo",
+    "slug": "san-jeronimo",
+    "longitud": "-87.607529"
+  }
+},
+
+{
+  "pk": 22314,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.729211",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "San Jos\u00e9 de Comayagua",
+    "slug": "san-jose-de-comayagua",
+    "longitud": "-88.033863"
+  }
+},
+
+{
+  "pk": 22315,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.839714",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "San JosJos\u00e9 del Potrero",
+    "slug": "san-jose-del-potrero",
+    "longitud": "-87.28297"
+  }
+},
+
+{
+  "pk": 22316,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.747849",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "San Luis",
+    "slug": "san-luis",
+    "longitud": "-87.407116"
+  }
+},
+
+{
+  "pk": 22317,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.24398",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "San Sebastian",
+    "slug": "san-sebastian",
+    "longitud": "-87.639613"
+  }
+},
+
+{
+  "pk": 22318,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.596387",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Siguatepeque",
+    "slug": "siguatepeque",
+    "longitud": "-87.840241"
+  }
+},
+
+{
+  "pk": 22319,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.32654",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Villa de San Antonio",
+    "slug": "villa-de-san-antonio",
+    "longitud": "-87.613701"
+  }
+},
+
+{
+  "pk": 22320,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.69678",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Lajas",
+    "slug": "lajas",
+    "longitud": "-86.038948"
+  }
+},
+
+{
+  "pk": 22321,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.690668",
+    "extension": "0.00",
+    "departamento": 222,
+    "nombre": "Taulab\u00e9",
+    "slug": "taulabe",
+    "longitud": "-87.957985"
+  }
+}
+]
