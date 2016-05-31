@@ -14,7 +14,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Atl\u00e1ntida",
-    "slug": "Atlantida",
+    "slug": "atlantida",
     "extension": "4.227"
   }
 },
@@ -25,7 +25,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Col\u00f3n",
-    "slug": "Colon",
+    "slug": "colon",
     "extension": "8276"
   }
 },
@@ -36,7 +36,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Comayagua",
-    "slug": "Comayagua",
+    "slug": "comayagua",
     "extension": "5120"
   }
 },
@@ -47,7 +47,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Cop\u00e1n",
-    "slug": "Copan",
+    "slug": "copan",
     "extension": "3239"
   }
 },
@@ -58,7 +58,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Cortes",
-    "slug": "Cortes",
+    "slug": "cortes",
     "extension": "3911"
   }
 },
@@ -69,7 +69,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Choluteca",
-    "slug": "Choluteca",
+    "slug": "choluteca",
     "extension": "4397"
   }
 },
@@ -79,7 +79,7 @@
   "fields": {
     "pais": 2,
     "nombre": "El Para\u00edso",
-    "slug": "El-paraiso",
+    "slug": "el-paraiso",
     "extension": "7383"
   }
 },
@@ -90,7 +90,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Francisco Moraz\u00e1n",
-    "slug": "Francisco-moraza",
+    "slug": "francisco-moraza",
     "extension": "8580"
   }
 },
@@ -101,7 +101,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Gracias a Dios",
-    "slug": "Gracias-a-dios",
+    "slug": "gracias-a-dios",
     "extension": "15876"
   }
 },
@@ -112,7 +112,7 @@
   "fields": {
     "pais":2,
     "nombre": "Intibuc\u00e1",
-    "slug": "Intibucá",
+    "slug": "intibuca",
     "extension": "3126"
   }
 },
@@ -123,7 +123,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Islas de la Bah\u00eda",
-    "slug": "Islas-de-la-bahia",
+    "slug": "islas-de-la-bahia",
     "extension": "229"
   }
 },
@@ -134,7 +134,7 @@
   "fields": {
     "pais": 2,
     "nombre": "La Paz",
-    "slug": "La-paz",
+    "slug": "la-paz",
     "extension": "2534"
   }
 },
@@ -145,7 +145,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Lempira",
-    "slug": "Lempira",
+    "slug": "lempira",
     "extension": "4285"
   }
 },
@@ -156,7 +156,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Ocotepeque",
-    "slug": "Ocotepeque",
+    "slug": "ocotepeque",
     "extension": "1636"
   }
 },
@@ -167,7 +167,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Olancho",
-    "slug": "Olancho",
+    "slug": "olancho",
     "extension": "24038"
   }
 },
@@ -178,7 +178,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Santa B\u00e1rbara",
-    "slug": "Santa-barbara",
+    "slug": "santa-barbara",
     "extension": "5.013"
   }
 },
@@ -189,7 +189,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Valle",
-    "slug": "Valle",
+    "slug": "valle",
     "extension": "1618"
   }
 },
@@ -200,7 +200,7 @@
   "fields": {
     "pais": 2,
     "nombre": "Yoro",
-    "slug": "Yoro",
+    "slug": "yoro",
     "extension": "7787"
   }
 },
@@ -252,7 +252,7 @@
     "extension": "0.00",
     "departamento": 221,
     "nombre": "Jutiapa",
-    "slug": "Jutiapa",
+    "slug": "jutiapa",
     "longitud": "-86.397213"
   }
 },
@@ -445,7 +445,7 @@
   "fields": {
     "latitud": "14.449015",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Comayagua",
     "slug": "comayagua",
     "longitud": "-87.648247"
@@ -458,7 +458,7 @@
   "fields": {
     "latitud": "14.382721",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Ajuterique",
     "slug": "ajuterique",
     "longitud": "-87.709872"
@@ -471,7 +471,7 @@
   "fields": {
     "latitud": "14.579291",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "El Rosario",
     "slug": "el-rosario",
     "longitud": "-87.725881"
@@ -484,7 +484,7 @@
   "fields": {
     "latitud": "14.74042",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Esqu\u00edas",
     "slug": "esquias",
     "longitud": "-87.374489"
@@ -497,7 +497,7 @@
   "fields": {
     "latitud": "14.253693",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Humuya",
     "slug": "humuya",
     "longitud": "-87.66736"
@@ -510,7 +510,7 @@
   "fields": {
     "latitud": "14.760186",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "La Libertad",
     "slug": "la-libertad",
     "longitud": "-87.606295"
@@ -523,7 +523,7 @@
   "fields": {
     "latitud": "14.194433",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Lamani",
     "slug": "lamani",
     "longitud": "-87.62234"
@@ -536,7 +536,7 @@
   "fields": {
     "latitud": "15.145885",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "La Trinidad",
     "slug": "la-trinidad",
     "longitud": "-87.258102"
@@ -549,7 +549,7 @@
   "fields": {
     "latitud": "14.366693",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Lejamani",
     "slug": "lejamani",
     "longitud": "-87.706177"
@@ -562,7 +562,7 @@
   "fields": {
     "latitud": "14.785129",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Meambar",
     "slug": "meambar",
     "longitud": "-87.768954"
@@ -575,7 +575,7 @@
   "fields": {
     "latitud": "14.798087",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Minas de Oro",
     "slug": "minas-de-oro",
     "longitud": "-87.338877"
@@ -588,7 +588,7 @@
   "fields": {
     "latitud": "14.70681",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Ojos de Agua",
     "slug": "ojos-de-agua",
     "longitud": "-88.817896"
@@ -601,7 +601,7 @@
   "fields": {
     "latitud": "14.627622",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "San Jeronimo",
     "slug": "san-jeronimo",
     "longitud": "-87.607529"
@@ -614,7 +614,7 @@
   "fields": {
     "latitud": "14.729211",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "San Jos\u00e9 de Comayagua",
     "slug": "san-jose-de-comayagua",
     "longitud": "-88.033863"
@@ -627,8 +627,8 @@
   "fields": {
     "latitud": "14.839714",
     "extension": "0.00",
-    "departamento": 222,
-    "nombre": "San JosJos\u00e9 del Potrero",
+    "departamento": 223,
+    "nombre": "San Jos\u00e9 del Potrero",
     "slug": "san-jose-del-potrero",
     "longitud": "-87.28297"
   }
@@ -640,7 +640,7 @@
   "fields": {
     "latitud": "14.747849",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "San Luis",
     "slug": "san-luis",
     "longitud": "-87.407116"
@@ -653,7 +653,7 @@
   "fields": {
     "latitud": "14.24398",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "San Sebastian",
     "slug": "san-sebastian",
     "longitud": "-87.639613"
@@ -666,7 +666,7 @@
   "fields": {
     "latitud": "14.596387",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Siguatepeque",
     "slug": "siguatepeque",
     "longitud": "-87.840241"
@@ -679,7 +679,7 @@
   "fields": {
     "latitud": "14.32654",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Villa de San Antonio",
     "slug": "villa-de-san-antonio",
     "longitud": "-87.613701"
@@ -692,7 +692,7 @@
   "fields": {
     "latitud": "14.69678",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Lajas",
     "slug": "lajas",
     "longitud": "-86.038948"
@@ -705,10 +705,452 @@
   "fields": {
     "latitud": "14.690668",
     "extension": "0.00",
-    "departamento": 222,
+    "departamento": 223,
     "nombre": "Taulab\u00e9",
     "slug": "taulabe",
     "longitud": "-87.957985"
+  }
+},
+
+{
+  "pk": 22401,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.783886",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Santa Rosa de Copan",
+    "slug": "santa-rosa-de-copan",
+    "longitud": "-88.778254"
+  }
+},
+
+{
+  "pk": 22402,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.833112",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Cabanas",
+    "slug": "cabanas",
+    "longitud": "-89.094636"
+  }
+},
+
+{
+  "pk": 22403,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.831618",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Concepci\u00f3n",
+    "slug": "concepcion",
+    "longitud": "-88.841304"
+  }
+},
+
+{
+  "pk": 22404,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.849725",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Copan Ruinas",
+    "slug": "copan-ruinas",
+    "longitud": "-89.146783"
+  }
+},
+
+{
+  "pk": 22405,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.568638",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Corquin",
+    "slug": "corquin",
+    "longitud": "-88.869495"
+  }
+},
+
+{
+  "pk": 22406,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.653149",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Cucuyagua",
+    "slug": "cucuyagua",
+    "longitud": "-88.871894"
+  }
+},
+
+{
+  "pk": 22407,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.875258",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Dolores",
+    "slug": "dolores",
+    "longitud": "-88.814895"
+  }
+},
+
+{
+  "pk": 22408,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.84712",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Dulce Nombre",
+    "slug": "dulce-nombre",
+    "longitud": "-88.831192"
+  }
+},
+
+{
+  "pk": 22409,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.053547",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "El Para\u00edso",
+    "slug": "el-paraíso-copan",
+    "longitud": "-88.99881"
+  }
+},
+
+{
+  "pk": 22410,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.026492",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Florida",
+    "slug": "florida",
+    "longitud": "-88.838304"
+  }
+},
+
+{
+  "pk": 22411,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.044538",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "La Jigua",
+    "slug": "la-jigua",
+    "longitud": "-88.796879"
+  }
+},
+
+{
+  "pk": 22412,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.659829",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "La Uni\u00f3n",
+    "slug": "la-union",
+    "longitud": "-88.897667"
+  }
+},
+
+{
+  "pk": 22413,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.032633",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Nueva Arcadia",
+    "slug": "nueva-arcadia",
+    "longitud": "-88.756014"
+  }
+},
+
+{
+  "pk": 22414,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.818221",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Agust\u00edn",
+    "slug": "san-agustin",
+    "longitud": "-88.937795"
+  }
+},
+
+{
+  "pk": 22415,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.867009",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Antonio",
+    "slug": "san-antonio",
+    "longitud": "-88.772244"
+  }
+},
+
+{
+  "pk": 22416,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.974785",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Jer\u00f3nimo",
+    "slug": "san-jerónimo",
+    "longitud": "-88.866497"
+  }
+},
+
+{
+  "pk": 22417,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.901747",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Jos\u00e9",
+    "slug": "san-jose",
+    "longitud": "-88.719322"
+  }
+},
+
+{
+  "pk": 22418,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.776142",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Juan de Opoa",
+    "slug": "san-juan-de-opoa",
+    "longitud": "-88.695244"
+  }
+},
+
+{
+  "pk": 22419,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.941555",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Nicol\u00e1s",
+    "slug": "san-nicolas",
+    "longitud": "-88.32636"
+  }
+},
+
+{
+  "pk": 22420,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.612304",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "San Pedro Cop\u00e1n",
+    "slug": "san-pedro-copan",
+    "longitud": "-88.862299"
+  }
+},
+
+{
+  "pk": 22421,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.867769",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Santa Rita",
+    "slug": "santa-rita",
+    "longitud": "-89.094934"
+  }
+},
+
+{
+  "pk": 22422,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.945659",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Trinidad de Cop\u00e1n",
+    "slug": "trinidad-de-copan",
+    "longitud": "-88.74098"
+  }
+},
+
+{
+  "pk": 22423,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.892596",
+    "extension": "0.00",
+    "departamento": 224,
+    "nombre": "Veracruz",
+    "slug": "veracruz",
+    "longitud": "-88.781259"
+  }
+},
+
+{
+  "pk": 22501,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.5",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "San Pedro Sula",
+    "slug": "san-pedro-sula",
+    "longitud": "-88.033333"
+  }
+},
+
+{
+  "pk": 22502,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.596502",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Choloma",
+    "slug": "choloma",
+    "longitud": "-87.943284"
+  }
+},
+
+{
+  "pk": 22503,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.779039",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Omoa",
+    "slug": "omoa",
+    "longitud": "-88.026526"
+  }
+},
+
+{
+  "pk": 22504,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.271829",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Pimienta",
+    "slug": "pimienta",
+    "longitud": "-87.97513"
+  }
+},
+
+{
+  "pk": 22505,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.230798",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Potrerillos",
+    "slug": "potrerillos",
+    "longitud": "-87.965334"
+  }
+},
+
+{
+  "pk": 22506,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.825072",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Puerto Cort\u00e9s",
+    "slug": "puerto-cortes",
+    "longitud": "-87.928578"
+  }
+},
+
+{
+  "pk": 22507,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.114518",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "San Antonio de Cort\u00e9s",
+    "slug": "san-antonio-de-cortes",
+    "longitud": "-88.038754"
+  }
+},
+
+{
+  "pk": 22508,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.016046",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "San Francisco de Yojoa",
+    "slug": "san-francisco-de-yojoa",
+    "longitud": "-87.969007"
+  }
+},
+
+{
+  "pk": 22509,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.332747",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "San Manuel",
+    "slug": "san-manuel",
+    "longitud": "-87.918771"
+  }
+},
+
+{
+  "pk": 22510,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.981747",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Santa Cruz de Yojoa",
+    "slug": "santa-cruz-de-yojoa",
+    "longitud": "-87.889338"
+  }
+},
+
+{
+  "pk": 22510,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.981747",
+    "extension": "0.00",
+    "departamento": 225,
+    "nombre": "Santa Cruz de Yojoa",
+    "slug": "santa-cruz-de-yojoa",
+    "longitud": "-87.889338"
   }
 }
 ]
