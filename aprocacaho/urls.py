@@ -18,6 +18,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import *
 
 admin.site.site_header = "Administración Aprocacaho"
 admin.site.site_title = "Administración Aprocacaho"
@@ -25,6 +26,7 @@ admin.site.site_title = "Administración Aprocacaho"
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
-    # url(r'^productores/', include('productores.urls')),
+    url(r'^$', index, name='index'),
+    url(r'^productores/', include('productores.urls')),
     # url(r'^organizaciones/', include('organizacion.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

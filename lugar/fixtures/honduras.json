@@ -2192,5 +2192,291 @@
     "slug": "santa-lucia-intibuca",
     "longitud": "-88.390083"
   }
-}
+},
+
+{
+  "pk": 221016,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.281119",
+    "extension": "0.00",
+    "departamento": 2210,
+    "nombre": "Yamaranguila",
+    "slug": "yamaranguila",
+    "longitud": "-88.242467"
+  }
+},
+
+{
+  "pk": 221101,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "16.329761",
+    "extension": "0.00",
+    "departamento": 2211,
+    "nombre": "Roat\u00e1n",
+    "slug": "roatan",
+    "longitud": "-86.529967"
+  }
+},
+
+{
+  "pk": 221102,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "16.453369",
+    "extension": "0.00",
+    "departamento": 2211,
+    "nombre": "Guanaja",
+    "slug": "guanaja",
+    "longitud": "-85.88444"
+  }
+},
+
+{
+  "pk": 221103,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "16.420049",
+    "extension": "0.00",
+    "departamento": 2211,
+    "nombre": "Jose Santos Guardiola",
+    "slug": "jose-santos-guardiola",
+    "longitud": "-86.307247"
+  }
+},
+
+{
+  "pk": 221104,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "16.09496",
+    "extension": "0.00",
+    "departamento": 2211,
+    "nombre": "Utila",
+    "slug": "utila",
+    "longitud": "-86.927353"
+  }
+},
+
+{
+  "pk": 221201,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.327124",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "La Paz",
+    "slug": "la-paz",
+    "longitud": "-87.672907"
+  }
+},
+
+{
+  "pk": 221202,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.951136",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Aguanqueterique",
+    "slug": "aguanqueterique",
+    "longitud": "-87.666744"
+  }
+},
+
+{
+  "pk": 221203,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.833112",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Cabanas / La Paz",
+    "slug": "cabanas-la-paz",
+    "longitud": "-89.094636"
+  }
+},
+
+{
+  "pk": 221204,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.279014",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Cane",
+    "slug": "cane",
+    "longitud": "-87.65688"
+  }
+},
+
+{
+  "pk": 221205,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.170311",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Chinacla",
+    "slug": "chinacla",
+    "longitud": "-88.004506"
+  }
+},
+
+{
+  "pk": 221207,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.852558",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Lauterique",
+    "slug": "lauterique",
+    "longitud": "-87.661812"
+  }
+},
+
+{
+  "pk": 221208,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.156052",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Marcala",
+    "slug": "marcala",
+    "longitud": "-88.036309"
+  }
+},
+
+{
+  "pk": 221209,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.910855",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Mercedes de Oriente",
+    "slug": "mercedes-de-oriente",
+    "longitud": "-87.776948"
+  }
+},
+
+{
+  "pk": 221210,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.089529",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Opatoro",
+    "slug": "opatoro",
+    "longitud": "-87.893018"
+  }
+},
+
+{
+  "pk": 221211,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.887721",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "San Antonio del Norte",
+    "slug": "san-antonio-del-norte",
+    "longitud": "-87.703713"
+  }
+},
+
+{
+  "pk": 221212,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "13.887721",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "San Antonio del Norte",
+    "slug": "san-antonio-del-norte",
+    "longitud": "-87.703713"
+  }
+},
+
+{
+  "pk": 221213,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.250337",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "San Pedro de Tutule",
+    "slug": "san-pedro-de-tutule",
+    "longitud": "-87.85252"
+  }
+},
+
+{
+  "pk": 221219,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.11231",
+    "extension": "0.00",
+    "departamento": 2212,
+    "nombre": "Yarula",
+    "slug": "yarula",
+    "longitud": "-88.087914"
+  }
+},
+
+{
+  "pk": 221301,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.587478",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Gracias",
+    "slug": "gracias",
+    "longitud": "-88.583103"
+  }
+},
+
+{
+  "pk": 221302,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.496709",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Bel\u00e9n",
+    "slug": "belen",
+    "longitud": "-88.503338"
+  }
+},
+
+{
+  "pk": 221303,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "15.366667",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Candelaria",
+    "slug": "candelaria",
+    "longitud": "-87.566667"
+  }
+},
+
+{
+  "pk": 221304,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.75",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Cololaca",
+    "slug": "cololaca",
+    "longitud": "-88.533333"
+  }
+},
 ]
