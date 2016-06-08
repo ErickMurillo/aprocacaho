@@ -1,0 +1,453 @@
+{% extends "base.html" %}
+
+{% block content %}
+Dashboard
+<div id="tabs">
+
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="plantacion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="rendimiento{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="produccion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      Área total de cacao expresado en Manzanas: {{value.5}}<br>
+      Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>
+      <div id="socio{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="prod_certificados{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div>
+        <h4 align="center">Producción de cacao en toneladas por departamento</h4>
+        <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:363px"></div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="/static/js/highcharts.js"></script>
+<script type="text/javascript" src="/static/js/exporting.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript" src="/static/js/markerclusterer.js"></script>
+<!--<script type="text/javascript" src="/static/js/infobox.js"></script>-->
+<script src="/static/js/markerwithlabel.js"></script>
+
+{% for year,value in years.items %}
+<script>
+	$(function () {
+
+		$(document).ready(function () {
+
+		// Build the chart
+		$('#plantacion{{year}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: 'Porcentaje de áreas de cacao por edad de plantación'
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						format: '{point.y:.2f}%',
+						color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+						style: {
+							textShadow: '0 0 3px white'
+						}
+					},
+					showInLegend: true
+				}
+
+			},
+			series: [{
+				name: "Porcentajes",
+				colorByPoint: true,
+				data: [
+				{% for x,y in value.0.items %}
+				{
+					name: "{{x}}",
+					y: {{y}}
+				},
+				{% endfor %}
+
+
+				]
+			}]
+		});
+	});
+	});
+
+  $(function () {
+		$('#rendimiento{{year}}').highcharts({
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: 'Rendimiento expresado en quintales por manzana'
+			},
+
+			xAxis: {
+				type: 'category'
+			},
+			yAxis: {
+				title: {
+					text: 'Rendimiento'
+				}
+
+			},
+			legend: {
+				enabled: false
+			},
+			plotOptions: {
+				column: {
+					stacking: 'normal',
+					dataLabels: {
+						enabled: true,
+						format: '{point.y:.2f}',
+						color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+						style: {
+							textShadow: '0 0 3px black'
+						}
+					}
+				}
+			},
+
+			tooltip: {
+				headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+				pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> qq/mz<br/>'
+			},
+
+			series: [{
+				name: "Rendimientos",
+				colorByPoint: true,
+				data: [
+			{
+				name: "Fermentado convencional",
+				y: {{value.1}},
+			}, {
+				name: "Fermentado Orgánico",
+				y: {{value.2}},
+			}
+			]
+		}],
+	});
+});
+
+$(function () {
+  $('#produccion{{year}}').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Producción total de cacao'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Quintales'
+      }
+
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> qq<br/>'
+    },
+
+    series: [{
+      name: "Producción",
+      colorByPoint: true,
+      data: [
+    {
+      name: "Fermentado convencional",
+      y: {{value.3}},
+    }, {
+      name: "Fermentado Orgánico",
+      y: {{value.4}},
+    }
+    ]
+  }],
+});
+});
+
+$(function () {
+
+	$(document).ready(function () {
+
+		// Build the chart
+		$('#socio{{year}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: 'Productores asociados y No asociados'
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						format: '{point.y:.2f}%',
+						color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+						style: {
+							textShadow: '0 0 3px white'
+						}
+					},
+					showInLegend: true
+				}
+
+			},
+
+			series: [{
+				name: "Porcentajes",
+				colorByPoint: true,
+				data: [
+				{
+					name: "Asociados",
+					y: {{value.7}}
+				},  {
+					name: "No asociados",
+					y: {{value.8}}
+				}
+				]
+			}]
+		});
+	});
+});
+
+$(function () {
+  $('#prod_certificados{{year}}').highcharts({
+    chart: {
+      type: 'bar'
+    },
+    title: {
+      text: 'Número de productores certificados'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Productores'
+      }
+
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          format: '{point.y}',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+    },
+
+    series: [{
+      name: "Productores",
+      colorByPoint: true,
+      data: [
+    {
+      name: "Certificados",
+      y: {{value.9}},
+    }, {
+      name: "No certificados",
+      y: {{value.10}},
+    }
+    ]
+  }],
+});
+});
+
+$(function () {
+    $('#certificaciones{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Número de productores con uno o más sellos'
+        },
+        yAxis: {
+            title: {
+                text: 'Valores'
+            }
+
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Productores'
+            }
+        },
+        xAxis: {
+            categories: [
+            'Productores',
+
+            ],
+            crosshair: true
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.series.name +': '+ this.y ;
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    style: {
+                        textShadow: '0 0 3px white'
+                    }
+                }
+            }
+        },
+        series: [
+        {% for list in value.11  %}
+            {% for x in list %}
+                {% if forloop.counter == 1 %}
+                {
+                    name: "Con un sello",
+                    data: [{{x}}],
+                },
+                {% elif forloop.counter == 2 %}
+                {
+                    name: "Con dos sellos",
+                    data: [{{x}}],
+                },
+                {% else %}
+                {
+                    name: "Más de dos sellos",
+                    data: [{{x}}],
+                },
+                {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+        ]
+    });
+});
+</script>
+
+<script type="text/javascript">
+{% for year,value in years.items %}
+var map_{{year}};
+{% endfor %}
+
+var latlng = new google.maps.LatLng(15.2915011,-86.7950214);
+
+function initialize() {
+  var myOptions = {
+    zoom: 7,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    panControl: false,
+    zoomControl: false,
+    scaleControl: false,
+  };
+  var image = new google.maps.MarkerImage('/static/img/m2.png');
+
+  {% for year,value in years.items %}
+
+  map_{{year}} = new google.maps.Map(document.getElementById("map_canvas_{{forloop.counter}}"),myOptions);
+
+  {% for x,y in value.14.items %}
+  var marker_{{forloop.counter}}_{{year}}  = new MarkerWithLabel({
+    position: new google.maps.LatLng({{y.0}}, {{y.1}}),
+    map: map_{{year}},
+     //draggable: true,
+     raiseOnDrag: true,
+     labelContent: "{{y.2|floatformat:2}}",
+     labelAnchor: new google.maps.Point(3, 30),
+     labelClass: "labels", // the CSS class for the label
+     labelInBackground: false,
+     icon: image,
+  });
+  {% endfor %}
+
+  {% endfor %}
+
+}
+
+initialize();
+$('.update').on('shown.bs.tab', function(e) {
+  {% for year,value in years.items %}
+  google.maps.event.trigger(map_canvas_{{forloop.counter}}, 'resize');
+  map_{{year}}.setCenter(latlng);
+  {% endfor %}
+});
+</script>
+{% endfor %}
+{% endblock extra_js %}

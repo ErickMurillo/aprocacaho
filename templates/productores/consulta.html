@@ -1,8 +1,184 @@
-{% extends "base.html" %}
+  {% extends "base.html" %}
 
-{% block extra_js %}
-{% endblock extra_js %}
+  {% block extra_js %}
+  <link rel="stylesheet" href="/static/css/bootstrap-multiselect.css" type="text/css"/>
+  <script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
+  <script>
+  $(document).ready(function() {
+      $('#id_year').multiselect({
+          buttonWidth: '250px',
+          includeSelectAllOption: true,
+          selectAllText: 'Seleccionar todos',
+          buttonText: function(options, select) {
+                  if (options.length === 0) {
+                      return 'Sin selección ...';
+                  }
+                  else if (options.length > 3) {
+                      return 'Varias opciones seleccionadas!';
+                  }
+                   else {
+                       var labels = [];
+                       options.each(function() {
+                           if ($(this).attr('label') !== undefined) {
+                               labels.push($(this).attr('label'));
+                           }
+                           else {
+                               labels.push($(this).html());
+                           }
+                       });
+                       return labels.join(', ') + '';
+                   }
+              }
+      });
 
-{% block content %}
-Consulta prodcutores
-{% endblock content %}
+      $('#id_socio').multiselect({
+          buttonWidth: '250px',
+      });
+
+      $('#id_organizacion').multiselect({
+          buttonWidth: '250px',
+          maxHeight: 250,
+          includeSelectAllOption: true,
+          selectAllText: 'Seleccionar todos',
+          buttonText: function(options, select) {
+                  if (options.length === 0) {
+                      return 'Sin selección ...';
+                  }
+                  else if (options.length > 3) {
+                      return 'Varias opciones seleccionadas!';
+                  }
+                   else {
+                       var labels = [];
+                       options.each(function() {
+                           if ($(this).attr('label') !== undefined) {
+                               labels.push($(this).attr('label'));
+                           }
+                           else {
+                               labels.push($(this).html());
+                           }
+                       });
+                       return labels.join(', ') + '';
+                   }
+              }
+      });
+      $('#id_departamento').multiselect({
+          buttonWidth: '250px',
+          maxHeight: 250,
+          includeSelectAllOption: true,
+          selectAllText: 'Seleccionar todos',
+          buttonText: function(options, select) {
+              if (options.length === 0) {
+                  return 'Sin selección ...';
+              }
+              else if (options.length > 3) {
+                  return 'Varias opciones seleccionadas!';
+              }
+               else {
+                   var labels = [];
+                   options.each(function() {
+                       if ($(this).attr('label') !== undefined) {
+                           labels.push($(this).attr('label'));
+                       }
+                       else {
+                           labels.push($(this).html());
+                       }
+                   });
+                   return labels.join(', ') + '';
+               }
+          }
+      });
+      $('#id_municipio').multiselect({
+          enableCollapsibleOptGroups: true,
+          buttonWidth: '250px',
+          maxHeight: 250,
+          includeSelectAllOption: true,
+          selectAllText: 'Seleccionar todos',
+          buttonText: function(options, select) {
+              if (options.length === 0) {
+                  return 'Sin selección ...';
+              }
+              else if (options.length > 3) {
+                  return 'Varias opciones seleccionadas!';
+              }
+               else {
+                   var labels = [];
+                   options.each(function() {
+                       if ($(this).attr('label') !== undefined) {
+                           labels.push($(this).attr('label'));
+                       }
+                       else {
+                           labels.push($(this).html());
+                       }
+                   });
+                   return labels.join(', ') + '';
+               }
+          }
+      });
+      $("#id_municipio").multiselect('disable');
+      $("#id_organizacion").multiselect('disable');
+  });
+
+
+  var foo = [];
+  $(document).on('change','#id_departamento',function(){
+
+      $('#id_departamento :selected').each(function(i, selected){
+          foo[i] = $(selected).val();
+      });
+      $.getJSON('/productores/ajax/munis/?ids='+foo.join(","), function(data){
+          $('#id_municipio').html('');
+          $('#id_municipio').multiselect('enable');
+          var municipio = $('#id_municipio')
+          if(data){
+
+             $.each(data, function(i, item){
+              $.each(item, function(j, item2){
+                  var group = $('<optgroup></optgroup>').attr('label', j);
+                  $.each(item2, function(k, item3){
+                      group.append($('<option></option>').val(item3.id).html(item3.nombre));
+                  });
+                  group.appendTo(municipio);
+                  $('#id_municipio').multiselect('rebuild');
+              });
+          });
+         }
+     });
+     $.getJSON('/productores/ajax/organi/?ids='+foo.join(","), function(data){
+        $('#id_organizacion').html('');
+        $("#id_organizacion").multiselect('enable');
+        if(data){
+            $.each(data, function(i, item){
+                $('#id_organizacion').append($('<option></option>').val(item.id).html(item.siglas));
+                });
+       }
+   });
+  });
+
+  var foo2 = [];
+  $(document).on('change','#id_municipio',function(){
+
+      $('#id_municipio :selected').each(function(i, selected){
+          foo2[i] = $(selected).val();
+      });
+      $.getJSON('/productores/ajax/comunies/?ids='+foo2.join(","), function(data){
+          $('#id_comunidad').html('');
+          $("#id_comunidad").prop("disabled", false);
+          if(data){
+              $.each(data, function(i, item){
+                  $('#id_comunidad').append($('<option></option>').val(item.id).html(item.nombre));
+                  });
+         }
+     });
+  });
+  </script>
+
+  {% endblock extra_js %}
+
+  {% block content %}
+  Consulta productores
+
+  <form class="" action="." method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Consultar" name="consulta"/>
+  </form>
+  {% endblock content %}
