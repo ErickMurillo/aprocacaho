@@ -17,12 +17,12 @@ def _queryset_filtrado(request):
 	if request.session['departamento']:
 		if not request.session['municipio']:
 			municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
-			params['persona__comunidad__municipio__in'] = municipios
+			params['entrevistado__comunidad__municipio__in'] = municipios
 		else:
 			if request.session['comunidad']:
-				params['persona__comunidad__in'] = request.session['comunidad']
+				params['entrevistado__comunidad__in'] = request.session['comunidad']
 			else:
-				params['persona__comunidad__municipio__in'] = request.session['municipio']
+				params['entrevistado__comunidad__municipio__in'] = request.session['municipio']
 
 	if request.session['organizacion']:
 		params['organizacion'] = request.session['organizacion']
@@ -85,6 +85,7 @@ def dashboard(request,template="productores/dashboard.html"):
 
     for year in request.session['year']:
         productores = filtro.filter(year=year).count()
+
         #plantacion cacao
         areas = collections.OrderedDict()
         area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
@@ -124,51 +125,134 @@ def dashboard(request,template="productores/dashboard.html"):
         except:
         	rendimiento_ferm = 0
 
-        #area total
-        area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
+		#area total
+		area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
 
-        #promedio mz x productor
-        promedio_productor = filtro.filter(year=year).aggregate(avg_cacao=Avg('areacacao__area'))['avg_cacao']
-        if promedio_productor == None:
-            promedio_productor = 0
+		#promedio mz x productor
+		promedio_productor = filtro.filter(year=year).aggregate(avg_cacao=Avg('areacacao__area'))['avg_cacao']
+		if promedio_productor == None:
+			promedio_productor = 0
 
-        #productores socios y no socios
-        socio = (filtro.filter(year=year,organizacionasociada__socio='1').count() / float(productores)) * 100
-        if socio == None:
-            socio = 0
+		#productores socios y no socios
+		socio = (filtro.filter(year=year,organizacionasociada__socio='1').count() / float(productores)) * 100
+		if socio == None:
+			socio = 0
 
-        no_socio = (filtro.filter(year=year,organizacionasociada__socio='2').count() / float(productores)) * 100
-        if no_socio == None:
-            no_socio = 0
+		no_socio = (filtro.filter(year=year,organizacionasociada__socio='2').count() / float(productores)) * 100
+		if no_socio == None:
+			no_socio = 0
 
-        #productores certificados y no certificados
-    	certificados = filtro.filter(year=year,certificacion__cacao_certificado = 1).count()
-    	no_certificados = filtro.filter(year=year,certificacion__cacao_certificado = 2).count()
+		#productores certificados y no certificados
+		certificados = filtro.filter(year=year,certificacion__cacao_certificado = 1).count()
+		if certificados == None:
+			certificados = 0
+		no_certificados = filtro.filter(year=year,certificacion__cacao_certificado = 2).count()
+		if no_certificados == None:
+			no_certificados = 0
 
-        #No de productores con uno o más sellos
-    	conteo_1 = 0
-    	conteo_2 = 0
-    	conteo_3 = 0
-    	lista_certificaciones = []
-    	for obj in filtro:
-    		certificaciones = 0
-    		for x in Certificacion.objects.filter(encuesta__year=year,cacao_certificado=1,encuesta=obj):
-    			for z in x.tipo.all():
-    				certificaciones += 1
-    		if certificaciones == 1:
-    			conteo_1 += 1
-    		elif certificaciones == 2:
-    			conteo_2 += 1
-    		elif certificaciones > 2:
-    			conteo_3 += 1
-    	lista_certificaciones.append([conteo_1, conteo_2, conteo_3])
-        for list in lista_certificaciones:
-            print list[0]
+        # #No de productores con uno o más sellos
+		x = 0
+		y = 0
+		z = 0
+		lista_certificaciones = []
+		for obj in filtro.filter(year=year):
+			num_certif = 0
+			for cert in Certificacion.objects.filter(cacao_certificado=1,encuesta=obj):
+				for tipo in cert.tipo:
+					num_certif += 1
+			if num_certif == 1:
+				x += 1
+			elif num_certif == 2:
+				y += 1
+			elif num_certif > 2:
+				z += 1
+		lista_certificaciones.append([x, y, z])
+
+		prod_depto = {}
+		for depto in Departamento.objects.all():
+			produccion = filtro.filter(year=year,entrevistado__departamento=depto).aggregate(total=Sum('produccioncacao__cacao_baba'))['total']
+			if produccion == None:
+				produccion = 0
+
+			if produccion != 0:
+				print depto.latitud_1
+				prod_depto[depto] = (depto.latitud_1,depto.longitud_1,produccion)
+
         #diccionario de los años
         years[year] = (areas,rendimiento_conv,rendimiento_ferm,convencional,fermentado,area_total,promedio_productor,
-                        socio,no_socio,certificados,no_certificados,lista_certificaciones)
+                        socio,no_socio,certificados,no_certificados,lista_certificaciones,prod_depto)
 
     return render(request, template, locals())
+
+def educacion(request,template="productores/educacion.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	lista_hombres = [1,3,5,7,9]
+	lista_mujeres = [2,4,6,8,10]
+	for year in request.session['year']:
+		#hombres
+		cantidad_miembros_hombres = filtro.filter(year=year,educacion__rango__in=lista_hombres).aggregate(
+									num_total = Sum('educacion__numero_total'))['num_total']
+
+		grafo_educacion_hombre = filtro.filter(year=year,educacion__rango__in=lista_hombres).aggregate(
+                                    no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
+                                    primaria_incompleta = Sum('educacion__primaria_incompleta'),
+                                    primaria_completa = Sum('educacion__primaria_completa'),
+                                    secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
+                                    bachiller = Sum('educacion__bachiller'),
+                                    universitario = Sum('educacion__universitario_tecnico'))
+
+		#mujeres
+		cantidad_miembros_mujeres = filtro.filter(year=year,educacion__rango__in=lista_mujeres).aggregate(
+									num_total = Sum('educacion__numero_total'))['num_total']
+
+		grafo_educacion_mujer = filtro.filter(year=year,educacion__rango__in=lista_mujeres).aggregate(
+                                    no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
+                                    primaria_incompleta = Sum('educacion__primaria_incompleta'),
+                                    primaria_completa = Sum('educacion__primaria_completa'),
+                                    secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
+                                    bachiller = Sum('educacion__bachiller'),
+                                    universitario = Sum('educacion__universitario_tecnico'))
+
+		#tablas
+		tabla_educacion_hombre = []
+		tabla_educacion_mujer = []
+		for e in RANGOS_CHOICE:
+			objeto = filtro.filter(year=year, educacion__rango = e[0]).aggregate(num_total = Sum('educacion__numero_total'),
+									no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
+									primaria_incompleta = Sum('educacion__primaria_incompleta'),
+									primaria_completa = Sum('educacion__primaria_completa'),
+									secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
+									bachiller = Sum('educacion__bachiller'),
+									universitario = Sum('educacion__universitario_tecnico'))
+
+			fila = [e[1], objeto['num_total'],
+				saca_porcentajes(objeto['no_lee_ni_escribe'], objeto['num_total'], False),
+				saca_porcentajes(objeto['primaria_incompleta'], objeto['num_total'], False),
+				saca_porcentajes(objeto['primaria_completa'], objeto['num_total'], False),
+				saca_porcentajes(objeto['secundaria_incompleta'], objeto['num_total'], False),
+				saca_porcentajes(objeto['bachiller'], objeto['num_total'], False),
+				saca_porcentajes(objeto['universitario'], objeto['num_total'], False),
+			]
+
+			if e[0] in lista_hombres:
+				tabla_educacion_hombre.append(fila)
+			elif e[0] in lista_mujeres:
+				tabla_educacion_mujer.append(fila)
+
+	years[year] = (cantidad_miembros_hombres,grafo_educacion_hombre,cantidad_miembros_mujeres,
+					grafo_educacion_mujer,tabla_educacion_hombre,tabla_educacion_mujer)
+
+	return render(request, template, locals())
+
+def tenencia_propiedad(request,template="productores/tenencia_propiedad.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	return render(request, template, locals())
 
 def get_munis(request):
 	'''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''

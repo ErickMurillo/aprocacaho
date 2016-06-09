@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-Dashboard
+<div>
+<h4>Indicadores</h4>
+<a href="/productores/educacion/">Educación</a>
+<a href="/productores/tenencia-propiedad/">Tenencia de la Propiedad</a>
+</div>
+
 <div id="tabs">
 
   <!-- Nav tabs -->
@@ -29,8 +34,11 @@ Dashboard
       <div id="prod_certificados{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
       <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
       <div>
-        <h4 align="center">Producción de cacao en toneladas por departamento</h4>
-        <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:363px"></div>
+        <div class="col-md-6">
+          <h4 align="center">Producción de cacao en toneladas por departamento</h4>
+          <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:363px"></div>
+        </div>
+
       </div>
 
     </div>
@@ -40,8 +48,6 @@ Dashboard
 {% endblock content %}
 
 {% block extra_js %}
-<script type="text/javascript" src="/static/js/highcharts.js"></script>
-<script type="text/javascript" src="/static/js/exporting.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
 <!--<script type="text/javascript" src="/static/js/infobox.js"></script>-->
@@ -406,7 +412,7 @@ $(function () {
 var map_{{year}};
 {% endfor %}
 
-var latlng = new google.maps.LatLng(15.2915011,-86.7950214);
+var latlng = new google.maps.LatLng(14.739721,-88.486916);
 
 function initialize() {
   var myOptions = {
@@ -423,7 +429,7 @@ function initialize() {
 
   map_{{year}} = new google.maps.Map(document.getElementById("map_canvas_{{forloop.counter}}"),myOptions);
 
-  {% for x,y in value.14.items %}
+  {% for x,y in value.12.items %}
   var marker_{{forloop.counter}}_{{year}}  = new MarkerWithLabel({
     position: new google.maps.LatLng({{y.0}}, {{y.1}}),
     map: map_{{year}},

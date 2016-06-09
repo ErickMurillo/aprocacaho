@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^productores/', include('productores.urls')),
     # url(r'^organizaciones/', include('organizacion.urls')),
+    url(r'^xls/$', 'utils.save_as_xls'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

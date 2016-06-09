@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load helpertags %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="educacion_hombres{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="educacion_mujeres{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="hombres">
+        <div class="excel">
+            <a href="#" onclick="exportarXLS('modalidad'); return false;">Exportar a excel</a>
+        </div>
+        <div class="table-responsive" id="modalidad">
+            <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <caption>Escolaridad hombres</caption>
+                <thead>
+                    <tr>
+                        <th>Edades</th>
+                        <th>Número total</th>
+                        <th>No sabe leer %</th>
+                        <th>Primaria incompleta %</th>
+                        <th>Primaria completa %</th>
+                        <th>Secundaria incompleta %</th>
+                        <th>Bachiller %</th>
+                        <th>Universitario %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for fila in value.4 %}
+                    <tr>
+                        {%for celda in fila %}
+                        <td>{{celda|default:'0'}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <div id="mujeres">
+        <div class="excel">
+            <a href="#" onclick="exportarXLS('modalidad1'); return false;">Exportar a excel</a>
+        </div>
+        <div class="table-responsive" id="modalidad1">
+            <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <caption>Escolaridad mujeres</caption>
+                <thead>
+                    <tr>
+                        <th>Edades</th>
+                        <th>Número total</th>
+                        <th>No sabe leer %</th>
+                        <th>Primaria incompleta %</th>
+                        <th>Primaria completa %</th>
+                        <th>Secundaria incompleta %</th>
+                        <th>Bachiller %</th>
+                        <th>Universitario %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for fila in value.5 %}
+                    <tr>
+                        {%for celda in fila %}
+                        <td>{{celda|default:'0'}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+{% for year,value in years.items %}
+$(function () {
+$('#educacion_hombres{{year}}').highcharts({
+   chart: {
+       type: 'column'
+   },
+   title: {
+       text: 'Miembros del hogar hombres con algún tipo de escolaridad. Total de personas({{value.0}})'
+   },
+   yAxis: {
+       title: {
+           text: 'Valores'
+       }
+   },
+   credits: {
+       enabled: false
+   },
+   yAxis: {
+           min: 0,
+           title: {
+               text: 'Porcentajes (%)'
+           }
+       },
+       tooltip: {
+           formatter: function() {
+               return ''+
+                   this.series.name +': '+ this.y +'%';
+           }
+       },
+   series: [
+           {% for k,v in value.1.items %}
+           {
+               name: '{{k|capfirst|clean}} ({{v}})',
+               data: [{{v|percentage:value.0|floatformat:2}}],
+               dataLabels: {
+                   enabled: true,
+                   rotation: 0,
+                   color: '#632D00',
+                   align: 'center',
+                   x: -3,
+                   y: 0,
+                       formatter: function() {
+                           return this.y + '%';
+                                             },
+                   style: {
+                       font: 'normal 13px Verdana, sans-serif'
+                           }
+                           }
+           },
+           {% endfor %}
+           ]
+});
+});
+
+$(function () {
+$('#educacion_mujeres{{year}}').highcharts({
+   chart: {
+       type: 'column'
+   },
+   title: {
+       text: 'Miembros del hogar mujeres con algún tipo de escolaridad. Total de personas({{value.2}})'
+   },
+   yAxis: {
+       title: {
+           text: 'Valores'
+       }
+   },
+   credits: {
+       enabled: false
+   },
+   yAxis: {
+           min: 0,
+           title: {
+               text: 'Porcentajes (%)'
+           }
+       },
+       tooltip: {
+           formatter: function() {
+               return ''+
+                   this.series.name +': '+ this.y +'%';
+           }
+       },
+   series: [
+           {% for k,v in value.3.items %}
+           {
+               name: '{{k|capfirst|clean}} ({{v}})',
+               data: [{{v|percentage:value.2|floatformat:2}}],
+               dataLabels: {
+                   enabled: true,
+                   rotation: 0,
+                   color: '#632D00',
+                   align: 'center',
+                   x: -3,
+                   y: 0,
+                       formatter: function() {
+                           return this.y + '%';
+                                             },
+                   style: {
+                       font: 'normal 13px Verdana, sans-serif'
+                           }
+                           }
+           },
+           {% endfor %}
+           ]
+});
+});
+{% endfor %}
+</script>
+{% endblock extra_js %}

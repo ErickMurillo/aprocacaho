@@ -15,7 +15,9 @@
     "pais": 2,
     "nombre": "Atl\u00e1ntida",
     "slug": "atlantida",
-    "extension": "4.227"
+    "extension": "4.227",
+    "latitud_1": "15.6737363",
+    "longitud_1": "-87.6228256"
   }
 },
 
@@ -26,7 +28,9 @@
     "pais": 2,
     "nombre": "Col\u00f3n",
     "slug": "colon",
-    "extension": "8276"
+    "extension": "8276",
+    "latitud_1": "15.5525873",
+    "longitud_1": "-86.2685777"
   }
 },
 
@@ -37,7 +41,9 @@
     "pais": 2,
     "nombre": "Comayagua",
     "slug": "comayagua",
-    "extension": "5120"
+    "extension": "5120",
+    "latitud_1": "14.4438197",
+    "longitud_1": "-87.7340512"
   }
 },
 
@@ -48,7 +54,9 @@
     "pais": 2,
     "nombre": "Cop\u00e1n",
     "slug": "copan",
-    "extension": "3239"
+    "extension": "3239",
+    "latitud_1": "14.9101222",
+    "longitud_1": "-89.2090776"
   }
 },
 
@@ -59,7 +67,9 @@
     "pais": 2,
     "nombre": "Cortes",
     "slug": "cortes",
-    "extension": "3911"
+    "extension": "3911",
+    "latitud_1": "15.3608151",
+    "longitud_1": "-88.6442119"
   }
 },
 
@@ -70,7 +80,9 @@
     "pais": 2,
     "nombre": "Choluteca",
     "slug": "choluteca",
-    "extension": "4397"
+    "extension": "4397",
+    "latitud_1": "13.3010379",
+    "longitud_1": "-87.241319"
   }
 },
 {
@@ -80,7 +92,9 @@
     "pais": 2,
     "nombre": "El Para\u00edso",
     "slug": "el-paraiso",
-    "extension": "7383"
+    "extension": "7383",
+    "latitud_1": "13.8669912",
+    "longitud_1": "-88.5434379"
   }
 },
 
@@ -91,7 +105,9 @@
     "pais": 2,
     "nombre": "Francisco Moraz\u00e1n",
     "slug": "francisco-moraza",
-    "extension": "8580"
+    "extension": "8580",
+    "latitud_1": "14.3376182",
+    "longitud_1": "-87.737261"
   }
 },
 
@@ -102,7 +118,9 @@
     "pais": 2,
     "nombre": "Gracias a Dios",
     "slug": "gracias-a-dios",
-    "extension": "15876"
+    "extension": "15876",
+    "latitud_1": "15.2969878",
+    "longitud_1": "-84.6352724"
   }
 },
 
@@ -113,7 +131,9 @@
     "pais":2,
     "nombre": "Intibuc\u00e1",
     "slug": "intibuca",
-    "extension": "3126"
+    "extension": "3126",
+    "latitud_1": "14.257167",
+    "longitud_1": "-88.4688553"
   }
 },
 
@@ -124,7 +144,9 @@
     "pais": 2,
     "nombre": "Islas de la Bah\u00eda",
     "slug": "islas-de-la-bahia",
-    "extension": "229"
+    "extension": "229",
+    "latitud_1": "16.3585537",
+    "longitud_1": "-86.5143438"
   }
 },
 
@@ -135,7 +157,9 @@
     "pais": 2,
     "nombre": "La Paz",
     "slug": "la-paz",
-    "extension": "2534"
+    "extension": "2534",
+    "latitud_1": "14.1199009",
+    "longitud_1": "-88.2033983"
   }
 },
 
@@ -146,7 +170,9 @@
     "pais": 2,
     "nombre": "Lempira",
     "slug": "lempira",
-    "extension": "4285"
+    "extension": "4285",
+    "latitud_1": "14.4665408",
+    "longitud_1": "-89.2152524"
   }
 },
 
@@ -157,7 +183,9 @@
     "pais": 2,
     "nombre": "Ocotepeque",
     "slug": "ocotepeque",
-    "extension": "1636"
+    "extension": "1636",
+    "latitud_1": "14.4983909",
+    "longitud_1": "-89.3137527"
   }
 },
 
@@ -168,7 +196,9 @@
     "pais": 2,
     "nombre": "Olancho",
     "slug": "olancho",
-    "extension": "24038"
+    "extension": "24038",
+    "latitud_1": "14.8294561",
+    "longitud_1": "-86.5316845"
   }
 },
 
@@ -179,7 +209,9 @@
     "pais": 2,
     "nombre": "Santa B\u00e1rbara",
     "slug": "santa-barbara",
-    "extension": "5.013"
+    "extension": "5.013",
+    "latitud_1": "15.060745",
+    "longitud_1": "-88.9342875"
   }
 },
 
@@ -190,7 +222,9 @@
     "pais": 2,
     "nombre": "Valle",
     "slug": "valle",
-    "extension": "1618"
+    "extension": "1618",
+    "latitud_1": "13.5510876",
+    "longitud_1": "-87.8949485"
   }
 },
 
@@ -201,7 +235,9 @@
     "pais": 2,
     "nombre": "Yoro",
     "slug": "yoro",
-    "extension": "7787"
+    "extension": "7787",
+    "latitud_1": "15.2591679",
+    "longitud_1": "-87.6412164"
   }
 },
 
@@ -2390,19 +2426,6 @@
 },
 
 {
-  "pk": 221212,
-  "model": "lugar.municipio",
-  "fields": {
-    "latitud": "13.887721",
-    "extension": "0.00",
-    "departamento": 2212,
-    "nombre": "San Antonio del Norte",
-    "slug": "san-antonio-del-norte",
-    "longitud": "-87.703713"
-  }
-},
-
-{
   "pk": 221213,
   "model": "lugar.municipio",
   "fields": {
@@ -2478,5 +2501,5 @@
     "slug": "cololaca",
     "longitud": "-88.533333"
   }
-},
+}
 ]

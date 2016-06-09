@@ -118,10 +118,16 @@ class ProblemasArea3(models.Model):
 		verbose_name = "Problemas en áreas de 10 a 20 años"
 		verbose_name_plural = "Problemas en áreas de 10 a 20 años"
 
+CHOICE_SEXO = (
+    (1, 'Mujer'),
+    (2, 'Hombre'),
+  )
+
 class Entrevistados(models.Model):
 	nombre =  models.CharField(max_length=200,verbose_name='Nombre del jefe de familia')
 	cedula = models.CharField(max_length=20,verbose_name='Número de Cedula')
 	fecha_nacimiento = models.DateField(verbose_name='Fecha de nacimiento')
+	sexo = models.IntegerField(choices=CHOICE_SEXO)
 	profesion = models.ForeignKey(Profesiones,verbose_name='Profesión u oficio')
 	organizacion = models.ForeignKey(Organizacion,verbose_name='A que Organización pertenece')
 	departamento = models.ForeignKey(Departamento)
