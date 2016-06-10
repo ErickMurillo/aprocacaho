@@ -9,6 +9,11 @@ urlpatterns = [
     url(r'^dashboard/$', dashboard, name='dashboard'),
     url(r'^educacion/$', educacion, name='educacion'),
     url(r'^tenencia-propiedad/$', tenencia_propiedad, name='tenencia-propiedad'),
+    url(r'^uso-tierra/$', uso_tierra, name='uso-tierra'),
+    url(r'^reforestacion/$', reforestacion, name='reforestacion'),
+    url(r'^caracterizacion-terreno/$', caracterizacion_terreno, name='caracterizacion-terreno'),
+    url(r'^riesgos-finca/$', riesgos_finca, name='riesgos-finca'),
+    url(r'^mitigacion-riesgos-finca/$', mitigacion_riesgos_finca, name='mitigacion-riesgos-finca'),
 
     url(r'^ajax/munis/$', get_munis, name='get-munis'),
     url(r'^ajax/comunies/$', get_comunies, name='get-comunies'),

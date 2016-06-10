@@ -251,9 +251,186 @@ def tenencia_propiedad(request,template="productores/tenencia_propiedad.html"):
 	filtro = _queryset_filtrado(request)
 
 	years = collections.OrderedDict()
+	for year in request.session['year']:
+		dueno = filtro.filter(tenenciapropiedad__dueno_propiedad = 1,year = year).count()
+
+		no_dueno = filtro.filter(tenenciapropiedad__dueno_propiedad = 2,year = year).count()
+
+		nombre_propiedad = {}
+		for obj in PROPIEDAD_CHOICE:
+			conteo = filtro.filter(year = year,tenenciapropiedad__si = obj[0]).count()
+			nombre_propiedad[obj[1]] = conteo
+
+		situacion_propiedad = {}
+		for obj in SituacionesPropiedad.objects.all():
+			conteo = filtro.filter(year = year,tenenciapropiedad__no = obj).count()
+			situacion_propiedad[obj] = conteo
+
+	years[year] = (dueno,no_dueno,nombre_propiedad,situacion_propiedad)
 
 	return render(request, template, locals())
 
+def uso_tierra(request,template="productores/uso_tierra.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+	for year in request.session['year']:
+		areas_finca = {}
+		total_areas = filtro.filter(year = year).aggregate(
+							suma = Sum('detalleareafinca__area'))['suma']
+
+		for obj in CHOICE_TIERRA:
+			area = filtro.filter(year = year,detalleareafinca__seleccion = obj[0]).aggregate(
+								suma = Sum('detalleareafinca__area'))['suma']
+			areas_finca[obj[1]] = (area,saca_porcentajes(area,total_areas,False))
+
+		years[year] = areas_finca
+
+	return render(request, template, locals())
+
+def reforestacion(request,template="productores/reforestacion.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		reforestacion = {}
+		for obj in REFORESTACION_CHOICE:
+			frecuencia = filtro.filter(year = year,reforestacion__seleccion = obj[0],reforestacion__respuesta = 1).count()
+			reforestacion[obj[1]] = (saca_porcentajes(frecuencia,productores,False),frecuencia)
+
+		years[year] = reforestacion
+
+	return render(request, template, locals())
+
+def caracterizacion_terreno(request,template="productores/caracterizacion_terreno.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+
+		tabla_textura = {}
+		for k in TEXTURA_CHOICES:
+			query = filtro.filter(year = year,caracterizacionterreno__textura_suelo = k[0])
+			frecuencia = query.count()
+			textura = filtro.filter(year = year,caracterizacionterreno__textura_suelo = k[0]).aggregate(
+								textura = Count('caracterizacionterreno__textura_suelo'))['textura']
+			por_textura = saca_porcentajes(textura, productores)
+			tabla_textura[k[1]] = {'textura':textura,'por_textura':por_textura}
+
+		#pendiente
+		tabla_pendiente = {}
+		for k in PENDIENTE_CHOICES:
+			query = filtro.filter(year = year,caracterizacionterreno__pendiente_terreno = k[0])
+			frecuencia = query.count()
+			pendiente = filtro.filter(year = year,caracterizacionterreno__pendiente_terreno = k[0]).aggregate(
+								pendiente = Count('caracterizacionterreno__pendiente_terreno'))['pendiente']
+			por_pendiente = saca_porcentajes(pendiente, productores)
+			tabla_pendiente[k[1]] = {'pendiente':pendiente,'por_pendiente':por_pendiente}
+
+		#hojarasca
+		tabla_hojarasca = {}
+		for k in HOJARASCA_CHOICES:
+			query = filtro.filter(year = year,caracterizacionterreno__contenido_hojarasca = k[0])
+			frecuencia = query.count()
+			hojarasca = filtro.filter(year = year,caracterizacionterreno__contenido_hojarasca = k[0]).aggregate(
+								hojarasca=Count('caracterizacionterreno__contenido_hojarasca'))['hojarasca']
+			por_hojarasca = saca_porcentajes(hojarasca, productores)
+			tabla_hojarasca[k[1]] = {'hojarasca':hojarasca,'por_hojarasca':por_hojarasca}
+
+		#profundidad
+		tabla_profundidad = {}
+		for k in PROFUNDIDAD_CHOICES:
+			query = filtro.filter(year = year,caracterizacionterreno__porfundidad_suelo = k[0])
+			frecuencia = query.count()
+			profundidad = filtro.filter(year = year,caracterizacionterreno__porfundidad_suelo = k[0]).aggregate(
+									profundidad=Count('caracterizacionterreno__porfundidad_suelo'))['profundidad']
+			por_profundidad = saca_porcentajes(profundidad, productores)
+			tabla_profundidad[k[1]] = {'profundidad':profundidad,'por_profundidad':por_profundidad}
+
+		#drenaje
+		tabla_drenaje = {}
+		for k in DRENAJE_CHOICES:
+			query = filtro.filter(year = year,caracterizacionterreno__drenaje_suelo = k[0])
+			frecuencia = query.count()
+			drenaje = filtro.filter(year = year,caracterizacionterreno__drenaje_suelo = k[0]).aggregate(
+								drenaje = Count('caracterizacionterreno__drenaje_suelo'))['drenaje']
+			por_drenaje = saca_porcentajes(drenaje, productores)
+			tabla_drenaje[k[1]] = {'drenaje':drenaje,'por_drenaje':por_drenaje}
+
+		years[year] = (tabla_textura,tabla_pendiente,tabla_hojarasca,tabla_profundidad,tabla_drenaje)
+
+	return render(request, template, locals())
+
+def riesgos_finca(request,template="productores/riesgos_finca.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		riesgos = collections.OrderedDict()
+		for obj in RIESGOS_CHOICES:
+			sequia = filtro.filter(year = year,fenomenosnaturales__sequia = obj[0]).count()
+			innundacion = filtro.filter(year = year,fenomenosnaturales__innundacion = obj[0]).count()
+			lluvia = filtro.filter(year = year,fenomenosnaturales__lluvia = obj[0]).count()
+			viento = filtro.filter(year = year,fenomenosnaturales__viento = obj[0]).count()
+			deslizamiento = filtro.filter(year = year,fenomenosnaturales__deslizamiento = obj[0]).count()
+
+			riesgos[obj[1]] = (saca_porcentajes(sequia,productores,False),
+								saca_porcentajes(innundacion,productores,False),
+								saca_porcentajes(lluvia,productores,False),
+								saca_porcentajes(viento,productores,False),
+								saca_porcentajes(deslizamiento,productores,False))
+
+		plantas_improductivas = collections.OrderedDict()
+		for obj in P_IMPRODUCTIVAS_CHOICES:
+			p_improduct = filtro.filter(year = year,razonesagricolas__plantas_improductivas = obj[0]).count()
+			plantas_improductivas[obj[1]] = saca_porcentajes(p_improduct,productores,False)
+
+		plagas = {}
+		for obj in SI_NO_CHOICES:
+			plagas_enfermedades = filtro.filter(year = year,razonesagricolas__plagas_enfermedades = obj[0]).count()
+			quemas = filtro.filter(year = year,razonesagricolas__quemas = obj[0]).count()
+
+			plagas[obj[1]] = (saca_porcentajes(plagas_enfermedades,productores,False),
+								saca_porcentajes(quemas,productores,False))
+
+		mercados = {}
+		for obj in SI_NO_CHOICES:
+			bajo_precio = filtro.filter(year = year,razonesmercado__bajo_precio = obj[0]).count()
+			falta_venta = filtro.filter(year = year,razonesmercado__falta_venta = obj[0]).count()
+			estafa_contrato = filtro.filter(year = year,razonesmercado__estafa_contrato = obj[0]).count()
+			calidad_producto = filtro.filter(year = year,razonesmercado__calidad_producto = obj[0]).count()
+
+			mercados[obj[1]] = (saca_porcentajes(bajo_precio,productores,False),
+								saca_porcentajes(falta_venta,productores,False),
+								saca_porcentajes(estafa_contrato,productores,False),
+								saca_porcentajes(calidad_producto,productores,False))
+
+		inversion = {}
+		for obj in SI_NO_CHOICES:
+			invierte_cacao = filtro.filter(year = year,inversion__invierte_cacao = obj[0]).count()
+			interes_invertrir = filtro.filter(year = year,inversion__interes_invertrir = obj[0]).count()
+			falta_credito = filtro.filter(year = year,inversion__falta_credito = obj[0]).count()
+			altos_intereses = filtro.filter(year = year,inversion__altos_intereses = obj[0]).count()
+			robo_producto = filtro.filter(year = year,inversion__robo_producto = obj[0]).count()
+
+			inversion[obj[1]] = (saca_porcentajes(invierte_cacao,productores,False),
+								saca_porcentajes(interes_invertrir,productores,False),
+								saca_porcentajes(falta_credito,productores,False),
+								saca_porcentajes(altos_intereses,productores,False),
+								saca_porcentajes(robo_producto,productores,False))
+
+		years[year] = (riesgos,plantas_improductivas,plagas,mercados,inversion)
+
+	return render(request, template, locals())
+
+def mitigacion_riesgos_finca(request,template="productores/mitigacion_riesgos_finca.html"):
+
+	return render(request, template, locals())
+	
 def get_munis(request):
 	'''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
 	ids = request.GET.get('ids', '')

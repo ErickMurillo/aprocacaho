@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="container{{year}}"></div>
+      <div id="tabla">
+        <div class="excel">
+            <a href="#" onclick="exportarXLS('modalidad1'); return false;">Exportar a excel</a>
+        </div>
+        <div class="table-responsive" id="modalidad1">
+            <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <caption>Distribución de la tierra</caption>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Áreas(mz)</th>
+                        <th>Procentajes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for k,v in value.items %}
+                    <tr>
+                        <td>{{k}}</td>
+                        <td>{{v.0}}</td>
+                        <td>{{v.1}}%</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  $(document).ready(function () {
+  {% for year,value in years.items %}
+  $('#container{{year}}').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+
+      text: 'Distribución de la tierra'
+
+    },
+    yAxis: {
+      title: {
+        text: 'Valores'
+      }
+
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Porcentaje'
+      }
+    },
+      xAxis: {
+            categories: [
+                'Uso de la tierra',
+
+            ],
+            crosshair: true
+        },
+    tooltip: {
+      formatter: function() {
+        return ''+
+        this.series.name +': '+ this.y + '%';
+      }
+    },
+    //  legend: {
+    //       layout: 'vertical',
+    //       align: 'right',
+    //       verticalAlign: 'middle',
+    //       borderWidth: 0
+    //   },
+    plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.2f}%',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+    series: [
+    {% for k,v in value.items %}
+      {name: '{{k}} ({{v.0}})', data: [{% if v == None %}0{% else %}{{v.1}}{% endif %}]},
+    {% endfor %}
+    ]
+  });
+  {% endfor %}
+});
+});
+</script>
+{% endblock extra_js %}

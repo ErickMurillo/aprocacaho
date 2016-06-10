@@ -18,7 +18,9 @@
   <div class="tab-content">
     {% for year,value in years.items %}
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      
+      <div id="duenos{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="nombre_propiedad{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="situacion_propiedad{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
     </div>
 
     </div>
@@ -27,4 +29,145 @@
 {% endblock content %}
 
 {% block extra_js %}
+<script type="text/javascript">
+$(function () {
+
+  $(document).ready(function () {
+      {% for year,value in years.items %}
+      // Build the chart
+      $('#duenos{{year}}').highcharts({
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: 'Propiedad de la tierra'
+          },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.2f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+          series: [{
+              name: 'Porcentaje',
+              colorByPoint: true,
+              data: [{
+                  name: 'Dueños',
+                  y: {{value.0}}
+              }, {
+                  name: 'No dueños',
+                  y: {{value.1}},
+                  sliced: true,
+                  selected: true
+              }]
+          }]
+      });
+
+      $('#nombre_propiedad{{year}}').highcharts({
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: '¿A nombre de quién está la propiedad?'
+          },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.2f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+          series: [{
+              name: 'Porcentaje',
+              colorByPoint: true,
+              data: [
+                {% for k,v in value.2.items %}
+                {
+                  name: '{{k}}',
+                  y: {{v}},
+                  {% if forloop.counter == 1 %}
+                  sliced: true,
+                  selected: true
+                  {% endif %}
+                },
+              {% endfor %}
+            ]
+          }]
+      });
+
+      $('#situacion_propiedad{{year}}').highcharts({
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: '¿Si no es propia, cuál es el origen de la tierra?'
+          },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.2f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+          series: [{
+              name: 'Porcentaje',
+              colorByPoint: true,
+              data: [
+                {% for k,v in value.3.items %}
+                {
+                  name: '{{k}}',
+                  y: {{v}},
+                  {% if forloop.counter == 1 %}
+                  sliced: true,
+                  selected: true
+                  {% endif %}
+                },
+              {% endfor %}
+            ]
+          }]
+      });
+      {% endfor %}
+  });
+});
+</script>
 {% endblock extra_js %}

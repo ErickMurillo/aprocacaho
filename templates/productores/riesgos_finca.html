@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="fenomenos_naturales{{year}}" style="min-width: 310px; width: 1300px; margin: 0 auto;"></div>
+      <div id="plantas_improductivas{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="plagas{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="mercado{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="inversion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="inversion2{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  $(document).ready(function () {
+    {% for year,value in years.items %}
+    $('#fenomenos_naturales{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Efectos de fenómenos naturales'
+        },
+        xAxis: {
+            categories: ['Sequía','Inundación','Lluvia','Viento','Deslizamiento']
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje(%)'
+            }
+
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.series.name +': '+ this.y +'%';
+            }
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.2f}%',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    style: {
+                        textShadow: '0 0 3px white'
+                    }
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [
+        {% for k,v in value.0.items %}
+        {
+          name: '{{k}}',
+          data: [{{v.0}},{{v.1}},{{v.2}},{{v.3}},{{v.4}}]
+      },
+      {% endfor %}
+
+      ]
+  });
+
+  $('#plantas_improductivas{{year}}').highcharts({
+      chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+      },
+      title: {
+          text: 'Planta improductivas'
+      },
+      tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.2f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentaje',
+        colorByPoint: true,
+        data: [
+          {% for k,v in value.1.items %}
+          {
+            name: '{{k}}',
+            y: {{v}},
+            {% if forloop.counter == 1 %}
+            sliced: true,
+            selected: true
+            {% endif %}
+          },
+        {% endfor %}
+      ]
+    }]
+  });
+
+  $('#plagas{{year}}').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Problemas en los cultivos de cacao'
+      },
+      xAxis: {
+          categories: ['Plagas y enfermedades','Quemas']
+      },
+      yAxis: {
+          title: {
+              text: 'Porcentaje(%)'
+          }
+
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+              this.series.name +': '+ this.y +'%';
+          }
+      },
+      credits: {
+          enabled: false
+      },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.2f}%',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+      series: [
+      {% for k,v in value.2.items %}
+      {
+        name: '{{k}}',
+        data: [{{v.0}},{{v.1}}]
+    },
+    {% endfor %}
+
+    ]
+  });
+
+  $('#mercado{{year}}').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Problemas en la comercialización'
+      },
+      xAxis: {
+          categories: ['Bajo precio','Bajo volumen','Estafa','Mala calidad']
+      },
+      yAxis: {
+          title: {
+              text: 'Porcentaje(%)'
+          }
+
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+              this.series.name +': '+ this.y +'%';
+          }
+      },
+      credits: {
+          enabled: false
+      },
+      plotOptions: {
+          column: {
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.2f} %',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+      series: [
+      {% for k,v in value.3.items %}
+      {
+        name: '{{k}}',
+        data: [{{v.0}},{{v.1}},{{v.2}},{{v.3}}]
+    },
+    {% endfor %}
+
+    ]
+});
+
+$('#inversion{{year}}').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Porcentaje de productores que invierten o piensan invertir en sus plantaciones de cacao'
+    },
+    xAxis: {
+        categories: ['Invierte en cacao','Interés de invertir']
+    },
+    yAxis: {
+        title: {
+            text: 'Porcentaje(%)'
+        }
+
+    },
+    tooltip: {
+        formatter: function() {
+            return ''+
+            this.series.name +': '+ this.y +'%';
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        column: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}%',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+    series: [
+    {% for k,v in value.4.items %}
+    {
+      name: '{{k}}',
+      data: [{{v.0}},{{v.1}}]
+  },
+  {% endfor %}
+
+  ]
+});
+
+$('#inversion2{{year}}').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Razones para no invertir'
+    },
+    xAxis: {
+        categories: ['Falta de crédito','Altos intereses','Robo de producto']
+    },
+    yAxis: {
+        title: {
+            text: 'Porcentaje(%)'
+        }
+
+    },
+    tooltip: {
+        formatter: function() {
+            return ''+
+            this.series.name +': '+ this.y +'%';
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        column: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}%',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+    series: [
+    {% for k,v in value.4.items %}
+    {
+        name: '{{k}}',
+        data: [{{v.2}},{{v.3}},{{v.4}}]
+    },
+    {% endfor %}
+
+    ]
+});
+  {% endfor %}
+});
+});
+</script>
+{% endblock extra_js %}

@@ -262,8 +262,8 @@ class AreaFinca(models.Model):
 CHOICE_TIERRA = (
     (1,'Bosque'),
     (2,'Tacotal o regeneración natural'),
-    (3,'Cultivo anual ( que produce en el año)'),
-    (4,'Plantación forestal ( madera y leña)'),
+    (3,'Cultivo anual (que produce en el año)'),
+    (4,'Plantación forestal (madera y leña)'),
     (5,'Área de pastos abierto'),
     (6,'Área de pastos con árboles'),
     (7,'Cultivo perenne (frutales)'),
