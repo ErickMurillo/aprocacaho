@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <a class="btn-export" href="#" onclick="exportarXLS('modalidad'); return false;">Exportar tabla <span class="fa fa-file-excel-o"></span></a>
+      <div class="table-responsive" id="modalidad">
+          <table class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                      <th rowspan="2"></th>
+                      <th colspan="4" style="text-align:center;">Edad de plantación</th>
+                  </tr>
+                  <tr>
+                      <th>4 -10 años</th>
+                      <th>10 - 20 años</th>
+                      <th>Mayor a 20 años</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Área total en mz</td>
+                      {% for v in value.0.values %}
+                      <td>{{v.0|floatformat:2}}</td>
+                      {% endfor %}
+                  </tr>
+                  <tr>
+                      <td>No. de plantas por ha</td>
+                      {% for v in value.0.values %}
+                      <td>{{v.1|floatformat:2}}</td>
+                      {% endfor %}
+                  </tr>
+                  <tr>
+                      <td>% de plantas improductivas</td>
+                      {% for v in value.0.values %}
+                      <td>{{v.2|floatformat:2}}</td>
+                      {% endfor %}
+                  </tr>
+                  <tr>
+                      <td>% de plantas establecidas con semilla</td>
+                      {% for v in value.0.values %}
+                      <td>{{v.3|floatformat:2}}</td>
+                      {% endfor %}
+                  </tr>
+                  <tr>
+                      <td>% de plantas establecidas por injerto</td>
+                      {% for v in value.0.values %}
+                      <td>{{v.4|floatformat:2}}</td>
+                      {% endfor %}
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div id="produccion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="meses{{year}}" style="min-width: 310px; width: 1000px; margin: 0 auto;"></div>
+    </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#produccion{{year}}').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Producción total de cacao'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Quintales'
+      }
+
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> qq<br/>'
+    },
+
+    series: [{
+      name: "Producción",
+      colorByPoint: true,
+      data: [
+    {
+      name: "Fermentado convencional",
+      y: {{value.1}},
+    }, {
+      name: "Fermentado Orgánico",
+      y: {{value.2}},
+    }
+    ]
+  }],
+});
+
+$('#meses{{year}}').highcharts({
+    title: {
+        text: 'Meses de mayor producción de cacao',
+        x: -20 //center
+    },
+
+    xAxis: {
+        categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+    series: [
+
+    {
+       name: 'Frecuencia',
+       data: [{% for v in value.3.values %}{{v}},{% endfor %}]
+   },
+
+
+   ]
+});
+{% endfor %}
+});
+</script>
+{% endblock extra_js %}

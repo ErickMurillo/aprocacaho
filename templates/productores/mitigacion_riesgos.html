@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% load helpertags %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="container{{year}}"></div>
+      <div id="contrato_venta{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="contrato{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="tecnologia{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="propiedad_tecnologia{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+    </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(function () {
+      {% for year,value in years.items %}
+    $('#container{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Medidas de mitigación'
+        },
+        xAxis: {
+            categories: ['Monitoreo plagas','Manejo de cultivos','Manejo de recursos','Almacenamiento de agua','Distribución cacao']
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentajes(%)'
+            }
+
+        },
+        tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.2f}%',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    style: {
+                        textShadow: '0 0 3px white'
+                    }
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [
+            {% for k,v in value.0.items %}
+                {
+                    name: '{{k}}',
+                    data: [
+                          {{v.0|percentage:value.1}},{{v.1|percentage:value.1}},
+                          {{v.2|percentage:value.1}},{{v.3|percentage:value.1}},
+                          {{v.4|percentage:value.1}}
+                          ]
+                },
+            {% endfor %}
+
+        ]
+    });
+
+    $('#contrato_venta{{year}}').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Cuenta con un contrato de venta'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.percentage:.2f} %',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  }
+              },
+              showInLegend: true
+          }
+      },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [
+              {% for k,v in value.2.items %}
+              {
+                name: '{{k}}',
+                y: {{v}},
+                {% if forloop.counter == 1 %}
+                sliced: true,
+                selected: true
+                {% endif %}
+              },
+            {% endfor %}
+          ]
+        }]
+    });
+
+    $('#contrato{{year}}').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Cómo hacen el contrato'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.percentage:.2f} %',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  }
+              },
+              showInLegend: true
+          }
+      },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [
+              {% for k,v in value.3.items %}
+              {
+                name: '{{k}}',
+                y: {{v}},
+                {% if forloop.counter == 1 %}
+                sliced: true,
+                selected: true
+                {% endif %}
+              },
+            {% endfor %}
+          ]
+        }]
+    });
+
+    $('#tecnologia{{year}}').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Productores que disponen de Tecnología de secado y almacenamiento'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.percentage:.2f} %',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  }
+              },
+              showInLegend: true
+          }
+      },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [
+              {% for k,v in value.4.items %}
+              {
+                name: '{{k}}',
+                y: {{v}},
+                {% if forloop.counter == 1 %}
+                sliced: true,
+                selected: true
+                {% endif %}
+              },
+            {% endfor %}
+          ]
+        }]
+    });
+
+    $('#propiedad_tecnologia{{year}}').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Tecnología de secado y almacenamiento'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.percentage:.2f} %',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  }
+              },
+              showInLegend: true
+          }
+      },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [
+              {% for k,v in value.5.items %}
+              {
+                name: '{{k}}',
+                y: {{v}},
+                {% if forloop.counter == 1 %}
+                sliced: true,
+                selected: true
+                {% endif %}
+              },
+            {% endfor %}
+          ]
+        }]
+    });
+{% endfor %}
+});
+</script>
+{% endblock extra_js %}

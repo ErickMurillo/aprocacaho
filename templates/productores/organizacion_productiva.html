@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="servicios{{year}}"></div>
+      <div id="beneficios{{year}}"></div>
+    </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#servicios{{year}}').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Servicios que reciben productoras y productores de las organizaciones'
+      },
+      yAxis: {
+          title: {
+              text: 'Porcentaje'
+          }
+
+      },
+      credits: {
+          enabled: false
+      },
+      yAxis: {
+              min: 0,
+              title: {
+                  text: 'Porcentaje'
+              }
+          },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.2f}%',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+          tooltip: {
+              formatter: function() {
+                  return ''+
+                      this.series.name +': '+ this.y + '%';
+              }
+          },
+          xAxis: {
+          categories: [
+              'Servicios',
+
+          ],
+          crosshair: true
+      },
+          legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+      },
+      series: [
+              {% for k,v in value.0.items %}
+              {
+                  name: '{{k}} ({{v.0}})',
+                  data: [{{v.1}}],
+
+              },
+              {% endfor %}
+              ]
+  });
+
+  $('#beneficios{{year}}').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Beneficios de estar asociados'
+      },
+      yAxis: {
+          title: {
+              text: 'Porcentaje'
+          }
+
+      },
+      credits: {
+          enabled: false
+      },
+      yAxis: {
+              min: 0,
+              title: {
+                  text: 'Porcentaje'
+              }
+          },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y:.2f}%',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+          tooltip: {
+              formatter: function() {
+                  return ''+
+                      this.series.name +': '+ this.y + '%';
+              }
+          },
+          xAxis: {
+          categories: [
+              'Servicios',
+
+          ],
+          crosshair: true
+      },
+          legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+      },
+      series: [
+              {% for k,v in value.1.items %}
+              {
+                  name: '{{k}} ({{v.0}})',
+                  data: [{{v.1}}],
+
+              },
+              {% endfor %}
+              ]
+  });
+  {% endfor %}
+});
+
+</script>
+{% endblock extra_js %}

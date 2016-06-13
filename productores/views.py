@@ -427,10 +427,136 @@ def riesgos_finca(request,template="productores/riesgos_finca.html"):
 
 	return render(request, template, locals())
 
-def mitigacion_riesgos_finca(request,template="productores/mitigacion_riesgos_finca.html"):
+def mitigacion_riesgos(request,template="productores/mitigacion_riesgos.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		mitigacion_riesgos = {}
+		contrato_venta = {}
+		tecnologia = {}
+
+		for k in SI_NO_CHOICES:
+			monitoreo_plagas = filtro.filter(year = year,mitigacionriesgos__monitoreo_plagas = k[0]).count()
+			manejo_cultivo = filtro.filter(year = year,mitigacionriesgos__manejo_cultivo = k[0]).count()
+			manejo_recursos = filtro.filter(year = year,mitigacionriesgos__manejo_recursos = k[0]).count()
+			almacenamiento_agua = filtro.filter(year = year,mitigacionriesgos__almacenamiento_agua = k[0]).count()
+			distribucion_cacao = filtro.filter(year = year,mitigacionriesgos__distribucion_cacao = k[0]).count()
+
+			mitigacion_riesgos[k[1]] = (monitoreo_plagas,manejo_cultivo,manejo_recursos,
+											almacenamiento_agua,distribucion_cacao)
+
+			#contrato venta
+			venta_cacao = filtro.filter(year = year,mitigacionriesgos__venta_cacao = k[0]).count()
+			contrato_venta[k[1]] = venta_cacao
+
+			#tecnologia de secado
+			tecnologia_secado = filtro.filter(year = year,mitigacionriesgos__tecnologia_secado = k[0]).count()
+			tecnologia[k[1]] = tecnologia_secado
+
+		#como hacen el contrato
+		contrato = {}
+		for obj in VENTA_CHOICES:
+			conteo = filtro.filter(year = year,mitigacionriesgos__si_venta_cacao = obj[0]).count()
+			contrato[obj[1]] = conteo
+
+		#tecnologia d secado: propia/Cooperativa
+		propiedad_tecnologia = {}
+		for obj in TECNOLOGIA_CHOICES:
+			conteo = filtro.filter(year = year,mitigacionriesgos__si_tecnologia_secado = obj[0]).count()
+			propiedad_tecnologia[obj[1]] = conteo
+
+		years[year] = (mitigacion_riesgos,productores,contrato_venta,contrato,tecnologia,propiedad_tecnologia)
 
 	return render(request, template, locals())
-	
+
+def organizacion_productiva(request,template="productores/organizacion_productiva.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		servicios = {}
+		beneficios = {}
+		for obj in TiposServicio.objects.all():
+			conteo = filtro.filter(year = year,serviciosorganizado__tipos_servicio = obj).count()
+			servicios[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		for obj in Beneficios.objects.all():
+			conteo = filtro.filter(year = year,beneficiosorganizado__beneficios = obj).count()
+			beneficios[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		years[year] = (servicios,beneficios)
+
+	return render(request, template, locals())
+
+def produccion(request,template="productores/produccion.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	EDAD_PLANTA_CHOICES = (
+		(3,'De 4 a 10 años'),
+		(4,'De 10 a 20 años'),
+		(5,'Mayores de 20 años'),
+	)
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		edades = collections.OrderedDict()
+		for obj in EDAD_PLANTA_CHOICES:
+			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+											total = Sum('plantacion__area'))['total']
+			#----------------------------------------------------------------------------------------------------
+			numero_plantas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+											plantas=Sum('plantacion__numero_plantas'))['plantas']
+			try:
+				numero_plantas = numero_plantas / area_total
+			except:
+				numero_plantas = 0
+			#----------------------------------------------------------------------------------------------------
+			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
+
+			plant_improd = saca_porcentajes(improductivas,numero_plantas,False)
+			#----------------------------------------------------------------------------------------------------
+			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+											semillas = Sum('plantacion__plantas_semilla'))['semillas']
+
+			plantas_semillas = saca_porcentajes(semillas,numero_plantas,False)
+			#----------------------------------------------------------------------------------------------------
+			injerto = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+											injerto = Sum('plantacion__plantas_injerto'))['injerto']
+
+			plantas_injerto = saca_porcentajes(injerto,numero_plantas,False)
+			#----------------------------------------------------------------------------------------------------
+
+			edades[obj[1]] = (area_total, numero_plantas, plant_improd, plantas_semillas, plantas_injerto)
+
+		#produccion cacao
+		convencional = filtro.filter(year = year,certificacion__cacao_certificado = '2').aggregate(
+											convencional=Sum('produccioncacao__cacao_baba'))['convencional']
+        if convencional == None:
+        	convencional = 0
+
+        fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
+											fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
+        if fermentado == None:
+        	fermentado = 0
+
+		#meses de produccion
+		meses_prod = collections.OrderedDict()
+		for obj in MESES_CHOICES:
+			frecuencia = filtro.filter(year = year,produccioncacao__meses__icontains = obj[0]).count()
+			meses_prod[obj[1]] = frecuencia
+
+		years[year] = (edades,convencional,fermentado,meses_prod)
+
+	return render(request, template, locals())
+
 def get_munis(request):
 	'''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
 	ids = request.GET.get('ids', '')

@@ -13,7 +13,9 @@ urlpatterns = [
     url(r'^reforestacion/$', reforestacion, name='reforestacion'),
     url(r'^caracterizacion-terreno/$', caracterizacion_terreno, name='caracterizacion-terreno'),
     url(r'^riesgos-finca/$', riesgos_finca, name='riesgos-finca'),
-    url(r'^mitigacion-riesgos-finca/$', mitigacion_riesgos_finca, name='mitigacion-riesgos-finca'),
+    url(r'^mitigacion-riesgos/$', mitigacion_riesgos, name='mitigacion-riesgos'),
+    url(r'^organizacion-productiva/$', organizacion_productiva, name='organizacion-productiva'),
+    url(r'^produccion/$', produccion, name='produccion'),
 
     url(r'^ajax/munis/$', get_munis, name='get-munis'),
     url(r'^ajax/comunies/$', get_comunies, name='get-comunies'),
