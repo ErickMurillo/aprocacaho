@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^mitigacion-riesgos/$', mitigacion_riesgos, name='mitigacion-riesgos'),
     url(r'^organizacion-productiva/$', organizacion_productiva, name='organizacion-productiva'),
     url(r'^produccion/$', produccion, name='produccion'),
+    url(r'^certificacion/$', certificacion, name='certificacion'),
 
     url(r'^ajax/munis/$', get_munis, name='get-munis'),
     url(r'^ajax/comunies/$', get_comunies, name='get-comunies'),

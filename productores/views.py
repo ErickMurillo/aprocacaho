@@ -557,6 +557,56 @@ def produccion(request,template="productores/produccion.html"):
 
 	return render(request, template, locals())
 
+def certificacion(request,template="productores/certificacion.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		#certificaciones
+		certificaciones = {}
+		for obj in CERTIFICACIONES_CHOICES:
+			conteo = filtro.filter(year = year, certificacion__tipo__icontains = obj[0]).count()
+			certificaciones[obj[1]] = conteo
+
+		#productores certificados y no certificados
+		certificados = filtro.filter(year = year,certificacion__cacao_certificado = 1).count()
+		no_certificados = filtro.filter(year = year,certificacion__cacao_certificado = 2).count()
+
+		# #No de productores con uno o más sellos
+		x = 0
+		y = 0
+		z = 0
+		lista_certificaciones = []
+		for obj in filtro.filter(year = year):
+			num_certif = 0
+			for cert in Certificacion.objects.filter(cacao_certificado = 1,encuesta = obj):
+				for tipo in cert.tipo:
+					num_certif += 1
+			if num_certif == 1:
+				x += 1
+			elif num_certif == 2:
+				y += 1
+			elif num_certif > 2:
+				z += 1
+		lista_certificaciones.append([x, y, z])
+
+		quien_certifica = {}
+		for obj in QuienCertifica.objects.all():
+			conteo = filtro.filter(year = year,certificacion__quien_certifica = obj).count()
+			quien_certifica[obj] = conteo
+
+		quien_paga= {}
+		for obj in PAGA_CERT_CHOICES:
+			conteo = filtro.filter(year = year,certificacion__paga_certificacion = obj[0]).count()
+			quien_paga[obj[1]] = conteo
+
+		years[year] = (productores,certificaciones,certificados,no_certificados,lista_certificaciones,
+						quien_certifica,quien_paga)
+
+	return render(request, template, locals())
+
 def get_munis(request):
 	'''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
 	ids = request.GET.get('ids', '')
