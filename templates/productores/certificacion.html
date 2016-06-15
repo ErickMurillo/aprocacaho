@@ -19,6 +19,8 @@
   <div class="tab-content">
     {% for year,value in years.items %}
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <h5>costo promedio de inversión para cacao: {{value.7}}</h5>
+      <h5>costo promedio de inversión para finca: {{value.8}}</h5>
       <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
       <div id="prod_cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
       <div id="cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>

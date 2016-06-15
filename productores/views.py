@@ -79,51 +79,51 @@ def consulta_productores(request,template="productores/consulta.html"):
 	return render(request, template, locals())
 
 def dashboard(request,template="productores/dashboard.html"):
-    filtro = _queryset_filtrado(request)
+	filtro = _queryset_filtrado(request)
 
-    years = collections.OrderedDict()
+	years = collections.OrderedDict()
 
-    for year in request.session['year']:
-        productores = filtro.filter(year=year).count()
+	for year in request.session['year']:
+		productores = filtro.filter(year=year).count()
 
-        #plantacion cacao
-        areas = collections.OrderedDict()
-        area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
+		#plantacion cacao
+		areas = collections.OrderedDict()
+		area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
 
-        for obj in EDAD_PLANTA_CHOICES:
+		for obj in EDAD_PLANTA_CHOICES:
 			conteo = filtro.filter(year=year,plantacion__edad=obj[0]).aggregate(total=Sum('plantacion__area'))['total']
 			if conteo == None:
 				conteo = 0
 			areas[obj[1]] = saca_porcentajes(conteo,area_total,False)
 
-        #rendimiento
-        #areas certificadas
-        area_cert = filtro.filter(year=year,plantacion__edad__in=[3,4,5],certificacion__cacao_certificado='1').aggregate(area_cacao=Sum('plantacion__area'))['area_cacao']
-        if area_cert == None:
-        	area_cert = 0
+		#rendimiento
+		#areas certificadas
+		area_cert = filtro.filter(year=year,plantacion__edad__in=[3,4,5],certificacion__cacao_certificado='1').aggregate(area_cacao=Sum('plantacion__area'))['area_cacao']
+		if area_cert == None:
+			area_cert = 0
 
-        #areas no certificadas
-        area_no_cert = filtro.filter(year=year,plantacion__edad__in=[3,4,5],certificacion__cacao_certificado='2').aggregate(area_cacao=Sum('plantacion__area'))['area_cacao']
-        if area_no_cert == None:
-        	area_no_cert = 0
+		#areas no certificadas
+		area_no_cert = filtro.filter(year=year,plantacion__edad__in=[3,4,5],certificacion__cacao_certificado='2').aggregate(area_cacao=Sum('plantacion__area'))['area_cacao']
+		if area_no_cert == None:
+			area_no_cert = 0
 
-        convencional = filtro.filter(year=year,certificacion__cacao_certificado='2').aggregate(convencional=Sum('produccioncacao__cacao_baba'))['convencional']
-        if convencional == None:
-        	convencional = 0
+		convencional = filtro.filter(year=year,certificacion__cacao_certificado='2').aggregate(convencional=Sum('produccioncacao__cacao_baba'))['convencional']
+		if convencional == None:
+			convencional = 0
 
-        fermentado = filtro.filter(year=year,certificacion__cacao_certificado='1').aggregate(fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
-        if fermentado == None:
-        	fermentado = 0
+		fermentado = filtro.filter(year=year,certificacion__cacao_certificado='1').aggregate(fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
+		if fermentado == None:
+			fermentado = 0
 
-        try:
-        	rendimiento_conv = (convencional * 100) / area_no_cert
-        except:
-        	rendimiento_conv = 0
+		try:
+			rendimiento_conv = (convencional * 100) / area_no_cert
+		except:
+			rendimiento_conv = 0
 
-        try:
-        	rendimiento_ferm = (fermentado * 100) / area_cert
-        except:
-        	rendimiento_ferm = 0
+		try:
+			rendimiento_ferm = (fermentado * 100) / area_cert
+		except:
+			rendimiento_ferm = 0
 
 		#area total
 		area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
@@ -150,7 +150,7 @@ def dashboard(request,template="productores/dashboard.html"):
 		if no_certificados == None:
 			no_certificados = 0
 
-        # #No de productores con uno o más sellos
+		# #No de productores con uno o más sellos
 		x = 0
 		y = 0
 		z = 0
@@ -178,11 +178,11 @@ def dashboard(request,template="productores/dashboard.html"):
 				print depto.latitud_1
 				prod_depto[depto] = (depto.latitud_1,depto.longitud_1,produccion)
 
-        #diccionario de los años
-        years[year] = (areas,rendimiento_conv,rendimiento_ferm,convencional,fermentado,area_total,promedio_productor,
-                        socio,no_socio,certificados,no_certificados,lista_certificaciones,prod_depto)
+		#diccionario de los años
+		years[year] = (areas,rendimiento_conv,rendimiento_ferm,convencional,fermentado,area_total,promedio_productor,
+						socio,no_socio,certificados,no_certificados,lista_certificaciones,prod_depto)
 
-    return render(request, template, locals())
+	return render(request, template, locals())
 
 def educacion(request,template="productores/educacion.html"):
 	filtro = _queryset_filtrado(request)
@@ -197,24 +197,24 @@ def educacion(request,template="productores/educacion.html"):
 									num_total = Sum('educacion__numero_total'))['num_total']
 
 		grafo_educacion_hombre = filtro.filter(year=year,educacion__rango__in=lista_hombres).aggregate(
-                                    no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
-                                    primaria_incompleta = Sum('educacion__primaria_incompleta'),
-                                    primaria_completa = Sum('educacion__primaria_completa'),
-                                    secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
-                                    bachiller = Sum('educacion__bachiller'),
-                                    universitario = Sum('educacion__universitario_tecnico'))
+									no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
+									primaria_incompleta = Sum('educacion__primaria_incompleta'),
+									primaria_completa = Sum('educacion__primaria_completa'),
+									secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
+									bachiller = Sum('educacion__bachiller'),
+									universitario = Sum('educacion__universitario_tecnico'))
 
 		#mujeres
 		cantidad_miembros_mujeres = filtro.filter(year=year,educacion__rango__in=lista_mujeres).aggregate(
 									num_total = Sum('educacion__numero_total'))['num_total']
 
 		grafo_educacion_mujer = filtro.filter(year=year,educacion__rango__in=lista_mujeres).aggregate(
-                                    no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
-                                    primaria_incompleta = Sum('educacion__primaria_incompleta'),
-                                    primaria_completa = Sum('educacion__primaria_completa'),
-                                    secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
-                                    bachiller = Sum('educacion__bachiller'),
-                                    universitario = Sum('educacion__universitario_tecnico'))
+									no_lee_ni_escribe = Sum('educacion__no_lee_ni_escribe'),
+									primaria_incompleta = Sum('educacion__primaria_incompleta'),
+									primaria_completa = Sum('educacion__primaria_completa'),
+									secundaria_incompleta = Sum('educacion__secundaria_incompleta'),
+									bachiller = Sum('educacion__bachiller'),
+									universitario = Sum('educacion__universitario_tecnico'))
 
 		#tablas
 		tabla_educacion_hombre = []
@@ -539,13 +539,13 @@ def produccion(request,template="productores/produccion.html"):
 		#produccion cacao
 		convencional = filtro.filter(year = year,certificacion__cacao_certificado = '2').aggregate(
 											convencional=Sum('produccioncacao__cacao_baba'))['convencional']
-        if convencional == None:
-        	convencional = 0
+		if convencional == None:
+			convencional = 0
 
-        fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
+		fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
 											fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
-        if fermentado == None:
-        	fermentado = 0
+		if fermentado == None:
+			fermentado = 0
 
 		#meses de produccion
 		meses_prod = collections.OrderedDict()
@@ -602,9 +602,80 @@ def certificacion(request,template="productores/certificacion.html"):
 			conteo = filtro.filter(year = year,certificacion__paga_certificacion = obj[0]).count()
 			quien_paga[obj[1]] = conteo
 
-		years[year] = (productores,certificaciones,certificados,no_certificados,lista_certificaciones,
-						quien_certifica,quien_paga)
+		mantenimiento_cacao = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_cacao'))
+		mantenimiento_finca = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_finca'))
 
+		years[year] = (productores,certificaciones,certificados,no_certificados,lista_certificaciones,
+						quien_certifica,quien_paga,mantenimiento_cacao,mantenimiento_finca)
+
+	return render(request, template, locals())
+
+def tecnicas_aplicadas(request,template="productores/tecnicas_aplicadas.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		#viveros
+		viveros = {}
+		for obj in VIVEROS_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__viveros__icontains = obj[0]).count()
+			viveros[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#fertilizacion
+		fertilizacion = {}
+		for obj in FERTILIZACION_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__fertilizacion__icontains = obj[0]).count()
+			fertilizacion[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#manejo_fis
+		manejo_fis = {}
+		for obj in MANEJO_FIS_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__pract_manejo_fis__icontains = obj[0]).count()
+			manejo_fis[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#manejo_prod
+		manejo_prod = {}
+		for obj in MANEJO_PROD_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__pract_manejo_prod__icontains = obj[0]).count()
+			manejo_prod[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#mejora_plat
+		mejora_plat = {}
+		for obj in MEJORA_PLANTACION_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__pract_mejora_plat__icontains = obj[0]).count()
+			mejora_plat[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#manejo_post
+		manejo_post = {}
+		for obj in MANEJO_POSTCOSECHA_CHOICES:
+			conteo = filtro.filter(year = year,tecnicasaplicadas__pract_manejo_post_c__icontains = obj[0]).count()
+			manejo_post[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		acopio_cacao = {}
+		acopio_org = {}
+		for obj in SI_NO_CHOICES:
+			cacao = filtro.filter(year = year,tecnicasaplicadas__acopio_cacao = obj[0]).count()
+			acopio_cacao[obj[1]] = cacao
+
+			org = filtro.filter(year = year,tecnicasaplicadas__acopio_org = obj[0]).count()
+			acopio_org[obj[1]] = org
+
+		years[year] = (viveros,fertilizacion,manejo_fis,manejo_prod,mejora_plat,manejo_post,
+						acopio_cacao,acopio_org)
+
+	return render(request, template, locals())
+
+def comercializacion(request,template="productores/comercializacion.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		
+		# years[year] =
 	return render(request, template, locals())
 
 def get_munis(request):
