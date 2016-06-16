@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "productores/filtros.html" %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="tecnica{{year}}"></div>
+      <a href="#" onclick="exportarXLS('modalidad'); return false;">Exportar tabla</a>
+      <div class="table-responsive" id="modalidad">
+          <table class="table table-bordered table-hover">
+            <caption>Capacitaciones técnicas</caption>
+              <thead>
+                  <tr>
+                      <th>Capacitaciones</th>
+                      <th>Hijas</th>
+                      <th>Hijos</th>
+                      <th>Jefa familia mujer</th>
+                      <th>Jefe familia varón</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for k,v in value.1.items %}
+	                <tr>
+	                    <td>{{k}}</td>
+                      {% for valor in v %}
+                      <td>
+                          {{valor}}
+                      </td>
+                      {% endfor %}
+	                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div id="socio{{year}}"></div>
+          <a href="#" onclick="exportarXLS('modalidad'); return false;">Exportar tabla</a>
+          <div class="table-responsive" id="modalidad">
+              <table class="table table-bordered table-hover">
+                <caption>Capacitaciones socio-económicas</caption>
+                  <thead>
+                      <tr>
+                          <th>Capacitaciones</th>
+                          <th>Hijas</th>
+                          <th>Hijos</th>
+                          <th>Jefa familia mujer</th>
+                          <th>Jefe familia varón</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for k,v in value.3.items %}
+    	                <tr>
+    	                    <td>{{k}}</td>
+                          {% for valor in v %}
+                          <td>
+                              {{valor}}
+                          </td>
+                          {% endfor %}
+    	                </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+    $('#tecnica{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '¿Quién recibe la capacitación técnica?'
+        },
+        yAxis: {
+            title: {
+                text: 'Valores'
+            }
+
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Frecuencia'
+            }
+        },
+            xAxis: {
+            categories: [
+                'Capacitaciones',
+
+            ],
+            crosshair: true
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.series.name +': '+ this.y;
+            }
+        },
+         legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+        plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+        series: [
+        {% for k,v in value.0.items %}
+            {name: '{{k}}', data: [{{v}}]},
+        {% endfor %}
+        ]
+    });
+
+    $('#socio{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '¿Quién recibe la capacitación socio-económica?'
+        },
+        yAxis: {
+            title: {
+                text: 'Valores'
+            }
+
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Frecuencia'
+            }
+        },
+            xAxis: {
+            categories: [
+                'Capacitaciones',
+
+            ],
+            crosshair: true
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.series.name +': '+ this.y;
+            }
+        },
+         legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+        plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+        series: [
+        {% for k,v in value.2.items %}
+            {name: '{{k}}', data: [{{v}}]},
+        {% endfor %}
+        ]
+    });
+    {% endfor %}
+});
+</script>
+{% endblock extra_js %}

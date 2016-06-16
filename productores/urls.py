@@ -19,6 +19,10 @@ urlpatterns = [
     url(r'^certificacion/$', certificacion, name='certificacion'),
     url(r'^tecnicas-aplicadas/$', tecnicas_aplicadas, name='tecnicas-aplicadas'),
     url(r'^comercializacion/$', comercializacion, name='comercializacion'),
+    url(r'^capacitaciones/$', capacitaciones, name='capacitaciones'),
+    url(r'^problemas-areas-cacao/$', problemas_areas_cacao, name='problemas-areas-cacao'),
+    url(r'^genero/$', genero, name='genero'),
+    url(r'^ampliar-areas-cacao/$', ampliar_areas_cacao, name='ampliar-areas-cacao'),
 
     url(r'^ajax/munis/$', get_munis, name='get-munis'),
     url(r'^ajax/comunies/$', get_comunies, name='get-comunies'),

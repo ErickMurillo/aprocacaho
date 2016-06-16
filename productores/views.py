@@ -175,7 +175,6 @@ def dashboard(request,template="productores/dashboard.html"):
 				produccion = 0
 
 			if produccion != 0:
-				print depto.latitud_1
 				prod_depto[depto] = (depto.latitud_1,depto.longitud_1,produccion)
 
 		#diccionario de los años
@@ -674,8 +673,190 @@ def comercializacion(request,template="productores/comercializacion.html"):
 
 	for year in request.session['year']:
 		productores = filtro.filter(year = year).count()
-		
-		# years[year] =
+
+		#tabla comercio
+		comercio = []
+		for obj in PRODUCTO_CHOICES:
+			producto = filtro.filter(year = year,comercializacioncacao__producto = obj[0]).aggregate(
+					auto_consumo = Sum('comercializacioncacao__auto_consumo'),
+					venta = Sum('comercializacioncacao__venta'),
+					precio_venta = Avg('comercializacioncacao__precio_venta'))
+
+			lista = []
+			for x in QUIEN_VENDE_CHOICES:
+				conteo = filtro.filter(year = year,comercializacioncacao__producto = obj[0],
+										comercializacioncacao__quien_vende__icontains = x[0]).count()
+				lista.append(saca_porcentajes(conteo,productores,False))
+
+			comercio.append(
+						(obj[1],
+						producto['auto_consumo'],producto['venta'],
+						producto['precio_venta'],lista[0],lista[1],
+						lista[2],lista[3]
+						))
+
+		#distancia recorrida avg
+		distancia = filtro.filter(year = year).aggregate(avg = Avg('distanciacomerciocacao__distancia'))['avg']
+
+		#grafico venta
+		PRODUCTOS = (
+			(3,'Cacao en baba (qq)'),
+			(4,'Cacao rojo sin fermentar (qq)'),
+			(5,'Cacao fermentado (qq)'),
+			)
+
+		venta = {}
+		for obj in PRODUCTOS:
+			qq = filtro.filter(year = year,comercializacioncacao__producto = obj[0]).aggregate(
+											total = Sum('comercializacioncacao__venta'))['total']
+			if qq == None:
+				qq = 0
+			venta[obj[1]] = qq
+
+		years[year] = (distancia,comercio,venta)
+
+	return render(request, template, locals())
+
+def capacitaciones(request,template="productores/capacitaciones.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		#capacitaciones tecnicas
+		tecnicas = {}
+		for obj in CAPACITACIONES_CHOICES:
+			lista_tec = []
+			total = 0
+			for x in OPCIONES_CAPACITACIONES_CHOICES:
+				conteo = filtro.filter(year = year,capacitacionestecnicas__capacitaciones = obj[0],
+										capacitacionestecnicas__opciones__icontains = x[0]).count()
+				lista_tec.append(conteo)
+			tecnicas[obj[1]] = lista_tec
+
+		#grafico tecnicas
+		graf_tecnicas = {}
+		for obj in OPCIONES_CAPACITACIONES_CHOICES:
+			conteo = filtro.filter(year = year,capacitacionestecnicas__opciones__icontains = obj[0]).count()
+			graf_tecnicas[obj[1]] = conteo
+
+		#capacitaciones socio
+		socio = {}
+		for obj in CAPACITACIONES_SOCIO_CHOICES:
+			lista_socio = []
+			total = 0
+			for x in OPCIONES_CAPACITACIONES_CHOICES:
+				conteo = filtro.filter(year = year,capacitacionessocioeconomicas__capacitaciones_socio = obj[0],
+										capacitacionessocioeconomicas__opciones_socio__icontains = x[0]).count()
+				lista_socio.append(conteo)
+			socio[obj[1]] = lista_socio
+
+		#grafico socio
+		graf_socio = {}
+		for obj in OPCIONES_CAPACITACIONES_CHOICES:
+			conteo = filtro.filter(year = year,capacitacionessocioeconomicas__opciones_socio__icontains = obj[0]).count()
+			graf_socio[obj[1]] = conteo
+
+		years[year] = (graf_tecnicas,tecnicas,graf_socio,socio)
+
+	return render(request, template, locals())
+
+def problemas_areas_cacao(request,template="productores/problemas_cacao.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		area_1 = {}
+		for obj in ProblemasArea1.objects.all():
+			conteo = filtro.filter(year = year,problemasareacacao__area_1 = obj).count()
+			area_1[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		area_2 = {}
+		for obj in ProblemasArea2.objects.all():
+			conteo = filtro.filter(year = year,problemasareacacao__area_2 = obj).count()
+			area_2[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		area_3 = {}
+		for obj in ProblemasArea3.objects.all():
+			conteo = filtro.filter(year = year,problemasareacacao__area_3 = obj).count()
+			area_3[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		years[year] = (area_1,area_2,area_3)
+
+	return render(request, template, locals())
+
+def genero(request,template="productores/genero.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+
+		#participacion
+		participacion = {}
+		for obj in ActividadesProduccion.objects.all():
+			conteo = filtro.filter(year = year,genero__actividades = obj).count()
+			participacion[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#decisiones
+		DECISIONES_CHOICES = (
+			(1,'Siembra'),
+			(2,'Cosecha'),
+			(3,'Venta'),
+			(4,'Uso de los ingresos'),
+			)
+		decisiones = {}
+		for obj in DECISIONES_CHOICES:
+			conteo = filtro.filter(year = year,genero__decisiones__icontains = obj[0]).count()
+			decisiones[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#otros_ingresos
+		otros_ingresos = {}
+		for obj in OtrosIngresos.objects.all():
+			conteo = filtro.filter(year = year,genero__otros_ingresos = obj).count()
+			otros_ingresos[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#ingresos
+		ingresos = {}
+		for obj in SI_NO_CHOICES:
+			conteo = filtro.filter(year = year,genero__ingresos = obj[0]).count()
+			ingresos[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		#avg ingresos
+		ingreso_mesual_cacao = filtro.filter(year = year).aggregate(avg = Avg('genero__ingreso_mesual_cacao'))['avg']
+		ingreso_mesual = filtro.filter(year = year).aggregate(avg = Avg('genero__ingreso_mesual'))['avg']
+
+		#destino ingresos
+		destino_ingresos = {}
+		for obj in DestinoIngresos.objects.all():
+			conteo = filtro.filter(year = year,genero__destino_ingresos = obj).count()
+			destino_ingresos[obj] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		years[year] = (participacion,decisiones,otros_ingresos,ingresos,ingreso_mesual_cacao,ingreso_mesual,destino_ingresos)
+
+	return render(request, template, locals())
+
+def ampliar_areas_cacao(request,template="productores/ampliar_areas.html"):
+	filtro = _queryset_filtrado(request)
+
+	years = collections.OrderedDict()
+
+	for year in request.session['year']:
+		productores = filtro.filter(year = year).count()
+		interes = {}
+		for obj in SI_NO_CHOICES:
+			conteo = filtro.filter(year = year,ampliarareascacao__interes = obj[0]).count()
+			interes[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
+
+		total_areas = filtro.filter(year = year).aggregate(total = Sum('ampliarareascacao__cuanto'))['total']
+		promedio_areas = filtro.filter(year = year).aggregate(total = Avg('ampliarareascacao__cuanto'))['total']
+
+		years[year] = (interes,total_areas,promedio_areas)
+
 	return render(request, template, locals())
 
 def get_munis(request):
@@ -687,9 +868,9 @@ def get_munis(request):
 		lista = ids.split(',')
 		for id in lista:
 			try:
-				encuesta = Encuesta.objects.filter(entrevistado__municipio__departamento__id=id).distinct().values_list('entrevistado__municipio__id', flat=True)
+				encuesta = Encuesta.objects.filter(entrevistado__municipio__departamento__id = id).distinct().values_list('entrevistado__municipio__id', flat=True)
 				departamento = Departamento.objects.get(pk=id)
-				municipios = Municipio.objects.filter(departamento__id=departamento.pk,id__in=encuesta).order_by('nombre')
+				municipios = Municipio.objects.filter(departamento__id=departamento.pk,id__in = encuesta).order_by('nombre')
 				lista1 = []
 				for municipio in municipios:
 					muni = {}

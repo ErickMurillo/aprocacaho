@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "productores/filtros.html" %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div class="table-responsive" id="modalidad">
+          <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+              <caption>Áreas de Cacao</caption>
+              <thead>
+                  <tr>
+                      <th>Área total</th>
+                      <th>Área promedio por productor</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>{{value.1}}</td>
+                      <td>{{value.2}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div id="interes{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+    </div>
+  </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+{% for year,value in years.items %}
+$('#interes{{year}}').highcharts({
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Interés familiar de ampliar sus áreas de cacao'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '{point.y:.2f}%',
+        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+        style: {
+          textShadow: '0 0 3px white'
+        }
+      },
+      showInLegend: true
+    }
+
+  },
+  series: [{
+    name: "Porcentajes",
+    colorByPoint: true,
+    data: [
+    {% for k,v in value.0.items %}
+    {
+      name: "{{k}} ({{v.0}})",
+      y: {{v.1}}
+    },
+    {% endfor %}
+
+
+    ]
+  }]
+});
+{% endfor %}
+});
+</script>
+{% endblock extra_js %}

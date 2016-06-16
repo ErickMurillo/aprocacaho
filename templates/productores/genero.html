@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "productores/filtros.html" %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div id="participacion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="decisiones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="otros_ingresos{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="ingresos{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <p>Ingreso promedio mensual recibido solo cacao: {{value.4}}</p>
+      <p>Ingreso promedio mensual recibido de todas las actividades: {{value.5}}</p>
+      <div id="destino{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+    </div>
+  </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+$('#participacion{{year}}').highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Participación la mujer en la producción de cacao'
+  },
+
+  yAxis: {
+      title: {
+          text: 'Valores'
+      }
+  },
+  credits: {
+      enabled: false
+  },
+  yAxis: {
+          min: 0,
+          title: {
+              text: 'Porcentajes (%)'
+          }
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.series.name +': '+ this.y +'%';
+          }
+      },
+  series: [
+          {% for k,v in value.0.items %}
+          {
+              name: '{{k}} ({{v.0}})',
+              data: [{{v.1}}],
+              dataLabels: {
+                  enabled: true,
+                  rotation: 0,
+                  color: '#632D00',
+                  align: 'center',
+                  x: -3,
+                  y: 0,
+                      formatter: function() {
+                          return this.y + '%';
+                                            },
+                  style: {
+                      font: 'normal 13px Verdana, sans-serif'
+                          }
+                          }
+          },
+          {% endfor %}
+          ]
+});
+
+$('#decisiones{{year}}').highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Toma de decisión sobre destino de producción de cacao'
+  },
+
+  yAxis: {
+      title: {
+          text: 'Valores'
+      }
+  },
+  credits: {
+      enabled: false
+  },
+  yAxis: {
+          min: 0,
+          title: {
+              text: 'Porcentajes (%)'
+          }
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.series.name +': '+ this.y +'%';
+          }
+      },
+  series: [
+          {% for k,v in value.1.items %}
+          {
+              name: '{{k}} ({{v.0}})',
+              data: [{{v.1}}],
+              dataLabels: {
+                  enabled: true,
+                  rotation: 0,
+                  color: '#632D00',
+                  align: 'center',
+                  x: -3,
+                  y: 0,
+                      formatter: function() {
+                          return this.y + '%';
+                                            },
+                  style: {
+                      font: 'normal 13px Verdana, sans-serif'
+                          }
+                          }
+          },
+          {% endfor %}
+          ]
+});
+
+$('#otros_ingresos{{year}}').highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Otras fuentes de ingreso de la finca'
+  },
+
+  yAxis: {
+      title: {
+          text: 'Valores'
+      }
+  },
+  credits: {
+      enabled: false
+  },
+  yAxis: {
+          min: 0,
+          title: {
+              text: 'Porcentajes (%)'
+          }
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.series.name +': '+ this.y +'%';
+          }
+      },
+  series: [
+          {% for k,v in value.2.items %}
+          {
+              name: '{{k}} ({{v.0}})',
+              data: [{{v.1}}],
+              dataLabels: {
+                  enabled: true,
+                  rotation: 0,
+                  color: '#632D00',
+                  align: 'center',
+                  x: -3,
+                  y: 0,
+                      formatter: function() {
+                          return this.y + '%';
+                                            },
+                  style: {
+                      font: 'normal 13px Verdana, sans-serif'
+                          }
+                          }
+          },
+          {% endfor %}
+          ]
+});
+
+$('#ingresos{{year}}').highcharts({
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: '¿Recibe ingresos por actividades que realiza?'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '{point.y:.2f}%',
+        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+        style: {
+          textShadow: '0 0 3px white'
+        }
+      },
+      showInLegend: true
+    }
+
+  },
+  series: [{
+    name: "Porcentajes",
+    colorByPoint: true,
+    data: [
+    {% for k,v in value.3.items %}
+    {
+      name: "{{k}} ({{v.0}})",
+      y: {{v.1}}
+    },
+    {% endfor %}
+
+
+    ]
+  }]
+});
+
+$('#destino{{year}}').highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Destino de los ingresos percibidos'
+  },
+
+  yAxis: {
+      title: {
+          text: 'Valores'
+      }
+  },
+  credits: {
+      enabled: false
+  },
+  yAxis: {
+          min: 0,
+          title: {
+              text: 'Porcentajes (%)'
+          }
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.series.name +': '+ this.y +'%';
+          }
+      },
+  series: [
+          {% for k,v in value.6.items %}
+          {
+              name: '{{k}} ({{v.0}})',
+              data: [{{v.1}}],
+              dataLabels: {
+                  enabled: true,
+                  rotation: 0,
+                  color: '#632D00',
+                  align: 'center',
+                  x: -3,
+                  y: 0,
+                      formatter: function() {
+                          return this.y + '%';
+                                            },
+                  style: {
+                      font: 'normal 13px Verdana, sans-serif'
+                          }
+                          }
+          },
+          {% endfor %}
+          ]
+});
+{% endfor %}
+});
+</script>
+{% endblock extra_js %}

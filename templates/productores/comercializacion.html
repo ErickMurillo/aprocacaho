@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "productores/filtros.html" %}
 <div id="tabs">
   <!-- Nav tabs -->
   <ul class="nav" role="navegacion">
@@ -18,7 +19,42 @@
   <div class="tab-content">
     {% for year,value in years.items %}
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <div id="viveros{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+      <p>Distancia promedio recorrida para la comercialización: {{value.0}} km</p>
+      <div id="venta{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <a href="#" onclick="exportarXLS('modalidad'); return false;">Exportar tabla</a>
+      <div class="table-responsive" id="modalidad">
+          <table class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                      <th rowspan="2">Producto</th>
+                      <th rowspan="2">Auto-consumo</th>
+                      <th rowspan="2">Venta</th>
+                      <th rowspan="2">Precio promedio unitario</th>
+                      <th colspan="4" style="text-align:center;">Dónde se comercializa (%)</th>
+                  </tr>
+                  <tr>
+                      <th>Comunidad</th>
+                      <th>Interm</th>
+                      <th>Merc</th>
+                      <th>Coop.</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for fila in value.1 %}
+	                <tr>
+	                    {% for celda in fila %}
+	                    <td>{% if celda.0 %}
+	                    		{{celda}}
+	                    	{% else %}
+	                    		{{celda}}
+	                    	{% endif %}
+	                    </td>
+	                    {% endfor %}
+	                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
     </div>
 
     </div>
@@ -27,4 +63,62 @@
 {% endblock content %}
 
 {% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#venta{{year}}').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Venta por calidad de cacao en quintales'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Quintales'
+      }
+
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> qq<br/>'
+    },
+
+    series: [{
+      name: "Venta",
+      colorByPoint: true,
+      data: [
+        {% for k,v in value.2.items %}
+        {
+          name: "{{k}}",
+          y: {{v}},
+        },
+        {% endfor %}
+    ]
+  }],
+});
+});
+{% endfor %}
+</script>
 {% endblock extra_js %}

@@ -110,7 +110,6 @@ class TecnicasAplicadas_Inline(admin.TabularInline):
 
 class ComercializacionCacao_Inline(admin.TabularInline):
 	model = ComercializacionCacao
-	max_num = 11
 	extra = 1
 
 class DistanciaComercioCacao_Inline(admin.TabularInline):
