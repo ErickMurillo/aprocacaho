@@ -84,14 +84,14 @@ def dashboard(request,template="productores/dashboard.html"):
 	years = collections.OrderedDict()
 
 	for year in request.session['year']:
-		productores = filtro.filter(year=year).count()
+		productores = filtro.filter(year = year).count()
 
 		#plantacion cacao
 		areas = collections.OrderedDict()
-		area_total = filtro.filter(year=year).aggregate(area_total=Sum('plantacion__area'))['area_total']
+		area_total = filtro.filter(year = year).aggregate(area_total = Sum('plantacion__area'))['area_total']
 
 		for obj in EDAD_PLANTA_CHOICES:
-			conteo = filtro.filter(year=year,plantacion__edad=obj[0]).aggregate(total=Sum('plantacion__area'))['total']
+			conteo = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(total = Sum('plantacion__area'))['total']
 			if conteo == None:
 				conteo = 0
 			areas[obj[1]] = saca_porcentajes(conteo,area_total,False)

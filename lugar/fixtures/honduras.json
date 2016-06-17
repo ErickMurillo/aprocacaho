@@ -2501,5 +2501,70 @@
     "slug": "cololaca",
     "longitud": "-88.533333"
   }
+},
+
+{
+  "pk": 221305,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.237403",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Erandique",
+    "slug": "erandique",
+    "longitud": "-88.4772348"
+  }
+},
+
+{
+  "pk": 221306,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.1267643",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Gualcinse",
+    "slug": "gualcinse",
+    "longitud": "-88.5495472"
+  }
+},
+
+{
+  "pk": 221307,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.1833063",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "Guarita",
+    "slug": "guarita",
+    "longitud": "-88.886708"
+  }
+},
+
+{
+  "pk": 221308,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.4777847",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "La Campa",
+    "slug": "la-campa",
+    "longitud": "-88.5993718"
+  }
+},
+
+{
+  "pk": 221309,
+  "model": "lugar.municipio",
+  "fields": {
+    "latitud": "14.6169503",
+    "extension": "0.00",
+    "departamento": 2213,
+    "nombre": "La Iguala",
+    "slug": "la-iguala",
+    "longitud": "-88.6032994"
+  }
 }
 ]
