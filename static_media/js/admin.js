@@ -28,6 +28,23 @@
 				$('#id_tenenciapropiedad_set-0-no').show();
 			};
 		});
+
+		var socio = $('#id_organizacionasociada_set-0-socio').val();
+			if (socio === '1' ) {
+				$('#organizacionasociada_set-0 .field-organizacion').show();
+			}else{
+				$('#organizacionasociada_set-0 .field-organizacion').hide();
+			};
+
+			$('#id_organizacionasociada_set-0-socio').change(function(){
+				var socio = $('#id_organizacionasociada_set-0-socio').val();
+				if (socio === '1' ) {
+					$('#organizacionasociada_set-0 .field-organizacion').show();
+				}else{
+					$('#organizacionasociada_set-0 .field-organizacion').hide();
+				};
+			});
+
 	});
 
 })(jQuery || django.jQuery);
