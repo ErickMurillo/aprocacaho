@@ -2,6 +2,21 @@
 
 {% block content %}
 {% include "productores/filtros.html" %}
+<style>
+.labels {
+ /*color: white;*/
+ /*background-color: #ff2b00;*/
+ font-family: "Roboto", sans-serif;
+ font-size: 12px;
+ text-align: center;
+ width: auto;
+ white-space: nowrap;
+ margin-left: -12px !important;
+ margin-top: -36px !important;
+ padding: 2px;
+ border-radius: 15px
+}
+</style>
 <div>
 <h4>Indicadores</h4>
 <ul>
@@ -52,7 +67,7 @@
       <div>
         <div class="col-md-6">
           <h4 align="center">Producción de cacao en toneladas por departamento</h4>
-          <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:363px"></div>
+          <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:400px"></div>
         </div>
 
       </div>
@@ -290,7 +305,7 @@ $(function () {
 $(function () {
   $('#prod_certificados{{year}}').highcharts({
     chart: {
-      type: 'bar'
+      type: 'column'
     },
     title: {
       text: 'Número de productores certificados'
@@ -303,23 +318,28 @@ $(function () {
       title: {
         text: 'Productores'
       }
-
+    },
+    tooltip: {
+        formatter: function() {
+            return ''+
+            this.series.name +': '+ this.y ;
+        }
     },
     legend: {
       enabled: false
     },
     plotOptions: {
-      column: {
-        stacking: 'normal',
-        dataLabels: {
-          enabled: true,
-          format: '{point.y}',
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-          style: {
-            textShadow: '0 0 3px black'
-          }
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
         }
-      }
     },
 
     tooltip: {
@@ -428,7 +448,7 @@ $(function () {
 var map_{{year}};
 {% endfor %}
 
-var latlng = new google.maps.LatLng(14.739721,-88.486916);
+var latlng = new google.maps.LatLng(14.5590251,-86.476418);
 
 function initialize() {
   var myOptions = {
