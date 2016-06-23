@@ -9,23 +9,26 @@
 		var dueno = $('#id_tenenciapropiedad_set-0-dueno_propiedad').val();
 			if (dueno === '1' ) {
 				$('#id_tenenciapropiedad_set-0-si').show();
-				$('#id_tenenciapropiedad_set-0-no').hide();
+				$('#tenenciapropiedad_set-0 .field-no').hide();
 			}else if(dueno === '2'){
 				$('#id_tenenciapropiedad_set-0-si').hide();
-				$('#id_tenenciapropiedad_set-0-no').show();
+				$('#tenenciapropiedad_set-0 .field-no').show();
 			}else{
 				$('#id_tenenciapropiedad_set-0-si').hide();
-				$('#id_tenenciapropiedad_set-0-no').hide();
+				$('#tenenciapropiedad_set-0 .field-no').hide();
 			};
 
 		$('#id_tenenciapropiedad_set-0-dueno_propiedad').change(function(){
-			var valor_tipo = $('#id_tenenciapropiedad_set-0-dueno_propiedad').val();
-			if (valor_tipo == '1' ) {
+			var dueno = $('#id_tenenciapropiedad_set-0-dueno_propiedad').val();
+			if (dueno === '1' ) {
 				$('#id_tenenciapropiedad_set-0-si').show();
-				$('#id_tenenciapropiedad_set-0-no').hide();
+				$('#tenenciapropiedad_set-0 .field-no').hide();
+			}else if(dueno === '2'){
+				$('#id_tenenciapropiedad_set-0-si').hide();
+				$('#tenenciapropiedad_set-0 .field-no').show();
 			}else{
 				$('#id_tenenciapropiedad_set-0-si').hide();
-				$('#id_tenenciapropiedad_set-0-no').show();
+				$('#tenenciapropiedad_set-0 .field-no').hide();
 			};
 		});
 
@@ -42,6 +45,35 @@
 					$('#organizacionasociada_set-0 .field-organizacion').show();
 				}else{
 					$('#organizacionasociada_set-0 .field-organizacion').hide();
+				};
+			});
+
+
+			var certificado = $('#id_certificacion_set-0-cacao_certificado').val();
+			if (certificado === '1' ) {
+				$('#certificacion_set-0 .field-tipo').show();
+				$('#certificacion_set-0 .field-quien_certifica').show();
+				$('#certificacion_set-0 .field-paga_certificacion').show();
+				$('#certificacion_set-0 .field-costo_certificacion').show();
+			}else{
+				$('#certificacion_set-0 .field-tipo').hide();
+				$('#certificacion_set-0 .field-quien_certifica').hide();
+				$('#certificacion_set-0 .field-paga_certificacion').hide();
+				$('#certificacion_set-0 .field-costo_certificacion').hide()
+			};
+
+			$('#id_certificacion_set-0-cacao_certificado').change(function(){
+				var certificado = $('#id_certificacion_set-0-cacao_certificado').val();
+				if (certificado === '1' ) {
+					$('#certificacion_set-0 .field-tipo').show();
+					$('#certificacion_set-0 .field-quien_certifica').show();
+					$('#certificacion_set-0 .field-paga_certificacion').show();
+					$('#certificacion_set-0 .field-costo_certificacion').show();
+				}else{
+					$('#certificacion_set-0 .field-tipo').hide();
+					$('#certificacion_set-0 .field-quien_certifica').hide();
+					$('#certificacion_set-0 .field-paga_certificacion').hide();
+					$('#certificacion_set-0 .field-costo_certificacion').hide()
 				};
 			});
 
