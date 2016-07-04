@@ -1,9 +1,64 @@
 {% extends "base.html" %}
 
-{% block extra_js %}
-{% endblock extra_js %}
-
 {% block content %}
 <a href="/productores/">Productores</a>
 <a href="/organizaciones/">Organizaciones</a>
+
+<div id="map-canvas" style="width:50%; height:400px"></div>
+
 {% endblock content %}
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript" src="/static/js/markerclusterer.js"></script>
+<script type="text/javascript" src="/static/js/infobox.js"></script>
+<script>
+var markers = [];
+function initialize()
+{
+	var infowindow = new google.maps.InfoWindow();
+	var myLatlng = new google.maps.LatLng(14.5590251,-86.476418);
+	var myOptions = {
+		zoom: 7,
+		center: myLatlng,
+	}
+
+	var map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+	var bounds = new google.maps.LatLngBounds();
+	var infowindow = new google.maps.InfoWindow();
+	// var image = new google.maps.MarkerImage('/static/img/m.png');
+
+
+	$.getJSON("{% url 'obtener-lista' %}", function(data){
+		$.each(data, function(i, elemento){
+			var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
+			bounds.extend(latlng);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: map,
+				title: elemento.nombre,
+				// icon: image,
+				item: '',
+				id: elemento.id
+			});
+			markers.push(marker);
+
+			google.maps.event.addListener(marker, 'click', (function(mm, tt) {
+				return function() {
+					infowindow.setContent(tt);
+					infowindow.open(map, mm);
+				}
+			})(marker, elemento.nombre));
+
+		});
+		var markerCluster = new MarkerClusterer(map, markers);
+
+	});
+
+	//map.fitBounds(bounds);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% endblock extra_js %}

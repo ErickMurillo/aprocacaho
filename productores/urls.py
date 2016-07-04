@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^ajax/munis/$', get_munis, name='get-munis'),
     url(r'^ajax/comunies/$', get_comunies, name='get-comunies'),
     url(r'^ajax/organi/$', get_organi, name='get-organi'),
+    url(r'^mapa/$', obtener_lista, name='obtener-lista'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -286,6 +286,9 @@ def uso_tierra(request,template="productores/uso_tierra.html"):
 		for obj in CHOICE_TIERRA:
 			area = filtro.filter(year = year,detalleareafinca__seleccion = obj[0]).aggregate(
 								suma = Sum('detalleareafinca__area'))['suma']
+			if area == None:
+				area = 0
+
 			areas_finca[obj[1]] = (area,saca_porcentajes(area,total_areas,False))
 
 		years[year] = areas_finca
@@ -514,6 +517,8 @@ def produccion(request,template="productores/produccion.html"):
 		for obj in EDAD_PLANTA_CHOICES:
 			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											total = Sum('plantacion__area'))['total']
+			if area_total == None:
+				area_total = 0
 			#----------------------------------------------------------------------------------------------------
 			numero_plantas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											plantas=Sum('plantacion__numero_plantas'))['plantas']
@@ -606,8 +611,8 @@ def certificacion(request,template="productores/certificacion.html"):
 			conteo = filtro.filter(year = year,certificacion__paga_certificacion = obj[0]).count()
 			quien_paga[obj[1]] = conteo
 
-		mantenimiento_cacao = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_cacao'))
-		mantenimiento_finca = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_finca'))
+		mantenimiento_cacao = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_cacao'))['costo']
+		mantenimiento_finca = filtro.filter(year = year).aggregate(costo = Avg('costoproduccion__mantenimiento_finca'))['costo']
 
 		years[year] = (productores,certificaciones,certificados,no_certificados,lista_certificaciones,
 						quien_certifica,quien_paga,mantenimiento_cacao,mantenimiento_finca)
@@ -934,3 +939,17 @@ def saca_porcentajes(dato, total, formato=True):
 			return '%.2f' % porcentaje
 	else:
 		return 0
+
+#obtener puntos en el mapa
+def obtener_lista(request):
+	if request.is_ajax():
+		lista = []
+		for objeto in Encuesta.objects.all():
+			dicc = dict(nombre=objeto.entrevistado.municipio.nombre, id=objeto.id,
+						lon=float(objeto.entrevistado.municipio.longitud),
+						lat=float(objeto.entrevistado.municipio.latitud)
+						)
+			lista.append(dicc)
+
+		serializado = simplejson.dumps(lista)
+		return HttpResponse(serializado, content_type = 'application/json')

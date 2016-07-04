@@ -43,11 +43,8 @@
                 {% for fila in value.1 %}
 	                <tr>
 	                    {% for celda in fila %}
-	                    <td>{% if celda.0 %}
-	                    		{{celda}}
-	                    	{% else %}
-	                    		{{celda}}
-	                    	{% endif %}
+	                    <td>
+	                    	{% if celda == None %}0{% else %}{{celda}}{% endif %}
 	                    </td>
 	                    {% endfor %}
 	                </tr>
