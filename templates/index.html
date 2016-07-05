@@ -1,64 +1,476 @@
 {% extends "base.html" %}
-
+{% block extra_css %}
+	
+{% endblock extra_css %}
 {% block content %}
-<a href="/productores/">Productores</a>
-<a href="/organizaciones/">Organizaciones</a>
+<!-- page container -->
+    
+		<!-- page content -->
+		<div class="page-content">
+		    
+		    <!-- page content wrapper -->
+		    <div class="page-content-wrap bg-img-2 light-elements">
+		        <!-- page content holder -->
+		        <div class="page-content-holder">
+		            
+		            <div class="block-heading block-heading-centralized this-animate" data-animate="fadeInDown">
+		                <h2><strong>Sistema</strong> de la Asociación de Productores de Cacao de Honduras</h2>
+		                <div class="block-heading-text">
+		                    Producción y productividad "nuestra gran responsabilidad".
+		                </div>
+		            </div>                        
+		            
+		            <div class="block push-up-20">
+		                <div class="row">
+		                    <div class="col-md-4">
 
-<div id="map-canvas" style="width:50%; height:400px"></div>
+		                        <div class="text-column this-animate" data-animate="fadeInLeft">
+		                            <h4>Sistema de Monitoreo</h4>
+		                            <div class="text-column-info">
+		                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam nobis illo, quia optio unde maxime, quasi pariatur magni repellendus, eligendi voluptatibus magnam sint! Et, recusandae.</p>
+		                                <p> Laudantium facilis beatae illo, numquam.</p>
+		                                <a id="miLink" class="link" href="#">Leer más..</a>
+		                               
+		                            </div>
+		                        </div>
+		                        <!-- <div class="text-column this-animate" data-animate="fadeInLeft">
+		                            <h4>Admin Template</h4>
+		                            <div class="text-column-info">
+		                                
+		                            </div>
+		                        </div> -->
 
+
+		                    </div>
+		                    <div class="col-md-8 hidden-xs text-center this-animate" data-animate="fadeInRight">
+		                        <img src="/static/assets/atlant_monitor.png" class="img-responsive-mobile"/>
+		                    </div>
+		                </div>
+		            </div>
+		            
+		        </div>
+		        <!-- ./page content holder -->
+		    </div>
+		    <!-- ./page content wrapper -->                      
+
+		    <!-- page content wrapper -->
+		    <div class="page-content-wrap bg-img-1">
+
+		        <div class="divider"><div class="box"><span class="fa fa-angle-down"></span></div></div>                    
+		        
+		        <!-- page content holder -->
+		        <div class="page-content-holder">
+		            
+		            <div class="row">
+		                <div class="col-lg-offset-1 col-md-10 this-animate" data-animate="fadeInLeft">
+
+		                    <div class="row">
+		                        <div class="col-md-4">
+		                            <div id="slides">
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Socios</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">3,548</div>
+		                                    </div>      
+		                                </div>
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Mujeres</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">2,548</div>
+		                                    </div>      
+		                                </div>
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Hombres</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">1,000</div>
+		                                    </div>     
+		                                </div>
+
+
+
+		                            </div>  
+
+		                        </div>
+		                        <div class="col-md-4">
+		                            <div class="item widget widget-default widget-item-icon" >
+		                                <div>                              
+		                                    <div class="widget-title">Organizaciones</div>            
+		                                    <div class="widget-subtitle">Total</div>
+		                                    <div class="widget-int">548</div>
+		                                </div>      
+		                            </div>
+		                        </div>
+		                        <div class="col-md-4">
+		                            <div class="item widget widget-default widget-item-icon" >
+		                                <div>                              
+		                                    <div class="widget-title">Capacidad de acopio</div>            
+		                                    <div class="widget-subtitle">Promedio</div>
+		                                    <div class="widget-int">48 t</div>
+		                                </div>      
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col-md-4">
+		                        <div id="area">
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Área cacao</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">48 mz</div>
+		                                    </div>      
+		                                </div>
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Mujeres</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">30 mz</div>
+		                                    </div>      
+		                                </div>
+		                                <div class="widget widget-default widget-item-icon" >
+		                                    <div>                              
+		                                        <div class="widget-title">Hombres</div>            
+		                                        <div class="widget-subtitle">Promedio</div>
+		                                        <div class="widget-int">18 mz</div>
+		                                    </div>     
+		                                </div>
+
+
+
+		                            </div> 
+
+		                        </div>
+		                        <div class="col-md-4">
+		                            <div class="item widget widget-default widget-item-icon" >
+		                                <div>                              
+		                                    <div class="widget-title">Producción</div>            
+		                                    <div class="widget-subtitle">Promedio</div>
+		                                    <div class="widget-int">30 qq</div>
+		                                </div>      
+		                            </div>
+		                        </div>
+
+		                        <div class="col-md-4">
+		                            <div class="item widget widget-default widget-item-icon" >
+		                                <div>                              
+		                                    <div class="widget-title">Ingreso</div>            
+		                                    <div class="widget-subtitle">Promedio</div>
+		                                    <div class="widget-int">5,360 L</div>
+		                                </div>      
+		                            </div>
+		                        </div>
+		                    </div>
+		                
+		                </div>
+		                <!-- <div class="col-md-4 this-animate text-center" data-animate="fadeInRight">
+		                    <div class="open-sesion">
+		                        <div class="encabezado">
+		                            <p>Bienvenid@ al sistema</p>
+		                        </div>
+		                        <div class="contenido">
+		                          <p class="name">Pablo Ismael Garcia Murillo</p>
+		                          <p class="username">Usuario: pablo.garcia</p>
+		                          <p class="rol">Adminitrador</p>
+		                          <div class="botones row">
+		                              <div class="col-md-5">
+		                                   <a class="btn btn-default sesion" href="">Cerrar sesión</a>
+		                              </div>
+		                              <div class="col-md-offset-1 col-md-5">
+		                                <a class="btn btn-default explore" href="">Explorar datos</a> 
+		                              </div>
+		                          </div>
+		                          
+		                        </div>
+		                    </div>
+		                    
+		                </div>-->
+		            </div>
+		            
+		            
+		            
+		        </div>
+		        <!-- ./page content holder -->
+		    </div>
+		    <!-- ./page content wrapper --> 
+
+		    <!-- page content wrapper -->
+		    <div class="page-content-wrap " >                    
+		    <div class="divider"><div class="box"><span class="fa fa-angle-down"></span></div></div>  
+		        <div id="map-canvas" style="width:100%; height:400px"></div>
+		        
+		    </div>
+		    
+		    <!-- ./page content wrapper -->
+		    <!-- page content wrapper -->                
+		    <div class="page-content-wrap bg-light bg-fondo"  id="monitoreo">
+		        
+		        <div class="divider"><div class="box"><span class="fa fa-angle-down"></span></div></div>                    
+		        
+		        <!-- page content holder -->
+		        <div class="page-content-holder info" >                        
+		            
+		            <div class="this-animate" data-animate="fadeInDown">
+		                <h4>Sistema de la Asociación de Productores de Cacao de Honduras</h4>
+		                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis labore placeat, officiis eveniet error saepe accusamus facere, aliquam fugit, aspernatur numquam ad debitis, deleniti quibusdam fuga? Consectetur et eum aliquid?. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quo, sint expedita, soluta rem natus eligendi explicabo aliquam itaque distinctio cupiditate esse voluptates iste unde architecto obcaecati ipsum temporibus error.</p>
+
+		                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis labore placeat, officiis eveniet error saepe accusamus facere, aliquam fugit, aspernatur numquam ad debitis, deleniti quibusdam fuga? Consectetur et eum aliquid?. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quo, sint expedita, soluta rem natus eligendi explicabo aliquam itaque distinctio cupiditate esse voluptates iste unde architecto obcaecati ipsum temporibus error.</p>
+
+		                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis labore placeat, officiis eveniet error saepe accusamus facere, aliquam fugit, aspernatur numquam ad debitis, deleniti quibusdam fuga? Consectetur et eum aliquid?. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quo, sint expedita, soluta rem natus eligendi explicabo aliquam itaque distinctio cupiditate esse voluptates iste unde architecto obcaecati ipsum temporibus error.</p>
+		            </div>                        
+		            
+		        </div>
+		        <!-- ./page content holder -->
+		    </div>
+		    <!-- ./page content wrapper -->   
+		    <!-- page content wrapper -->
+		    <div class="page-content-wrap bg-texture-1 bg-dark light-elements">
+		        
+		        <div class="divider"><div class="box"><span class="fa fa-angle-down"></span></div></div>
+		        
+		        <!-- page content holder -->
+		        <div class="page-content-holder">
+		                                    
+		            <div class="row">
+		                
+		                <div class="col-md-4">                                
+		                    <div class="text-column text-column-centralized tex-column-icon-lg this-animate" data-animate="fadeInLeft">
+		                        <div class="text-column-icon">
+		                            <span class="fa fa-support"></span>
+		                        </div>
+		                        <h4>Objetivo</h4>
+		                        <div class="text-column-info">
+		                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus fuga in repudiandae debitis illo asperiores ipsam quos. Aut molestiae ipsa deleniti asperiores ducimus at blanditiis, in, ullam, error impedit id.
+		                        </div>
+		                    </div>                                
+		                </div>
+		                
+		                <div class="col-md-4">                                
+		                    <div class="text-column text-column-centralized tex-column-icon-lg this-animate" data-animate="fadeInUp">
+		                        <div class="text-column-icon">
+		                            <span class="fa fa-expand"></span>
+		                        </div>
+		                        <h4>Alcance</h4>
+		                        <div class="text-column-info">
+		                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias nam odio labore eligendi amet soluta, aliquam dolor. Quas maxime facilis odit sunt accusantium consequatur ad omnis. Maxime quas nobis quia.
+		                        </div>
+		                    </div>                                
+		                </div>
+		                
+		                <div class="col-md-4">                                
+		                    <div class="text-column text-column-centralized tex-column-icon-lg this-animate" data-animate="fadeInRight">
+		                        <div class="text-column-icon">
+		                            <span class="fa fa-clock-o"></span>
+		                        </div>
+		                        <h4>Tiempo</h4>
+		                        <div class="text-column-info">
+		                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium cum ipsam eaque minus beatae nostrum ex adipisci sapiente quod vel. Optio nulla excepturi, hic odit tempore sequi veniam nobis. Nisi! <strong>6 meses</strong>.
+		                        </div>
+		                    </div>                                
+		                </div>
+		                
+		            </div>
+		            
+		        </div>
+		        <!-- ./page content holder -->
+		    </div>
+		    <!-- ./page content wrapper -->
+
+		                     
+		</div>
+		<!-- ./page content -->
+		<!-- ./page container -->
+		<div class="divider divider-footer"><div class="box"><span class="fa fa-angle-down"></span></div></div>
+		<!-- page footer -->
+		<div class="page-footer">
+
+		    <!-- page footer wrap -->
+		    <div class="page-footer-wrap bg-dark-gray">
+		        <!-- page footer holder -->
+		        <div class="page-footer-holder page-footer-holder-main">
+		                                    
+		            <div class="row">
+		                
+		                <!-- about -->
+		                <div class="col-md-4">
+		                    <h3>Apoyan el proyecto</h3>
+		                    <br><br>
+		                    <img  src="/static/img/logo1.png" width="60%" alt="">
+		                </div>
+		                <!-- ./about -->
+		                
+		                <!-- quick links -->
+		                <div class="col-md-4">
+		                    <h3>enlaces de interés</h3>
+		                    
+		                    <div class="list-links">
+		                        <a href="http://www.aprocacaho.com/perfil-institucional/">Perfil Institucional</a>                                    
+		                        <a href="http://www.aprocacaho.com/organizaciones-base/">Organizaciones de Productores</a>
+		                        <a href="http://www.aprocacaho.com/nuestros-servicios/">Nuestros servicios</a>
+		                        <a href="http://www.aprocacaho.com/proyectos/">Proyectos y alianzas</a>
+		                        <a href="http://www.aprocacaho.com/informacion-tecnica-2/">Información Técnica</a>
+
+		                    </div>                                
+		                </div>
+		                <!-- ./quick links -->
+		                
+		                <!-- recent tweets -->
+
+		                <!-- ./recent tweets -->
+		                
+		                <!-- contacts -->
+		                <div class="col-md-4">
+		                    <h3>Contacto</h3>
+		                    
+		                    <div class="footer-contacts">
+		                        <div class="fc-row">
+		                            <span class="fa fa-home"></span>
+		                            Municipio de Choloma,<br/> 
+		                            Departamento de Cortés, Honduras, C.A.
+
+		                        </div>
+		                        <div class="fc-row">
+		                            <span class="fa fa-phone"></span>
+		                           <a href="tel:+5042669 3912">(504) 2669 3912</a>,
+		                           <a href="tel:+5042669 3400">(504) 2669 3400</a> 
+		                        </div>
+		                        <div class="fc-row">
+		                            <span class="fa fa-envelope"></span>
+		                            <strong>Oficinas</strong><br>
+		                            <a href="mailto:cacaohonduras@aprocacaho.com">cacaohonduras@aprocacaho.com</a>
+		                        </div>                                    
+		                    </div>
+		                    
+		              
+		                    
+		                </div>
+		                <!-- ./contacts -->
+		                
+		            </div>
+		            
+		        </div>
+		        <!-- ./page footer holder -->
+		    </div>
+		    <!-- ./page footer wrap -->
+		    <!-- page footer wrap -->
+		    <div class="page-footer-wrap bg-darken-gray final">
+		        <!-- page footer holder -->
+		        <div class="page-footer-holder">
+		            
+		            <!-- copyright -->
+		            <div class="copyright">
+		            Tel: (504) 2669 3912, (504) 2669 3400, cacaohonduras@aprocacaho.com  &copy; Copyright. APROCACAHO
+		              
+		            </div>
+		            <!-- ./copyright -->
+		            
+		            <!-- social links -->
+		            <div class="simas">
+		                <span>Desarrollado por <a href="http://simas.org.ni/">SIMAS</a></span>
+		            </div>                        
+		            <!-- ./social links -->
+		            
+		        </div>
+		        <!-- ./page footer holder -->
+		    </div>
+		    <!-- ./page footer wrap -->
+		    
+		</div>
+		<!-- ./page footer -->
+  
+
+            
+        
 {% endblock content %}
 
 {% block extra_js %}
+<script type="text/javascript" src="/static/js/plugins/appear/jquery.appear.js"></script>
+<script type="text/javascript" src="/static/js/actions.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
-<script type="text/javascript" src="/static/js/infobox.js"></script>
 <script>
-var markers = [];
-function initialize()
-{
-	var infowindow = new google.maps.InfoWindow();
-	var myLatlng = new google.maps.LatLng(14.5590251,-86.476418);
-	var myOptions = {
-		zoom: 7,
-		center: myLatlng,
-	}
+	var markers = [];
+	function initialize()
+	{
+		var infowindow = new google.maps.InfoWindow();
+		var myLatlng = new google.maps.LatLng(14.5590251,-86.476418);
+		var myOptions = {
+			zoom: 7,
+			center: myLatlng,
+		}
 
-	var map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
-	var bounds = new google.maps.LatLngBounds();
-	var infowindow = new google.maps.InfoWindow();
-	// var image = new google.maps.MarkerImage('/static/img/m.png');
+		var map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+		var bounds = new google.maps.LatLngBounds();
+		var infowindow = new google.maps.InfoWindow();
+		// var image = new google.maps.MarkerImage('/static/img/m.png');
 
 
-	$.getJSON("{% url 'obtener-lista' %}", function(data){
-		$.each(data, function(i, elemento){
-			var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
-			bounds.extend(latlng);
-			var marker = new google.maps.Marker({
-				position: latlng,
-				map: map,
-				title: elemento.nombre,
-				// icon: image,
-				item: '',
-				id: elemento.id
+		$.getJSON("{% url 'obtener-lista' %}", function(data){
+			$.each(data, function(i, elemento){
+				var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
+				bounds.extend(latlng);
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map,
+					title: elemento.nombre,
+					// icon: image,
+					item: '',
+					id: elemento.id
+				});
+				markers.push(marker);
+
+				google.maps.event.addListener(marker, 'click', (function(mm, tt) {
+					return function() {
+						infowindow.setContent(tt);
+						infowindow.open(map, mm);
+					}
+				})(marker, elemento.nombre));
+
 			});
-			markers.push(marker);
-
-			google.maps.event.addListener(marker, 'click', (function(mm, tt) {
-				return function() {
-					infowindow.setContent(tt);
-					infowindow.open(map, mm);
-				}
-			})(marker, elemento.nombre));
+			var markerCluster = new MarkerClusterer(map, markers);
 
 		});
-		var markerCluster = new MarkerClusterer(map, markers);
 
-	});
+		//map.fitBounds(bounds);
+	}
 
-	//map.fitBounds(bounds);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
+	google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+<script src="/static/js/jquery.slides.min.js"></script>
+<script>
+    $(function(){
+      $("#slides").slidesjs({
+        width: 940,
+        height: 528,
+        navigation: {active: false,},
+        play: {effect: "slide",auto: true,pauseOnHover: false, restartDelay: 500}
+        
+
+      });
+    });
+    $(function(){
+      $("#area").slidesjs({
+        width: 940,
+        height: 528,
+        navigation: {active: false,},
+        play: {effect: "slide",auto: true,pauseOnHover: false, restartDelay: 500}
+        
+
+      });
+    });
+     $(function () {
+     	var menu= $(".page-header").height() + 50;
+        $(" #miLink").click(function (e) {
+            e.preventDefault();
+            $('html,body').animate({
+                scrollTop: $("#monitoreo").offset().top -menu}, 2000);
+        });
+    })
+</script>  
 
 {% endblock extra_js %}
+
+
+

@@ -1,184 +1,345 @@
-  {% extends "base.html" %}
+{% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
-  {% block extra_js %}
-  <link rel="stylesheet" href="/static/css/bootstrap-multiselect.css" type="text/css"/>
-  <script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
-  <script>
-  $(document).ready(function() {
-      $('#id_year').multiselect({
-          buttonWidth: '250px',
-          includeSelectAllOption: true,
-          selectAllText: 'Seleccionar todos',
-          buttonText: function(options, select) {
-                  if (options.length === 0) {
-                      return 'Sin selección ...';
-                  }
-                  else if (options.length > 3) {
-                      return 'Varias opciones seleccionadas!';
-                  }
-                   else {
-                       var labels = [];
-                       options.each(function() {
-                           if ($(this).attr('label') !== undefined) {
-                               labels.push($(this).attr('label'));
-                           }
-                           else {
-                               labels.push($(this).html());
-                           }
-                       });
-                       return labels.join(', ') + '';
-                   }
-              }
-      });
+    
 
-      $('#id_socio').multiselect({
-          buttonWidth: '250px',
-      });
+{% endblock extra_css %}
+{% block extra_js %}
+    <link rel="stylesheet" href="/static/css/bootstrap-multiselect.css" type="text/css"/>
+    <script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_year').multiselect({
+                buttonWidth: '250px',
+                includeSelectAllOption: true,
+                selectAllText: 'Seleccionar todos',
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return 'Sin selección ...';
+                    }
+                    else if (options.length > 3) {
+                        return 'Varias opciones seleccionadas!';
+                    }
+                    else {
+                        var labels = [];
+                        options.each(function() {
+                            if ($(this).attr('label') !== undefined) {
+                                labels.push($(this).attr('label'));
+                            }
+                            else {
+                                labels.push($(this).html());
+                            }
+                        });
+                        return labels.join(', ') + '';
+                    }
+                }
+            });
 
-      $('#id_organizacion').multiselect({
-          buttonWidth: '250px',
-          maxHeight: 250,
-          includeSelectAllOption: true,
-          selectAllText: 'Seleccionar todos',
-          buttonText: function(options, select) {
-                  if (options.length === 0) {
-                      return 'Sin selección ...';
-                  }
-                  else if (options.length > 3) {
-                      return 'Varias opciones seleccionadas!';
-                  }
-                   else {
-                       var labels = [];
-                       options.each(function() {
-                           if ($(this).attr('label') !== undefined) {
-                               labels.push($(this).attr('label'));
-                           }
-                           else {
-                               labels.push($(this).html());
-                           }
-                       });
-                       return labels.join(', ') + '';
-                   }
-              }
-      });
-      $('#id_departamento').multiselect({
-          buttonWidth: '250px',
-          maxHeight: 250,
-          includeSelectAllOption: true,
-          selectAllText: 'Seleccionar todos',
-          buttonText: function(options, select) {
-              if (options.length === 0) {
-                  return 'Sin selección ...';
-              }
-              else if (options.length > 3) {
-                  return 'Varias opciones seleccionadas!';
-              }
-               else {
-                   var labels = [];
-                   options.each(function() {
-                       if ($(this).attr('label') !== undefined) {
-                           labels.push($(this).attr('label'));
-                       }
-                       else {
-                           labels.push($(this).html());
-                       }
-                   });
-                   return labels.join(', ') + '';
-               }
-          }
-      });
-      $('#id_municipio').multiselect({
-          enableCollapsibleOptGroups: true,
-          buttonWidth: '250px',
-          maxHeight: 250,
-          includeSelectAllOption: true,
-          selectAllText: 'Seleccionar todos',
-          buttonText: function(options, select) {
-              if (options.length === 0) {
-                  return 'Sin selección ...';
-              }
-              else if (options.length > 3) {
-                  return 'Varias opciones seleccionadas!';
-              }
-               else {
-                   var labels = [];
-                   options.each(function() {
-                       if ($(this).attr('label') !== undefined) {
-                           labels.push($(this).attr('label'));
-                       }
-                       else {
-                           labels.push($(this).html());
-                       }
-                   });
-                   return labels.join(', ') + '';
-               }
-          }
-      });
-      $("#id_municipio").multiselect('disable');
-      $("#id_organizacion").multiselect('disable');
-  });
+            $('#id_socio').multiselect({
+                buttonWidth: '250px',
+            });
+
+            $('#id_organizacion').multiselect({
+                buttonWidth: '250px',
+                maxHeight: 250,
+                includeSelectAllOption: true,
+                selectAllText: 'Seleccionar todos',
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return 'Sin selección ...';
+                    }
+                    else if (options.length > 3) {
+                        return 'Varias opciones seleccionadas!';
+                    }
+                    else {
+                        var labels = [];
+                        options.each(function() {
+                            if ($(this).attr('label') !== undefined) {
+                                labels.push($(this).attr('label'));
+                            }
+                            else {
+                                labels.push($(this).html());
+                            }
+                        });
+                        return labels.join(', ') + '';
+                    }
+                }
+            });
+            $('#id_departamento').multiselect({
+                buttonWidth: '250px',
+                maxHeight: 250,
+                includeSelectAllOption: true,
+                selectAllText: 'Seleccionar todos',
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return 'Sin selección ...';
+                    }
+                    else if (options.length > 3) {
+                        return 'Varias opciones seleccionadas!';
+                    }
+                    else {
+                        var labels = [];
+                        options.each(function() {
+                            if ($(this).attr('label') !== undefined) {
+                                labels.push($(this).attr('label'));
+                            }
+                            else {
+                                labels.push($(this).html());
+                            }
+                        });
+                        return labels.join(', ') + '';
+                    }
+                }
+            });
+            $('#id_municipio').multiselect({
+                enableCollapsibleOptGroups: true,
+                buttonWidth: '250px',
+                maxHeight: 250,
+                includeSelectAllOption: true,
+                selectAllText: 'Seleccionar todos',
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return 'Sin selección ...';
+                    }
+                    else if (options.length > 3) {
+                        return 'Varias opciones seleccionadas!';
+                    }
+                    else {
+                        var labels = [];
+                        options.each(function() {
+                            if ($(this).attr('label') !== undefined) {
+                                labels.push($(this).attr('label'));
+                            }
+                            else {
+                                labels.push($(this).html());
+                            }
+                        });
+                        return labels.join(', ') + '';
+                    }
+                }
+            });
+            $("#id_municipio").multiselect('disable');
+            $("#id_organizacion").multiselect('disable');
+        });
 
 
-  var foo = [];
-  $(document).on('change','#id_departamento',function(){
+          var foo = [];
+          $(document).on('change','#id_departamento',function(){
 
-      $('#id_departamento :selected').each(function(i, selected){
-          foo[i] = $(selected).val();
-      });
-      $.getJSON('/productores/ajax/munis/?ids='+foo.join(","), function(data){
-          $('#id_municipio').html('');
-          $('#id_municipio').multiselect('enable');
-          var municipio = $('#id_municipio')
-          if(data){
+            $('#id_departamento :selected').each(function(i, selected){
+                foo[i] = $(selected).val();
+            });
+            $.getJSON('/productores/ajax/munis/?ids='+foo.join(","), function(data){
+                $('#id_municipio').html('');
+                $('#id_municipio').multiselect('enable');
+                var municipio = $('#id_municipio')
+                if(data){
 
-             $.each(data, function(i, item){
-              $.each(item, function(j, item2){
-                  var group = $('<optgroup></optgroup>').attr('label', j);
-                  $.each(item2, function(k, item3){
-                      group.append($('<option></option>').val(item3.id).html(item3.nombre));
-                  });
-                  group.appendTo(municipio);
-                  $('#id_municipio').multiselect('rebuild');
-              });
-          });
-         }
-     });
-     $.getJSON('/productores/ajax/organi/?ids='+foo.join(","), function(data){
-        $('#id_organizacion').html('');
-        $("#id_organizacion").multiselect('enable');
-        if(data){
-            $.each(data, function(i, item){
-                $('#id_organizacion').append($('<option></option>').val(item.id).html(item.siglas));
-                });
-       }
-   });
-  });
+                    $.each(data, function(i, item){
+                        $.each(item, function(j, item2){
+                            var group = $('<optgroup></optgroup>').attr('label', j);
+                            $.each(item2, function(k, item3){
+                                group.append($('<option></option>').val(item3.id).html(item3.nombre));
+                            });
+                            group.appendTo(municipio);
+                            $('#id_municipio').multiselect('rebuild');
+                        });
+                    });
+                }
+            });
+            $.getJSON('/productores/ajax/organi/?ids='+foo.join(","), function(data){
+                $('#id_organizacion').html('');
+                $("#id_organizacion").multiselect('enable');
+                if(data){
+                    $.each(data, function(i, item){
+                        $('#id_organizacion').append($('<option></option>').val(item.id).html(item.siglas));
+                    });
+                }
+            });
+        });
 
-  var foo2 = [];
-  $(document).on('change','#id_municipio',function(){
+          var foo2 = [];
+          $(document).on('change','#id_municipio',function(){
 
-      $('#id_municipio :selected').each(function(i, selected){
-          foo2[i] = $(selected).val();
-      });
-      $.getJSON('/productores/ajax/comunies/?ids='+foo2.join(","), function(data){
-          $('#id_comunidad').html('');
-          $("#id_comunidad").prop("disabled", false);
-          if(data){
-              $.each(data, function(i, item){
-                  $('#id_comunidad').append($('<option></option>').val(item.id).html(item.nombre));
-                  });
-         }
-     });
-  });
-  </script>
+            $('#id_municipio :selected').each(function(i, selected){
+                foo2[i] = $(selected).val();
+            });
+            $.getJSON('/productores/ajax/comunies/?ids='+foo2.join(","), function(data){
+                $('#id_comunidad').html('');
+                $("#id_comunidad").prop("disabled", false);
+                if(data){
+                    $.each(data, function(i, item){
+                        $('#id_comunidad').append($('<option></option>').val(item.id).html(item.nombre));
+                    });
+                }
+            });
+        });
+    </script>
 
-  {% endblock extra_js %}
+<script type="text/javascript" src="/static/js/actions.js"></script>
+
+<!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+             
+        <!-- END PLUGINS -->
+
+        <script type="text/javascript" src="/static/adminjs/plugins/moment.min.js"></script>
+        <script type="text/javascript" src="/static/adminjs/plugins/bootstrap/bootstrap-select.js"></script>
+
+        <!-- END THIS PAGE PLUGINS-->        
+
+        <!-- START TEMPLATE -->
+
+        <script type="text/javascript" src="/static/adminjs/plugins.js"></script>        
+        
+        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->
+{% endblock extra_js %}
 
   {% block content %}
-  Consulta productores
+<!-- START PAGE CONTAINER -->
+       
+            
 
-  <form class="" action="." method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Consultar" name="consulta"/>
-  </form>
+                 
+
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="/">Inicio</a></li>                    
+                    <li class="active">Consulta</li>
+                </ul>
+                <!-- END BREADCRUMB -->                       
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+                
+                    <div class="row fondo">
+                        <div class="col-md-12 consulta">
+                            
+                            <form class="form-horizontal" action="." method="post">{% csrf_token %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Consulta Productor</strong></h3>
+                                  
+                                </div>
+ 
+                                <div class="panel-body">                                                                        
+                                    
+                                    <div class="row">
+                                        
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group">                                        
+                                                <label class="col-md-3 control-label"><strong>Años *</strong></label>
+                                                <div class="col-md-9">                                                                                
+                                                    {{form.year}}   
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">                                        
+                                                <label class="col-md-3 control-label">Departamento</label>
+                                                <div class="col-md-9">                                                                                
+                                                    {{form.departamento}}  
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">                                        
+                                                <label class="col-md-3 control-label">Municipio</label>
+                                                <div class="col-md-9">                                                                                
+                                                    {{form.municipio}}    
+                                                </div>
+                                            </div>
+                                         
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group">                                        
+                                                <label class="col-md-3 control-label">Organización</label>
+                                                <div class="col-md-9">                                                                                
+                                                    {{form.organizacion}}   
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Socio</label>
+                                                <div class="col-md-9">                                        
+                                                    {{form.socio}} 
+                                                </div>
+                                            </div>
+                                            
+
+                                            
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                                <div class="panel-footer">
+                                    <button class="btn btn-default">Limpiar</button>                                    
+                                   
+                                    <input class="btn btn-primary pull-right" type="submit" value="Consultar" name="consulta"/>
+                                </div>
+                            </div>
+                            </form>
+                            
+                        </div>
+                    </div>                    
+                    
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->
+                <!-- ./page container -->
+
+                <!-- page footer -->
+                <div class="page-footer">
+
+
+                    <!-- page footer wrap -->
+                    <div class="page-footer-wrap bg-darken-gray final">
+                        <!-- page footer holder -->
+                        <div class="page-footer-holder">
+                            
+                            <!-- copyright -->
+                            <div class="copyright">
+                            Tel: (504) 2669 3912, (504) 2669 3400, cacaohonduras@aprocacaho.com  &copy; Copyright. APROCACAHO
+                              
+                            </div>
+                            <!-- ./copyright -->
+                            
+                            <!-- social links -->
+                            <div class="simas">
+                                <span>Desarrollado por <a href="http://simas.org.ni/">SIMAS</a></span>
+                            </div>                        
+                            <!-- ./social links -->
+                            
+                        </div>
+                        <!-- ./page footer holder -->
+                    </div>
+                    <!-- ./page footer wrap -->
+                    
+                </div>
+                <!-- ./page footer -->                              
+
+        <!-- END PAGE CONTAINER -->
+
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Quiere <strong>Cerrar sesión</strong> ?</div>
+
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="pages-login.html" class="btn btn-success btn-lg">Si</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
   {% endblock content %}
