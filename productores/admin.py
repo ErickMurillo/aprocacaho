@@ -103,7 +103,7 @@ class CostoProduccion_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
-class TecnicasAplicadas_Inline(admin.TabularInline):
+class TecnicasAplicadas_Inline(admin.StackedInline):
 	model = TecnicasAplicadas
 	max_num = 1
 	can_delete = False
@@ -132,10 +132,13 @@ class ProblemasAreaCacao_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
-class Genero_Inline(admin.TabularInline):
+class Genero_Inline(admin.StackedInline):
 	model = Genero
 	max_num = 1
 	can_delete = False
+	fieldsets = [(None,
+				{'fields' : (('actividades'),('ingresos','ingreso_mesual'),('destino_ingresos',),('decisiones',))}),
+	]
 
 class AmpliarAreasCacao_Inline(admin.TabularInline):
 	model = AmpliarAreasCacao
