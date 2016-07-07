@@ -1,7 +1,171 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
+
+    
+
+{% endblock extra_css %}
 {% block content %}
-{% include "productores/filtros.html" %}
+
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>                    
+            <li class="active">Dashboard</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                                
+                                <!-- START DATATABLE EXPORT -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Plantación</h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
+                                            <ul class="dropdown-menu">
+                                              
+                                                <li><a href="#" onclick="exportarXLS('modalidad1'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
+                                                
+                                                
+                                            </ul>
+                                        </div>                                    
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                   
+                                        <div class="table-responsive" id="modalidad">
+                                            <table class="table table-bordered table-hover">
+                                              <thead>
+                                                  <tr>
+                                                      <th rowspan="2"></th>
+                                                      <th colspan="4" style="text-align:center;">Edad de plantación</th>
+                                                  </tr>
+                                                  <tr>
+                                                      <th>4 -10 años</th>
+                                                      <th>10 - 20 años</th>
+                                                      <th>Mayor a 20 años</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr>
+                                                      <td>Área total en mz</td>
+                                                      {% for v in value.0.values %}
+                                                      <td>{{v.0|floatformat:2}}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                                  <tr>
+                                                      <td>No. de plantas por ha</td>
+                                                      {% for v in value.0.values %}
+                                                      <td>{{v.1|floatformat:2}}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                                  <tr>
+                                                      <td>% de plantas improductivas</td>
+                                                      {% for v in value.0.values %}
+                                                      <td>{{v.2|floatformat:2}}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                                  <tr>
+                                                      <td>% de plantas establecidas con semilla</td>
+                                                      {% for v in value.0.values %}
+                                                      <td>{{v.3|floatformat:2}}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                                  <tr>
+                                                      <td>% de plantas establecidas por injerto</td>
+                                                      {% for v in value.0.values %}
+                                                      <td>{{v.4|floatformat:2}}</td>
+                                                      {% endfor %}
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>                                    
+                                        
+                                    </div>
+                                </div>
+                                <!-- END DATATABLE EXPORT -->                            
+                                
+
+                        </div>
+                
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Medidas de mitigación</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                       <div id="produccion{{year}}" style="min-width: 310px; width: 540px; height:256px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Cuenta con un contrato de venta</h3>
+                                        <span>Frecuencia </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="meses{{year}}" style="min-width: 310px; width: 1000px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+
+                    
+                    
+                        
+                    </div>
+                  
+                  
+                  
+                 <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
+                  Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
+                  
+                  
+                  
+
+                </div>
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
+    </div>}
 <div id="tabs">
   <!-- Nav tabs -->
   <ul class="nav" role="navegacion">
@@ -16,63 +180,6 @@
     {% endfor %}
   </ul>
 
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <a class="btn-export" href="#" onclick="exportarXLS('modalidad'); return false;">Exportar tabla <span class="fa fa-file-excel-o"></span></a>
-      <div class="table-responsive" id="modalidad">
-          <table class="table table-bordered table-hover">
-              <thead>
-                  <tr>
-                      <th rowspan="2"></th>
-                      <th colspan="4" style="text-align:center;">Edad de plantación</th>
-                  </tr>
-                  <tr>
-                      <th>4 -10 años</th>
-                      <th>10 - 20 años</th>
-                      <th>Mayor a 20 años</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>Área total en mz</td>
-                      {% for v in value.0.values %}
-                      <td>{{v.0|floatformat:2}}</td>
-                      {% endfor %}
-                  </tr>
-                  <tr>
-                      <td>No. de plantas por ha</td>
-                      {% for v in value.0.values %}
-                      <td>{{v.1|floatformat:2}}</td>
-                      {% endfor %}
-                  </tr>
-                  <tr>
-                      <td>% de plantas improductivas</td>
-                      {% for v in value.0.values %}
-                      <td>{{v.2|floatformat:2}}</td>
-                      {% endfor %}
-                  </tr>
-                  <tr>
-                      <td>% de plantas establecidas con semilla</td>
-                      {% for v in value.0.values %}
-                      <td>{{v.3|floatformat:2}}</td>
-                      {% endfor %}
-                  </tr>
-                  <tr>
-                      <td>% de plantas establecidas por injerto</td>
-                      {% for v in value.0.values %}
-                      <td>{{v.4|floatformat:2}}</td>
-                      {% endfor %}
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-      <div id="produccion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="meses{{year}}" style="min-width: 310px; width: 1000px; margin: 0 auto;"></div>
-    </div>
-
-    </div>
-    {% endfor %}
   </div>
 {% endblock content %}
 

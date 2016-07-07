@@ -344,6 +344,9 @@ $(function() {
                 $(".owl-carousel").owlCarousel({mouseDrag: false, touchDrag: true, slideSpeed: 300, paginationSpeed: 400, singleItem: true, navigation: false,autoPlay: true});
             }
             
+            if($(".carousel-wiget").length > 0){
+                $(".carousel-wiget").owlCarousel({mouseDrag: false, touchDrag: true, slideSpeed: 300, paginationSpeed: 400, singleItem: true, navigation: false,autoPlay: true});
+            }
         }//End OWL Carousel
         
         // Summernote 

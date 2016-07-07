@@ -1,7 +1,316 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
+
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>                    
+            <li class="active">Dashboard</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+                    <!-- START WIDGETS -->                    
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            
+                            <!-- START WIDGET MESSAGES -->
+                            <div class="item widget widget-default widget-item-icon" >
+                                <div>                              
+                                    <div class="widget-title">Organizaciones</div>            
+                                    <div class="widget-subtitle">Total</div>
+                                    <div class="widget-int">8</div>
+                                </div>      
+                            </div>                        
+                            <!-- END WIDGET MESSAGES -->
+                            
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <!-- START WIDGET SLIDER -->
+                            <div class="widget widget-default widget-carousel">
+                                <div class="owl-carousel" id="owl-example">
+                                    <div>                                    
+                                        <div class="widget-title">Productores</div>                                                                        
+                                        <div class="widget-subtitle">Total</div>
+                                        <div class="widget-int">3,548</div>
+                                    </div>
+                                    <div>                                    
+                                        <div class="widget-title">Mujeres</div>
+                                        <div class="widget-subtitle">Porcentaje</div>
+                                        <div class="widget-int">52%</div>
+                                    </div>
+                                    <div>                                    
+                                        <div class="widget-title">Hombres</div>
+                                        <div class="widget-subtitle">Porcentaje</div>
+                                        <div class="widget-int">48%</div>
+                                    </div>
+                                </div>                            
+                                                            
+                            </div>         
+                            <!-- END WIDGET SLIDER -->
+                            
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <!-- START WIDGET MESSAGES -->
+                            <div class="item widget widget-default widget-item-icon" >
+                                <div>                              
+                                    <div class="widget-title">Áreas de Cacao</div>            
+                                    <div class="widget-subtitle">Total</div>
+                                    <div class="widget-int">{{value.5}} mz</div>
+                                </div> 
+
+                            </div>                        
+                            <!-- END WIDGET MESSAGES -->
+
+                            
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <!-- START WIDGET CLOCK -->
+                            <div class="item widget widget-default widget-item-icon" >
+                                <div>                              
+                                    <div class="widget-title">Áreas por productor</div>            
+                                    <div class="widget-subtitle">Promedio</div>
+                                    <div class="widget-int">{{value.6}} qq</div>
+                                </div>      
+                            </div>                         
+                            <!-- END WIDGET CLOCK -->
+                            
+                        </div>
+                    </div>
+                    <!-- END WIDGETS -->
+
+
+
+                    <div class="row">
+                
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Producción de cacao por departamento</h3>
+                                        <span>Toneladas </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:400px"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Áreas de cacao por edad de plantación</h3>
+                                        <span>Porcentaje</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        
+                                        <div id="plantacion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Rendimiento</h3>
+                                        <span>kg por hectárea (kg/ha)</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="rendimiento{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Producción de cacao</h3>
+                                        <span>Porcentaje</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="produccion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Productores Organizados y no Organizados</h3>
+                                        <span>Porcentaje</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        
+                                        <div id="socio{{year}}" style="min-width: 100px; width: 350px; height:250px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Auto-consumo vs Venta de cacao</h3>
+                                        <span>Promedio</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="prod_certificados{{year}}" style="min-width: 100px; width: 350px; height:250px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div> 
+                        <div class="col-md-4">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Venta por tipo de cacao</h3>
+                                        <span>Toneladas</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        
+                                        <div id="certificaciones{{year}}" style="min-width: 100px; width: 350px; height:250px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                    </div>
+                  
+                  
+                  
+                 <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
+                  Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
+                  
+                  
+                  
+
+                </div>
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
+    </div>
+
+
+
 {% include "productores/filtros.html" %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style>
 .labels {
  /*color: white;*/
@@ -53,32 +362,45 @@
     {% endfor %}
   </ul>
 
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <div id="plantacion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="rendimiento{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="produccion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      Área total de cacao expresado en Manzanas: {{value.5}}<br>
-      Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>
-      <div id="socio{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="prod_certificados{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div>
-        <div class="col-md-6">
-          <h4 align="center">Producción de cacao en toneladas por departamento</h4>
-          <div id="map_canvas_{{forloop.counter}}" class="map" style="width:100%; height:400px"></div>
-        </div>
 
-      </div>
-
-    </div>
-    {% endfor %}
-  </div>
 </div>
 {% endblock content %}
 
 {% block extra_js %}
+
+                
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        
+        <script type="text/javascript" src="/static/adminjs/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/static/adminjs/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+
+        <!-- START THIS PAGE PLUGINS-->        
+              
+        <script type="text/javascript" src="/static/adminjs/plugins/owl/owl.carousel.min.js"></script>                 
+        <!-- END THIS PAGE PLUGINS-->        
+
+        <!-- START TEMPLATE -->
+        
+        
+        <script type="text/javascript" src="/static/adminjs/plugins.js"></script>        
+        <script type="text/javascript" src="/static/adminjs/actions.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
 <!--<script type="text/javascript" src="/static/js/infobox.js"></script>-->

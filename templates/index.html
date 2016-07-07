@@ -4,7 +4,44 @@
 {% endblock extra_css %}
 {% block content %}
 <!-- page container -->
-    
+    					<!-- page header holder -->
+                        <div class="page-header-holder">
+                            
+                            <!-- page logo -->
+                            <div class="logo">
+                                <a href="index.html">Sistema APROCACAHO</a>
+                            </div>
+                            <!-- ./page logo -->
+                            
+
+                            <!-- nav mobile bars -->
+                            <div class="navigation-toggle">
+                                <div class="navigation-toggle-button"><span class="fa fa-bars"></span></div>
+                            </div>
+                            <!-- ./nav mobile bars -->
+                            
+                            <!-- navigation -->
+                            <ul class="navigation">
+                                <li>
+                                    <a href="/">Inicio</a>
+                                </li>
+                                <li>
+                                    <a href="/productores/">Productores</a>
+                                </li>
+                                <li>
+                                    <a href="/organizaciones/">Organizaciones</a>
+                                </li>
+                               <!-- <li>
+                                    <a href="index-default.html">Manuel PDF</a>
+                                </li> --> 
+                                
+                                <li><a href="/admin">Administración</a></li>
+                            </ul>
+                            <!-- ./navigation -->                        
+
+                            
+                        </div>
+                        <!-- ./page header holder -->
 		<!-- page content -->
 		<div class="page-content">
 		    
@@ -387,7 +424,6 @@
 
 {% block extra_js %}
 <script type="text/javascript" src="/static/js/plugins/appear/jquery.appear.js"></script>
-<script type="text/javascript" src="/static/js/actions.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
 <script>

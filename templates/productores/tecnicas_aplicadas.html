@@ -1,7 +1,218 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
-{% include "productores/filtros.html" %}
+
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>                    
+            <li class="active">Dashboard</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+
+                    <div class="row">
+                
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Técnicas aplicadas</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="viveros{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Tipo de fertilización usada</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="fertilizacion{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Prácticas de Manejo</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="manejo{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Prácticas de manejo de tejido</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="tejido{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Prácticas de mejoramiento de producto</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="mejoramiento{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Prácticas de Manejo post cosecha</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="post_cosecha{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>¿Dispone de un centro de acopio de cacao en la comunidad?</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="acopio_cacao{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>¿Es socio o esta asociado a una organización que acopia cacao?</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="acopio_org{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+
+
+                    
+                    
+                        
+                    </div>
+                  
+                  
+                  
+                 <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
+                  Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
+                  
+                  
+                  
+
+                </div>
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
+    </div>
 <div id="tabs">
   <!-- Nav tabs -->
   <ul class="nav" role="navegacion">
@@ -19,14 +230,14 @@
   <div class="tab-content">
     {% for year,value in years.items %}
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <div id="viveros{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="fertilizacion{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="manejo{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="tejido{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="mejoramiento{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="post_cosecha{{year}}" style="min-width: 310px; width: 840px; margin: 0 auto;"></div>
-      <div id="acopio_cacao{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="acopio_org{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      
+      
+      
+      
+      
+      
+      
+      
     </div>
 
     </div>

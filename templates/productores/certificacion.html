@@ -1,8 +1,163 @@
 {% extends "base.html" %}
 {% load helpertags %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
-{% include "productores/filtros.html" %}
+
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>                    
+            <li class="active">Dashboard</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+
+                    <div class="row">
+                
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Tipos de certificación.</h3>
+                                        <span>Porcentaje</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Número de productores certificados</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="prod_cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Número de productores con uno o más sellos</h3>
+                                        <span>Frecuencia </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>¿Quién certifica?</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="certifica{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>¿Quién paga la certificación?</h3>
+                                        <span>Porcentaje </span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="paga{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+
+
+                    
+                    
+                        
+                    </div>
+                  
+                  
+                  
+                 <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
+                  Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
+                  
+                  
+                  
+
+                </div>
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
+    </div>
+
+
+
+
 <div id="tabs">
   <!-- Nav tabs -->
   <ul class="nav" role="navegacion">
@@ -22,11 +177,11 @@
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
       <h5>costo promedio de inversión para cacao: {{value.7}}</h5>
       <h5>costo promedio de inversión para finca: {{value.8}}</h5>
-      <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="prod_cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="certifica{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="paga{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      
+      
+      
+      
+      
     </div>
 
     </div>

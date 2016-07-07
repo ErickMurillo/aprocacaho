@@ -7358,3 +7358,9 @@ li.ext_zip {
     background-size: 220px 50px;
   }
 }
+
+
+
+text.highcharts-title {
+    display: none;
+}
