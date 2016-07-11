@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div id="map" style="height: 500px"></div>
+
+<form class="" action="." method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Consultar" name="consulta"/>
+<a href="#">Ver todos</a>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript" src="/static/js/markerwithlabel.js"></script>
+<script>
+	function initialize()
+	{
+		var infowindow = new google.maps.InfoWindow();
+		var myLatlng = new google.maps.LatLng(14.5590251,-86.476418);
+		var myOptions = {
+			zoom: 7,
+			center: myLatlng,
+		}
+
+		var map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+ 		{% if municipios %}
+ 			{% for municipio in municipios %}
+
+		var contentString{{forloop.counter}} = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'<h6 id="firstHeading" class="firstHeading">{{municipio.0}}</h6>'+
+		'</div>'+
+		'<div id="bodyContent">'+
+		'<ul>{% for org in municipio.3 %}<li><a href="{% url "detail-org" org.slug %}">{{org}}</a></li>{% endfor %}</ul>'+
+		'</div>'+
+		'</div>';
+
+		var infowindow{{forloop.counter}} = new google.maps.InfoWindow({
+			content: contentString{{forloop.counter}}
+		});
+
+		var marker{{forloop.counter}} = new MarkerWithLabel({
+			position: {lat: {{municipio.1|safe}}, lng: {{municipio.2|safe}}},
+			map: map,
+			title: '{{municipio.0}}',
+			icon: ' ',
+			labelContent: '<i class="fa fa-map-marker fa-4x" style="color:#F47317;"></i>',
+       		labelAnchor: new google.maps.Point(10, 35),
+		});
+
+		marker{{forloop.counter}}.addListener('click', function() {
+			infowindow{{forloop.counter}}.open(map, marker{{forloop.counter}});
+		});
+
+		{% endfor %}
+ 		{% endif %}
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+{% endblock extra_js %}

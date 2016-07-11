@@ -60,7 +60,7 @@ class EncuestaOrganicacion(models.Model):
 
 		def save(self, *args, **kwargs):
 			self.anno = self.fecha.year
-			super(Encuesta_Org, self).save(*args, **kwargs)
+			super(EncuestaOrganicacion, self).save(*args, **kwargs)
 
 		class Meta:
 			verbose_name = "Encuesta"

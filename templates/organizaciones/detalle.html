@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div>
+  {% for obj in object %}
+  Nombre: {{obj.nombre}}
+  Siglas: {{obj.siglas}}
+  {% if obj.fundacion %}Año de fundación: {{obj.fundacion}}{% endif %}
+  {% if obj.gerente %}Presidente/Administrador: {{obj.gerente}}{% endif %}
+  Estatus Legal: {{obj.get_status_display}}
+  {% if obj.direccion %}Dirección fisica de la Organización: {{obj.direccion}}{% endif %}
+  Departamento: {{obj.departamento}}
+  Municipio: {{obj.municipio}}
+  {% if obj.telefono %}Número telefónico: {{obj.telefono}}{% endif %}
+  {% if obj.email %}Email: {{obj.email}}{% endif %}
+  {% if obj.web %}Sitio web {{obj.web}}{% endif %}
+  {% if obj.contacto %}Persona de contacto #1 {{obj.contacto}}{% endif %}
+  {% if obj.contacto_1 %}Persona de contacto #2 {{obj.contacto_1}}{% endif %}
+  {% if obj.logo %} <img src="media/{{obj.logo}}" alt="" />{% else %}<img class="center-block img-detail img-responsive" src="http://placehold.it/300x200?text=No+Imagen">{% endif %}
+  {% endfor %}
+</div>
+
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div class="panel-group" id="accordion{{year}}" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne{{year}}">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion{{year}}" href="#collapseOne{{year}}" aria-expanded="false" aria-controls="collapseOne{{year}}">
+                Aspectos juridicos
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne{{year}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne{{year}}">
+            <div class="panel-body">
+              {% for v in value.0 %}
+              <div class="col-md-6">
+                <p>Personería jurídica: {{v.0}}</p>
+                <p>Registro Tributario Nacional Numérico: {{v.1}}</p>
+                <p>Junta Directiva certificada: {{v.2}}</p>
+                <p>Miembros mujeres JD: {{v.3}}</p>
+                <p>Miembros hombres JD: {{v.4}}</p>
+                <p>Lista socias/os esta actualizada y certificada: {{v.5}}</p>
+                <p>Número de Registro de las Cooperativas en CONSUCOOP: {{v.6}}</p>
+              </div>
+              {% endfor %}
+
+              {% if value.1 %}
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Nombre y apellido</th>
+                        <th>Cargo</th>
+                        <th>Teléfonos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fila in value.1 %}
+                    <tr>
+                      {% for celda in fila %}
+                      <td>{{celda}}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingTwo{{year}}">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion{{year}}" href="#collapseTwo{{year}}" aria-expanded="false" aria-controls="collapseTwo{{year}}">
+                Documentación
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo{{year}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo{{year}}">
+            <div class="panel-body">
+              {% if value.2 %}
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Documentos</th>
+                        <th>Si/No</th>
+                        <th>Trámite</th>
+                        <th>Fecha de elaboración/actualización</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fila in value.2 %}
+                    <tr>
+                      {% for celda in fila %}
+                        <td>
+                          {% if celda == True %}
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                          {% elif celda == False%}
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          {% else %}
+                            {{celda}}
+                          {% endif %}
+                        </td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+              {% if value.3 %}
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Documentos</th>
+                        <th>Cumplimiento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fila in value.3 %}
+                    <tr>
+                      {% for celda in fila %}
+                      <td>{{celda}}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingThree{{year}}">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion{{year}}" href="#collapseThree{{year}}" aria-expanded="false" aria-controls="collapseThree{{year}}">
+                Datos Productivos
+              </a>
+            </h4>
+          </div>
+          <div id="collapseThree{{year}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree{{year}}">
+            <div class="panel-body">
+              {% if value.4 %}
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th></th>
+                        <th>Socios</th>
+                        <th>socias</th>
+                        <th>No socios</th>
+                        <th>No socias</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fila in value.4 %}
+                    <tr>
+                      {% for celda in fila %}
+                      <td>{{celda}}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+              {% if value.5 %}
+              <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th></th>
+                        <th>Socios</th>
+                        <th>No socios</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fila in value.5 %}
+                    <tr>
+                      {% for celda in fila %}
+                      <td>{{celda}}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
