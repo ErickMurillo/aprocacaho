@@ -10,7 +10,7 @@ import collections
 # Create your views here.
 def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
     object = Organizacion.objects.filter(slug = slug)
-    encuesta = EncuestaOrganicacion.objects.filter(organizacion__slug = slug)
+    # encuesta = EncuestaOrganicacion.objects.filter(organizacion__slug = slug)
     years = collections.OrderedDict()
 
     years_list = EncuestaOrganicacion.objects.filter(organizacion__slug = slug).order_by('anno').values_list('anno', flat=True).distinct('anno')
@@ -53,8 +53,58 @@ def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
         for obj in DatosProductivosTabla.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
             datos.append((obj.get_pregunta_display(),obj.productores_socios,obj.productores_no_socios))
 
+        infraestructura = []
+        for obj in Infraestructura.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            infraestructura.append((obj.get_tipo_display(),
+                                    obj.capacidad,
+                                    obj.anno_construccion,
+                                    obj.get_estado_display()
+                                    ))
+
+        transporte = []
+        for obj in Transporte.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            transporte.append((obj.get_medio_transporte_display(),obj.get_estado_display))
+
+        comercio = []
+        for obj in Comercializacion.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            comercio.append((obj.get_seleccion_display,
+                            obj.socias_corriente,
+                            obj.socios_corriente,
+                            obj.no_socias_corriente,
+                            obj.no_socios_corriente
+                            ))
+
+        cacao_seco = []
+        for obj in CacaoComercializado.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            cacao_seco.append((obj.corriente,obj.fermentado))
+
+        certificacion = []
+        for obj in CertificacionOrg.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            certificacion.append((obj.get_corriente_display(),obj.get_fermentado_display()))
+
+        destino_corriente = []
+        for obj in DestinoProdCorriente.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            destino_corriente.append((obj.get_destino_display(),obj.entrega))
+
+        destino_fermentado = []
+        for obj in DestinoProdFermentado.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            destino_fermentado.append((obj.get_destino_display(),obj.entrega))
+
+        financiamiento = ''
+        for obj in Financiamiento.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            financiamiento = obj.get_financiamiento_display()
+
+        tipo_financiamiento = []
+        for obj in FinanciamientoProductores.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            tipo_financiamiento.append((obj.get_tipo_display(),obj.monto))
+
+        financia_org = []
+        for obj in InfoFinanciamiento.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+            financia_org.append((obj.get_seleccion_display(),obj.monto,obj.porcentaje))
+
         years[year] = (aspectos_juridicos,lista_miembros,documentos,cumplimiento,datos_productivos,
-                        datos)
+                        datos,infraestructura,transporte,comercio,cacao_seco,certificacion,destino_corriente,
+                        destino_fermentado,financiamiento,tipo_financiamiento,financia_org)
 
     return render(request, template, locals())
 
