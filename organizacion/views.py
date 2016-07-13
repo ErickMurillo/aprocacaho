@@ -8,9 +8,60 @@ from django.db.models import Sum, Count, Avg
 import collections
 
 # Create your views here.
+def consulta_org(request,template="organizaciones/consulta.html"):
+    if request.method == 'POST':
+        mensaje = None
+        form = EncuestaOrgConsulta(request.POST)
+        if form.is_valid():
+            request.session['status'] = form.cleaned_data['status']
+
+            mensaje = "Todas las variables estan correctamente :)"
+            request.session['activo'] = True
+            centinela = 1
+
+            status = request.session['status']
+            if status != '':
+                list_municipio = Organizacion.objects.filter(status = status).values_list('municipio', flat = True).distinct('municipio')
+                lista = []
+                for x in list_municipio:
+                    municipio = Municipio.objects.filter(id = x)
+                    organizaciones = Organizacion.objects.filter(municipio = x,status = status)
+                    for y in municipio:
+                        lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
+                municipios = lista
+            else:
+                list_municipio = Organizacion.objects.values_list('municipio', flat=True).distinct('municipio')
+                lista = []
+                for x in list_municipio:
+                    municipio = Municipio.objects.filter(id = x)
+                    organizaciones = Organizacion.objects.filter(municipio = x)
+                    for y in municipio:
+                        lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
+                municipios = lista
+
+    else:
+        form = EncuestaOrgConsulta()
+        mensaje = "Existen alguno errores"
+        centinela = 0
+
+        list_municipio = Organizacion.objects.values_list('municipio', flat = True).distinct('municipio')
+        lista = []
+        for x in list_municipio:
+            municipio = Municipio.objects.filter(id = x)
+            organizaciones = Organizacion.objects.filter(municipio = x)
+            for y in municipio:
+                lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
+        municipios = lista
+
+        try:
+            del request.session['status']
+        except:
+            pass
+
+    return render(request, template, locals())
+
 def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
     object = Organizacion.objects.filter(slug = slug)
-    # encuesta = EncuestaOrganicacion.objects.filter(organizacion__slug = slug)
     years = collections.OrderedDict()
 
     years_list = EncuestaOrganicacion.objects.filter(organizacion__slug = slug).order_by('anno').values_list('anno', flat=True).distinct('anno')
@@ -108,54 +159,153 @@ def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
 
     return render(request, template, locals())
 
-def consulta_org(request,template="organizaciones/consulta.html"):
-    if request.method == 'POST':
-        mensaje = None
-        form = EncuestaOrgConsulta(request.POST)
-        if form.is_valid():
-            request.session['status'] = form.cleaned_data['status']
+def estatus_legal(request,template="organizaciones/estatus_legal.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
-            mensaje = "Todas las variables estan correctamente :)"
-            request.session['activo'] = True
-            centinela = 1
+    years = collections.OrderedDict()
 
-            status = request.session['status']
-            if status != '':
-                list_municipio = Organizacion.objects.filter(status = status).values_list('municipio', flat = True).distinct('municipio')
-                lista = []
-                for x in list_municipio:
-                    municipio = Municipio.objects.filter(id = x)
-                    organizaciones = Organizacion.objects.filter(municipio = x,status = status)
-                    for y in municipio:
-                        lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
-                municipios = lista
-            else:
-                list_municipio = Organizacion.objects.values_list('municipio', flat=True).distinct('municipio')
-                lista = []
-                for x in list_municipio:
-                    municipio = Municipio.objects.filter(id = x)
-                    organizaciones = Organizacion.objects.filter(municipio = x)
-                    for y in municipio:
-                        lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
-                municipios = lista
+    STATUS_CHOICES = ((1,'ONG'),(2, 'Cooperativa'),(3, 'Unión de Cooperativa'))
 
-    else:
-        form = EncuestaOrgConsulta()
-        mensaje = "Existen alguno errores"
-        centinela = 0
+    for year in years_encuesta:
+        status = {}
+        org_by_status = {}
+        for obj in STATUS_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(organizacion__status = obj[0],anno = year).count()
+            status[obj[1]] = conteo
 
-        list_municipio = Organizacion.objects.values_list('municipio', flat = True).distinct('municipio')
-        lista = []
-        for x in list_municipio:
-            municipio = Municipio.objects.filter(id = x)
-            organizaciones = Organizacion.objects.filter(municipio = x)
-            for y in municipio:
-                lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
-        municipios = lista
+            name_org = EncuestaOrganicacion.objects.filter(organizacion__status = obj[0],anno = year)
+            org_by_status[obj[1]] = name_org
 
-        try:
-            del request.session['status']
-        except:
-            pass
+        years[year] = (status,org_by_status)
 
     return render(request, template, locals())
+
+def aspectos_juridicos(request,template="organizaciones/aspectos_juridicos.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    STATUS_CHOICES = ((1,'ONG'),(2, 'Cooperativa'),(3, 'Unión de Cooperativa'))
+
+    for year in years_encuesta:
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+        lista_hombres = []
+        lista_mujeres = []
+        graf_bar_status = {}
+        for obj in STATUS_CHOICES:
+            mujeres =  EncuestaOrganicacion.objects.filter(organizacion__status = obj[0],anno = year).aggregate(
+                                                            total = Sum('aspectosjuridicos__mujeres'))['total']
+            if mujeres == None:
+                mujeres = 0
+
+            hombres = EncuestaOrganicacion.objects.filter(organizacion__status = obj[0],anno = year).aggregate(
+                                                            total = Sum('aspectosjuridicos__hombres'))['total']
+            if hombres == None:
+                hombres = 0
+
+            lista_hombres.append([obj[1],hombres])
+            lista_mujeres.append([obj[1],mujeres])
+
+        graf_bar_status['Hombres'] = lista_hombres
+        graf_bar_status['Mujeres'] = lista_mujeres
+
+        #----------------------------------------------------------------------------
+        juridica = {}
+        for obj in TRAMITE_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(aspectosjuridicos__tiene_p_juridica = obj[0],anno = year).count()
+            juridica[obj[1]] = conteo
+
+        #----------------------------------------------------------------------------
+        aspectos_juridicos = {}
+        tabla_aspectos_juridicos = {}
+        for obj in SI_NO_CHOICES:
+            solvencia_tributaria = EncuestaOrganicacion.objects.filter(aspectosjuridicos__solvencia_tributaria = obj[0],anno = year)
+            count_solvencia = solvencia_tributaria.count()
+
+            junta_directiva = EncuestaOrganicacion.objects.filter(aspectosjuridicos__junta_directiva = obj[0],anno = year)
+            count_junta_directiva = junta_directiva.count()
+
+            socios = EncuestaOrganicacion.objects.filter(aspectosjuridicos__lista_socios = obj[0],anno = year)
+            count_socios = socios.count()
+
+            lista = [
+					saca_porcentajes(count_solvencia,count_org,False),
+					saca_porcentajes(count_junta_directiva,count_org,False),
+					saca_porcentajes(count_socios,count_org,False)
+                    ]
+
+            lista_org = [solvencia_tributaria,junta_directiva,socios]
+
+            aspectos_juridicos[obj[1]] = lista
+            tabla_aspectos_juridicos[obj[1]] = lista_org
+
+        years[year] = (graf_bar_status,juridica,aspectos_juridicos,tabla_aspectos_juridicos)
+
+    return render(request, template, locals())
+
+def documentacion(request,template="organizaciones/documentacion.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        documentacion = {}
+        tabla_documantacion = {}
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+        for x in SI_NO_CHOICES:
+            documentos = {}
+            tabla_documentos = {}
+            for obj in DOCUMENTOS_CHOICES:
+                result = EncuestaOrganicacion.objects.filter(documentacion__documentos = obj[0],documentacion__si_no = x[0],anno = year)
+                count_result = result.count()
+                documentos[obj[1]] = saca_porcentajes(count_result,count_org,False)
+                tabla_documentos[obj[1]] = result
+
+            documentacion[x[1]] = documentos
+            tabla_documantacion[x[1]] = tabla_documentos
+
+        years[year] = (documentacion,tabla_documantacion)
+
+    return render(request, template, locals())
+
+def datos_productivos(request,template="organizaciones/datos_productivos.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+        areas_socios = []
+        areas_no_socios = []
+        for obj in DATOS_PROD_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(datosproductivos__pregunta = obj[0],anno = year).aggregate(
+                                                        socios = Sum('datosproductivos__productores_socios'),
+                                                        avg_socios = Avg('datosproductivos__productores_socios'),
+                                                        socias = Sum('datosproductivos__productoras_socias'),
+                                                        avg_socias = Avg('datosproductivos__productoras_socias'),
+                                                        no_socios = Sum('datosproductivos__productores_no_socios'),
+                                                        avg_no_socios = Avg('datosproductivos__productores_no_socios'),
+                                                        no_socias = Sum('datosproductivos__productoras_no_socias'),
+                                                        avg_no_socias = Avg('datosproductivos__productoras_no_socias'))
+            if obj[0] == 1:
+                lista_socios = [conteo['socios'],conteo['socias'],conteo['no_socios'],conteo['no_socias']]
+            else:
+                areas_socios.append((obj[1],conteo['socios'],conteo['avg_socios'],conteo['socias'],conteo['avg_socias']))
+
+                areas_no_socios.append((obj[1],conteo['no_socios'],conteo['avg_no_socios'],conteo['no_socias'],conteo['avg_no_socias']))
+
+        print areas_socios
+        years[year] = (lista_socios,areas_socios,areas_no_socios)
+
+    return render(request, template, locals())
+
+#utils
+def saca_porcentajes(dato, total, formato=True):
+	if dato != None:
+		try:
+			porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+		except:
+			return 0
+		if formato:
+			return porcentaje
+		else:
+			return '%.2f' % porcentaje
+	else:
+		return 0

@@ -18,7 +18,7 @@
   {% if obj.web %}<p>Sitio web {{obj.web}}</p>{% endif %}
   {% if obj.contacto %}<p>Persona de contacto #1 {{obj.contacto}}</p>{% endif %}
   {% if obj.contacto_1 %}<p>Persona de contacto #2 {{obj.contacto_1}}</p>{% endif %}
-  {% if obj.logo %} <img src="media/{{obj.logo}}" alt="" />{% else %}<img class="center-block img-detail img-responsive" src="http://placehold.it/300x200?text=No+Imagen">{% endif %}
+  {% if obj.logo %} <img src="/media/{{obj.logo}}" alt="" />{% else %}<img class="center-block img-detail img-responsive" src="http://placehold.it/300x200?text=No+Imagen">{% endif %}
   {% endfor %}
 </div>
 

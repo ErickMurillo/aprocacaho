@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+        <div id="documentacion{{year}}" style="min-width: 1000px; width: 540px; margin: 0 auto;"></div>
+        <table class="table table-bordered table-striped table-hover">
+          <caption>Organizaciones</caption>
+          <thead>
+            <tr>
+              <th>Poseen documentación legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for k in value.1.keys %}
+            <tr>
+              <td><a href="" data-toggle="modal" data-target="#doc_modal{{forloop.counter}}{{year}}">{{k}}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- modal -->
+      {% for k,v in value.1.items %}
+
+      <div class="modal fade" id="doc_modal{{forloop.counter}}{{year}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4>Año {{year}}</h4>
+              <h4>Organizaciones que dijeron que '{{k}}':</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    {% for x,y in v.items %}
+                    <th>{{x}}</th>
+                    {% endfor %}
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    {% for x in v.values %}
+                    <td>
+                      {% for org in x  %}
+                      <li><a href="{% url 'detail-org' org.organizacion.slug %}">{{org}}</a></li>
+                      {% endfor %}</td>
+                      {% endfor %}
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- end modal -->
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+{% for year,value in years.items %}
+$(function () {
+	$('#documentacion{{year}}').highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Documentación legal y estratégica'
+		},
+		xAxis: {
+			categories: [{% for k,v in value.0.items %}
+			{% for x,y in v.items %}
+
+			'{{x}}',
+
+			{% endfor %}
+			{% endfor %}]
+		},
+		credits: {
+			enabled: false
+		},
+		yAxis: {
+			title: {
+				text: 'Porcentajes'
+			}
+
+		},
+		plotOptions: {
+			series: {
+				borderWidth: 0,
+				dataLabels: {
+					enabled: true,
+					format: '{point.y}%'
+				}
+			}
+		},
+
+		tooltip: {
+			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}'
+		},
+		series: [
+		{% for key,value in value.0.items %}
+		{
+			name: '{{key}}',
+			data: [{% for x,y in value.items %}{{y}},{% endfor %}]
+		},
+		{% endfor %}
+
+		]
+	});
+});
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <div class="col-md-8">
+        <div id="status{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      </div>
+
+      <div class="col-md-4">
+        <table class="table table-bordered table-striped table-hover">
+          <caption>Organizaciones</caption>
+          <thead>
+            <tr>
+              <th>Estatus legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for k,v in value.1.items  %}
+            <tr>
+              {% if v %}<td><a href="" data-toggle="modal" data-target="#modal{{forloop.counter}}{{year}}">{{k}}</a></td>{% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- modal -->
+        {% for k,v in value.1.items %}
+        <div class="modal fade" id="modal{{forloop.counter}}{{year}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">{{k}}</h4>
+              </div>
+              <div class="modal-body">
+                {% for org in v %}
+                <li><a href="{%  url 'detail-org' org.organizacion.slug %}">{{org}}</a></li>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- end modal -->
+      </div>
+
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#status{{year}}').highcharts({
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Estatus legal de la organización'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.y:.2f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '{point.percentage:.2f}%',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+          style: {
+            textShadow: '0 0 3px white'
+          }
+        },
+        showInLegend: true
+      }
+
+    },
+    series: [{
+      name: "Porcentajes",
+      colorByPoint: true,
+      data: [
+      {% for k,v in value.0.items %}
+      {
+        name: "{{k}}",
+        y: {{v}}
+      },
+      {% endfor %}
+
+
+      ]
+    }]
+  });
+{% endfor %}
+});
+</script>
+{% endblock %}
