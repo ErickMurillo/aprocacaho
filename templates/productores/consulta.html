@@ -146,10 +146,12 @@
      $.getJSON('/productores/ajax/organi/?ids='+foo.join(","), function(data){
         $('#id_organizacion').html('');
         $("#id_organizacion").multiselect('enable');
+        var organizacion = $('#id_organizacion')
         if(data){
             $.each(data, function(i, item){
-                $('#id_organizacion').append($('<option></option>').val(item.id).html(item.siglas));
-                });
+                organizacion.append($('<option></option>').val(item.id).html(item.nombre));
+            });
+            organizacion.multiselect('rebuild');
        }
    });
   });

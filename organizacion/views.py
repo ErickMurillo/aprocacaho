@@ -291,8 +291,56 @@ def datos_productivos(request,template="organizaciones/datos_productivos.html"):
 
                 areas_no_socios.append((obj[1],conteo['no_socios'],conteo['avg_no_socios'],conteo['no_socias'],conteo['avg_no_socias']))
 
-        print areas_socios
         years[year] = (lista_socios,areas_socios,areas_no_socios)
+
+    return render(request, template, locals())
+
+def instalaciones(request,template="organizaciones/instalaciones.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        infraestructura = []
+        for obj in INFRAESTRUCTURA_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(infraestructura__tipo = obj[0],anno = year).aggregate(
+                                                        total = Count('infraestructura__tipo'),
+                                                        capacidad = Sum('infraestructura__capacidad'),
+                                                        avg_capacidad = Avg('infraestructura__capacidad'))
+
+            estado = []
+            for x in ESTADO_CHOICES:
+                qs = EncuestaOrganicacion.objects.filter(infraestructura__estado = x[0],infraestructura__tipo = obj[0],anno = year).count()
+                estado.append((saca_porcentajes(qs,conteo['total'],False)))
+
+            infraestructura.append((obj[1],conteo['total'],conteo['capacidad'],conteo['avg_capacidad'],estado))
+
+        transporte = {}
+        for obj in SI_NO_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(transporte__medio_transporte = obj[0],anno = year).count()
+            transporte[obj[1]] = conteo
+
+        estado_transporte = {}
+        for obj in ESTADO_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(transporte__estado = obj[0],anno = year).count()
+            estado_transporte[obj[1]] = conteo
+
+        years[year] = (infraestructura,transporte,estado_transporte)
+
+    return render(request, template, locals())
+
+def comercializacion(request,template="organizaciones/comercializacion.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        for obj in COMERCIO_CHOICES:
+            cconteo = EncuestaOrganicacion.objects.filter(comercializacion__seleccion = obj[0],anno = year).aggregate(
+                                                        socias_corriente = Sum('comercializacion__socias_corriente'),
+                                                        socios_corriente = Sum('comercializacion__socios_corriente'),
+                                                        socias_fermentado = Sum('comercializacion__no_socias_corriente'),
+                                                        socios_fermentado = Sum('comercializacion__no_socios_corriente'))
+
+        # years[year] =
 
     return render(request, template, locals())
 
