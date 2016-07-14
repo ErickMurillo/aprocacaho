@@ -397,15 +397,7 @@ $(function() {
             /* END Email summernote editor */
             
         }// END Summernote 
-        
-        // Custom Content Scroller
-        var uiScroller = function(){
-            
-            if($(".scroll").length > 0){
-                $(".scroll").mCustomScrollbar({axis:"y", autoHideScrollbar: true, scrollInertia: 20, advanced: {autoScrollOnFocus: false}});
-            }
-            
-        }// END Custom Content Scroller
+
        
         // Sparkline
         var uiSparkline = function(){
@@ -430,7 +422,6 @@ $(function() {
                 uiSmartWizard();
                 uiOwlCarousel();
                 uiSummernote();
-                uiScroller();
                 uiSparkline();
             }
         }
