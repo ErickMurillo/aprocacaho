@@ -248,8 +248,9 @@ def educacion(request,template="productores/educacion.html"):
 			elif e[0] in lista_mujeres:
 				tabla_educacion_mujer.append(fila)
 
-	years[year] = (cantidad_miembros_hombres,grafo_educacion_hombre,cantidad_miembros_mujeres,
+		years[year] = (cantidad_miembros_hombres,grafo_educacion_hombre,cantidad_miembros_mujeres,
 					grafo_educacion_mujer,tabla_educacion_hombre,tabla_educacion_mujer)
+
 
 	return render(request, template, locals())
 
@@ -272,7 +273,7 @@ def tenencia_propiedad(request,template="productores/tenencia_propiedad.html"):
 			conteo = filtro.filter(year = year,tenenciapropiedad__no = obj).count()
 			situacion_propiedad[obj] = conteo
 
-	years[year] = (dueno,no_dueno,nombre_propiedad,situacion_propiedad)
+		years[year] = (dueno,no_dueno,nombre_propiedad,situacion_propiedad)
 
 	return render(request, template, locals())
 

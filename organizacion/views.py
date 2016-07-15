@@ -333,14 +333,59 @@ def comercializacion(request,template="organizaciones/comercializacion.html"):
 
     years = collections.OrderedDict()
     for year in years_encuesta:
+        lista_corriente = []
+        lista_fermentado = []
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
         for obj in COMERCIO_CHOICES:
-            cconteo = EncuestaOrganicacion.objects.filter(comercializacion__seleccion = obj[0],anno = year).aggregate(
+            conteo = EncuestaOrganicacion.objects.filter(comercializacion__seleccion = obj[0],anno = year).aggregate(
                                                         socias_corriente = Sum('comercializacion__socias_corriente'),
+                                                        avg_socias_corriente = Avg('comercializacion__socias_corriente'),
                                                         socios_corriente = Sum('comercializacion__socios_corriente'),
+                                                        avg_socios_corriente = Avg('comercializacion__socios_corriente'),
                                                         socias_fermentado = Sum('comercializacion__no_socias_corriente'),
-                                                        socios_fermentado = Sum('comercializacion__no_socios_corriente'))
+                                                        avg_socias_fermentado = Avg('comercializacion__no_socias_corriente'),
+                                                        socios_fermentado = Sum('comercializacion__no_socios_corriente'),
+                                                        avg_socios_fermentado = Avg('comercializacion__no_socios_corriente'))
 
-        # years[year] =
+            lista_corriente.append((
+                                    obj[1],
+                                    conteo['socias_corriente'],
+                                    conteo['avg_socias_corriente'],
+                                    conteo['socios_corriente'],
+                                    conteo['avg_socios_corriente'],
+                                    ))
+
+            lista_fermentado.append((
+                                    obj[1],
+                                    conteo['socias_fermentado'],
+                                    conteo['avg_socias_fermentado'],
+                                    conteo['socios_fermentado'],
+                                    conteo['avg_socios_fermentado'],
+                                    ))
+            #--------------------------------------------------------
+            #comercio org, bar graf
+            corriente = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__corriente'))['total']
+            fermentado = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__fermentado'))['total']
+
+            #--------------------------------------------------------
+            #certificacion
+            certificacion = {}
+            for obj in CERTIFICACION_CHOICES:
+                cert_corriente = EncuestaOrganicacion.objects.filter(certificacionorg__corriente__icontains = obj[0],anno = year).count()
+                cert_fermentado = EncuestaOrganicacion.objects.filter(certificacionorg__fermentado__icontains = obj[0],anno = year).count()
+
+                certificacion[obj[1]] = (saca_porcentajes(cert_corriente,count_org,False),saca_porcentajes(cert_fermentado,count_org,False))
+
+            #--------------------------------------------------------
+            #destino produccion
+            destino_prod = {}
+            for obj in DESTINO_CHOICES:
+                destino_corriente = EncuestaOrganicacion.objects.filter(destinoprodcorriente__destino = obj[0],anno = year).count()
+                destino_fermentado = EncuestaOrganicacion.objects.filter(destinoprodfermentado__destino = obj[0],anno = year).count()
+
+                destino_prod[obj[1]] = (saca_porcentajes(destino_corriente,count_org,False),saca_porcentajes(destino_fermentado,count_org,False))
+
+        years[year] = (lista_corriente,lista_fermentado,corriente,fermentado,certificacion,destino_prod)
 
     return render(request, template, locals())
 
