@@ -8,213 +8,26 @@
 
 {% endblock extra_css %}
 {% block content %}
-<nav class="navbar navbar-default navbar-fixed-top main-menu" role="navigation">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" alt=""></a>
-        </div>
-        <ul class="nav navbar-nav">
-                <li class="dropdown dropdown-large">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filtros Seleccionados<b class="caret"></b></a>
-                
-                <ul class="dropdown-menu-large dropdown-menu  row">
-                    
-                        <li class="col-sm-4">
-                            <ul>
-                                {% if request.session.year %}
-                                    <li class="dropdown-header">Año</li>
-                                    {% for fecha in request.session.year %}
-                                        <li class="disabled"><a href="#">{{ fecha }}</a></li>
-                                    {% endfor %}
-                                {% endif %}
-                                
-                                {% if request.session.departamento %}
-   
-                                    <li class="dropdown-header">Departamento</li>
-                                    {% for depto in request.session.departamento %}
-                                        <li class="disabled"><a href="#">{{ depto }}</a></li>
-                                    {% endfor %}
 
-                                {% endif %}   
-                            </ul>
-                        </li>
-                        <li class="col-sm-4">
-                            <ul>
-                                {% if request.session.municipio %}
-                                    <li class="dropdown-header">Municipio</li>
-                                    {% for mun in request.session.municipio %}
-                                        <li class="disabled"><a href="#">{{ mun }}</a></li>
-                                    {% endfor %}
-                                {% endif %}
-                                
-                                {% if request.session.comunidad %}
-   
-                                    <li class="dropdown-header">Comunidad</li>
-                                    {% for com in request.session.comunidad %}
-                                        <li class="disabled"><a href="#">{{ com }}</a></li>
-                                    {% endfor %}
-
-                                {% endif %}   
-                            </ul>
-                        </li>
-                        <li class="col-sm-4">
-                            <ul>
-                                {% if request.session.organizacion %}
-                                    <li class="dropdown-header">Organizacion</li>
-                                    {% for org in request.session.organizacion %}
-                                        <li class="disabled"><a href="#">{{ org }}</a></li>
-                                    {% endfor %}
-                                {% endif %}
-                                
-                                {% if request.session.socio %}
-   
-                                    <li class="dropdown-header">Socio</li>  
-                                    {% if request.session.socio == "1" %}
-                                        <li class="disabled"><a href="#">Si</a></li>
-                                    {% else %}
-                                    <li class="disabled"><a href="#">No</a></li>
-                                    {% endif %}
-
-                                {% endif %}   
-                            </ul>
-                        </li>
-                    
-                    
-                </ul>
-                
-            </li>
-        </ul>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Organizaciones</a></li>
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
-                    <div class="dropdown-menu menu-indicadores panel panel-default">
-                        <div class="panel-heading titulo-indicador">
-                            <h3 class="panel-title"><span class="fa fa-tasks"></span> Indicadores</h3>                                
-                            <div class="pull-right">
-                                <span class="label label-warning">14 Indicadores</span>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <ul>
-                                <li>
-                                    <a href="/productores/educacion/"><strong>Educación</strong></a>
-                                </li>
-                                <li>
-                                    <a href="/productores/tenencia-propiedad/">
-                                        <strong>Tenencia de la Propiedad</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/uso-tierra/">
-                                        <strong>Uso de Tierra</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/reforestacion/">
-                                        <strong>Reforestación</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/caracterizac  ion-terreno/">
-                                        <strong>Caracterización de terreno</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/riesgos-finca/">
-                                        <strong>Riesgos en la Finca</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/mitigacion-riesgos/">
-                                        <strong>Mitigación de riesgos</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/organizacion-productiva/">
-                                        <strong>Organización Productiva-Comercial</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/produccion/">
-                                        <strong>Producción</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                <a href="/productores/certificacion/">
-                                    <strong>Certificación</strong> 
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/tecnicas-aplicadas/">
-                                        <strong>Técnicas aplicadas</strong> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/comercializacion/">
-                                        <strong>Comercialización</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/capacitaciones/">
-                                        <strong>Capacitaciones</strong> 
-                                    </a>
-                                </li>
-                                <li>    
-                                    <a href="/productores/problemas-areas-cacao/">
-                                        <strong>Problemas areas cacao</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/genero/">
-                                        <strong>Género</strong>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/productores/ampliar-areas-cacao/">
-                                        <strong>Ampliar áreas de cacao</strong>
-                                    </a>
-                                </li>
-                            </ul>  
-                        </div>
-                        
-                    </div>
-                    
-                    <!--<ul class=" animated zoomIn xn-drop-left menu-indicadores">
-                        <li class="titulo-indicador">
-                            <h3 class="panel-title "><span class="fa fa-tasks"></span> Indicadores</h3>                                
-                            <div class="pull-right">
-                                <span class="label label-warning">14 Indicadores</span>
-                            </div>
-                        </li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul> -->
-                </li>
-                <li><a href="#">Cerrar Sesión <span class="fa fa-sign-out"></span></a></li>
-            </ul>
-        </div>  
-    </div>
-</nav>
+{% include "productores/menu_productores.html" %}
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>                    
+            <li><a href="/">Home</a></li>
+            <li><a href="/productores/">Productores</a></li>                      
             <li class="active">Dashboard</li>
         </ul>
+<ul class="select-annos" >
+    <li>
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>        
         <!-- END BREADCRUMB -->                       
         
         <!-- PAGE CONTENT WRAPPER -->
@@ -463,7 +276,7 @@
 
 
 
-{% include "productores/filtros.html" %}
+
 
 
 
@@ -530,17 +343,7 @@
 
 <div id="tabs">
   <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
-
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
+  
 
 
 </div>
