@@ -3,47 +3,47 @@
 	
 {% endblock extra_css %}
 {% block content %}
-<!-- page container -->
-    					<!-- page header holder -->
-                        <div class="page-header-holder">
-                            
-                            <!-- page logo -->
-                            <div class="logo">
-                                <a href="index.html">Sistema APROCACAHO</a>
-                            </div>
-                            <!-- ./page logo -->
-                            
+<nav class="navbar navbar-default navbar-fixed-top main-menu" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" alt=""></a>
+        </div>
+        <ul class="nav navbar-nav">
+        </ul>
 
-                            <!-- nav mobile bars -->
-                            <div class="navigation-toggle">
-                                <div class="navigation-toggle-button"><span class="fa fa-bars"></span></div>
-                            </div>
-                            <!-- ./nav mobile bars -->
-                            
-                            <!-- navigation -->
-                            <ul class="navigation">
-                                <li>
-                                    <a href="/">Inicio</a>
-                                </li>
-                                <li>
-                                    <a href="/productores/">Productores</a>
-                                </li>
-                                <li>
-                                    <a href="/organizaciones/">Organizaciones</a>
-                                </li>
-                               <!-- <li>
-                                    <a href="index-default.html">Manuel PDF</a>
-                                </li> --> 
-                                
-                                <li><a href="/admin">Administración</a></li>
-                            </ul>
-                            <!-- ./navigation -->                        
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-                            
-                        </div>
-                        <!-- ./page header holder -->
-		<!-- page content -->
-		<div class="page-content">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/productores/">Productores</a></li>
+                <li><a href="/organizaciones/">Organizaciones</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="/admin">Administrar</a></li>
+                    <li><a href="">Manual PDF</a></li>
+                    <li>
+                        <a href="/logout/">
+                            <span class="fa fa-sign-out"></span> Cerrar Sesión 
+                        </a>
+                    </li>
+                {% else %}
+                    <li><a href="/admin">Iniciar Sesión</a></li>
+
+                {% endif %}
+
+            </ul>
+        </div>  
+    </div>
+</nav>
+		<div class="page-content margen">
 		    
 		    <!-- page content wrapper -->
 		    <div class="page-content-wrap bg-img-2 light-elements">

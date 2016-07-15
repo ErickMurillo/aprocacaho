@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+        <div id="socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+        <div id="no_socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <caption>Áreas de productores socios en cacao</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Socios</th>
+                    <th>Promedio</th>
+                    <th>Socias</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+              {%for fila in value.1 %}
+              <tr>
+                  {%for celda in fila %}
+                  <td>{{celda|default:'0'}}</td>
+                  {%endfor%}
+              </tr>
+              {%endfor%}
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <caption>Áreas de productores no socios en cacao</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No socios</th>
+                    <th>Promedio</th>
+                    <th>No socias</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+              {%for fila in value.2 %}
+              <tr>
+                  {%for celda in fila %}
+                  <td>{{celda|default:'0'}}</td>
+                  {%endfor%}
+              </tr>
+              {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#socios{{year}}').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Número de socias y socios con cacao'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Productores'
+      }
+    },
+    tooltip: {
+        formatter: function() {
+            return ''+
+            this.series.name +': '+ this.y ;
+        }
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+    },
+
+    series: [{
+      name: "Productores",
+      colorByPoint: true,
+      data: [
+
+    {
+      name: "Hombres",
+
+        y: {% if value.0.0 == None %}0{% else %}{{value.0.0}}{% endif %},
+
+    }, {
+      name: "Mujeres",
+        y: {% if value.0.1 == None %}0{% else %}{{value.0.1}}{% endif %},
+    }
+    ]
+  }],
+});
+
+$('#no_socios{{year}}').highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Número de No-socias y No-socios con cacao'
+  },
+
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    title: {
+      text: 'Productores'
+    }
+  },
+  tooltip: {
+      formatter: function() {
+          return ''+
+          this.series.name +': '+ this.y ;
+      }
+  },
+  legend: {
+    enabled: false
+  },
+  plotOptions: {
+      series: {
+          borderWidth: 0,
+          dataLabels: {
+              enabled: true,
+              format: '{point.y}',
+              color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+              style: {
+                  textShadow: '0 0 3px white'
+              }
+          }
+      }
+  },
+
+  tooltip: {
+    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+  },
+
+  series: [{
+    name: "Productores",
+    colorByPoint: true,
+    data: [
+  {
+    name: "Hombres",
+    y: {% if value.0.2 == None %}0{% else %}{{value.0.2}}{% endif %},
+  }, {
+    name: "Mujeres",
+    y: {% if value.0.3 == None %}0{% else %}{{value.0.3}}{% endif %},
+  }
+  ]
+}],
+});
+{% endfor %}
+});
+</script>
+{% endblock %}

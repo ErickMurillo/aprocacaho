@@ -60,7 +60,7 @@ class EncuestaOrganicacion(models.Model):
 
 		def save(self, *args, **kwargs):
 			self.anno = self.fecha.year
-			super(Encuesta_Org, self).save(*args, **kwargs)
+			super(EncuestaOrganicacion, self).save(*args, **kwargs)
 
 		class Meta:
 			verbose_name = "Encuesta"
@@ -209,10 +209,10 @@ COMERCIO_CHOICES = (
 
 class Comercializacion(models.Model):
 	seleccion = models.IntegerField(choices=COMERCIO_CHOICES)
-	socias_corriente = models.FloatField()
-	socios_corriente = models.FloatField()
-	no_socias_corriente = models.FloatField()
-	no_socios_corriente = models.FloatField()
+	socias_corriente = models.FloatField(verbose_name="Mujeres (Corriente)")
+	socios_corriente = models.FloatField(verbose_name="Hombres (Corriente)")
+	no_socias_corriente = models.FloatField(verbose_name="Mujeres (Fermentado)")
+	no_socios_corriente = models.FloatField(verbose_name="Hombres (Fermentado)")
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:

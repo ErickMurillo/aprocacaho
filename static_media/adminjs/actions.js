@@ -61,40 +61,7 @@ $(document).ready(function(){
     });
     /* END Gallery Items */
 
-    // XN PANEL DRAGGING
-    $( ".xn-panel-dragging" ).draggable({
-        containment: ".page-content", handle: ".panel-heading", scroll: false,
-        start: function(event,ui){
-            html_click_avail = false;
-            $(this).addClass("dragged");
-        },
-        stop: function( event, ui ) {
-            $(this).resizable({
-                maxHeight: 400,
-                maxWidth: 600,
-                minHeight: 200,
-                minWidth: 200,
-                helper: "resizable-helper",
-                start: function( event, ui ) {
-                    html_click_avail = false;
-                },
-                stop: function( event, ui ) {
-                    $(this).find(".panel-body").height(ui.size.height - 82);
-                    $(this).find(".scroll").mCustomScrollbar("update");
-                                            
-                    setTimeout(function(){
-                        html_click_avail = true; 
-                    },1000);
-                                            
-                }
-            })
-            
-            setTimeout(function(){
-                html_click_avail = true; 
-            },1000);            
-        }
-    });
-    // END XN PANEL DRAGGING
+`
     
     /* DROPDOWN TOGGLE */
     $(".dropdown-toggle").on("click",function(){

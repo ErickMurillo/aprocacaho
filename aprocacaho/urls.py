@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^$', index, name='index'),
     url(r'^productores/', include('productores.urls')),
-    # url(r'^organizaciones/', include('organizacion.urls')),
+    url(r'^organizaciones/', include('organizacion.urls')),
     url(r'^xls/$', save_as_xls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2023,7 +2023,8 @@ p.rol{
   display: inline-block;
 }
 .consulta{
-  margin-bottom:187px;
+  margin-bottom:173px;
+  margin-top: 50px;
 
 }
 .fondo{
@@ -2110,7 +2111,9 @@ strong{
 
 }
 
-
+.page-container .page-content.margen{
+    margin: 70px 0px 0 0;
+}
 
 
 

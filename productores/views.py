@@ -25,7 +25,7 @@ def _queryset_filtrado(request):
 				params['entrevistado__comunidad__municipio__in'] = request.session['municipio']
 
 	if request.session['organizacion']:
-		params['organizacion'] = request.session['organizacion']
+		params['organizacion__in'] = request.session['organizacion']
 
 	if request.session['socio']:
 		params['organizacionasociada__socio'] = request.session['socio']
@@ -138,12 +138,14 @@ def dashboard(request,template="productores/dashboard.html"):
 			promedio_productor = 0
 
 		#productores socios y no socios
-		socio = (filtro.filter(year = year,organizacionasociada__socio = '1').count() / float(productores)) * 100
-		if socio == None:
+		try:
+			socio = (filtro.filter(year = year,organizacionasociada__socio = '1').count() / float(productores)) * 100
+		except:
 			socio = 0
 
-		no_socio = (filtro.filter(year = year,organizacionasociada__socio = '2').count() / float(productores)) * 100
-		if no_socio == None:
+		try:
+			no_socio = (filtro.filter(year = year,organizacionasociada__socio = '2').count() / float(productores)) * 100
+		except:
 			no_socio = 0
 
 		#productores certificados y no certificados

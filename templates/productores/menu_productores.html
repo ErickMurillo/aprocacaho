@@ -14,7 +14,7 @@
                 <li class="dropdown dropdown-large">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filtros Seleccionados<b class="caret"></b></a>
                 
-                <ul class="dropdown-menu-large dropdown-menu  row">
+                <ul class="dropdown-menu-large dropdown-menu  row animated zoomIn xn-drop-left">
                     
                         <li class="col-sm-2">
                             <ul>
@@ -106,7 +106,7 @@
                 <li><a href="#">Organizaciones</a></li>
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
-                    <div class="dropdown-menu menu-indicadores panel panel-default">
+                    <div class="dropdown-menu menu-indicadores panel panel-default animated zoomIn xn-drop-left">
                         <div class="panel-heading titulo-indicador">
                             <h3 class="panel-title"><span class="fa fa-tasks"></span> Indicadores</h3>                                
                             <div class="pull-right">
@@ -197,20 +197,20 @@
                         </div>
                         
                     </div>
-                    
-                    <!--<ul class=" animated zoomIn xn-drop-left menu-indicadores">
-                        <li class="titulo-indicador">
-                            <h3 class="panel-title "><span class="fa fa-tasks"></span> Indicadores</h3>                                
-                            <div class="pull-right">
-                                <span class="label label-warning">14 Indicadores</span>
-                            </div>
-                        </li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul> -->
+
                 </li>
-                <li><a href="#">Cerrar Sesión <span class="fa fa-sign-out"></span></a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/admin">Administrar</a></li>
+                    <li><a href="">Manual PDF</a></li>
+                    <li>
+                        <a href="/logout/">
+                            <span class="fa fa-sign-out"></span> Cerrar Sesión 
+                        </a>
+                    </li>
+                {% else %}
+                    <li><a href="/admin">Iniciar Sesión</a></li>
+
+                {% endif %}
             </ul>
         </div>  
     </div>

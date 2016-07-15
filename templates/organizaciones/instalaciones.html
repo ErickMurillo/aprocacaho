@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+      <table class="table table-bordered table-striped table-hover">
+        <caption>Instalaciones</caption>
+        <thead>
+          <tr>
+            <th>Tipo de infraestructura</th>
+            <th>Cantidad</th>
+            <th>Capacidad (qq)</th>
+            <th>Capacidad promedio (qq)</th>
+            <th colspan="3">Estado (%)</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Bueno</th>
+            <th>Malo</th>
+            <th>Regular</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in value.0 %}
+          <tr>
+            <td>{{v.0|default:"0"}}</td>
+            <td>{{v.1|default:"0"}}</td>
+            <td>{{v.2|default:"0"}}</td>
+            <td>{{v.3|default:"0"}}</td>
+            {% for x in v.4 %}
+              <td>{{x}}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div id="transporte{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="estado{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#transporte{{year}}').highcharts({
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Organizaciones que cuentan con medios de transporte'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '{point.percentage:.2f}%',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+          style: {
+            textShadow: '0 0 3px white'
+          }
+        },
+        showInLegend: true
+      }
+
+    },
+    series: [{
+      name: "Porcentajes",
+      colorByPoint: true,
+      data: [
+      {% for k,v in value.1.items %}
+      {
+        name: "{{k}}",
+        y: {{v}}
+      },
+      {% endfor %}
+
+
+      ]
+    }]
+  });
+
+  $('#estado{{year}}').highcharts({
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Estado mecánico de medios de transporte'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '{point.percentage:.2f}%',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+          style: {
+            textShadow: '0 0 3px white'
+          }
+        },
+        showInLegend: true
+      }
+
+    },
+    series: [{
+      name: "Porcentajes",
+      colorByPoint: true,
+      data: [
+      {% for k,v in value.2.items %}
+      {
+        name: "{{k}}",
+        y: {{v}}
+      },
+      {% endfor %}
+
+
+      ]
+    }]
+  });
+
+{% endfor %}
+});
+</script>
+{% endblock %}

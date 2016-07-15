@@ -33,6 +33,7 @@
             <ul>
                 {% if request.session.departamento %}
 
+<<<<<<< HEAD
                     <li class="dropdown-header">Departamento</li>
                     {% for depto in request.session.departamento %}
                         <li class="disabled"><a href="#">{{ depto }}</a></li>
@@ -40,6 +41,24 @@
                     {% else %}
                     <li class="dropdown-header">Departamento</li>
                     <li class="disabled"><a href="#">Todos</a></li>
+=======
+				{% if request.session.organizacion %}
+				<style>
+					.scroll {
+						max-height: 100px;
+						overflow-y: scroll;
+					}
+				</style>
+				<div class="col-xs-4 col-sm-3 col-md-2">
+					<h5>Organización</h5>
+					<p class="scroll">
+						{% for org in request.session.organizacion %}
+						{{ org }}{% if not forloop.last %}, {% endif %}
+						{% endfor %}
+					</p>
+				</div>
+				{% endif %}
+>>>>>>> bbc7a014b2f56a6d79c2d1de399cb71201c676e9
 
                 {% endif %} 
             </ul>

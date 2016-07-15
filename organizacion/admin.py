@@ -96,6 +96,8 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
                 InlineCertificacionOrg,InlineDestinoProdCorriente,InlineDestinoProdFermentado,
                 InlineFinanciamiento,InlineFinanciamientoProductores,InlineInfoFinanciamiento]
 
+    list_display = ('organizacion','fecha')
+
     class Media:
         css = {
             'all': ('css/admin.css',)

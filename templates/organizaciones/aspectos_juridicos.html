@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tabs">
+  <!-- Nav tabs -->
+  <ul class="nav" role="navegacion">
+    <li role="titulo">
+      <a >Años:</a>
+    </li>
+
+    {% for year in years.keys %}
+    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for year,value in years.items %}
+    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+        <div id="miembros{{year}}" style="min-width: 540px; width: 540px; margin: 0 auto;"></div>
+        <div id="juridica{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+        <div class="col-md-8" id="aspectos_juridicos{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+        <div class="col-md-4">
+          <table class="table table-bordered table-striped table-hover">
+            <caption>Organizaciones</caption>
+            <thead>
+              <tr>
+                <th>Situación legal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for k in value.3.keys %}
+              <tr>
+                <td><a href="" data-toggle="modal" data-target="#situacion_modal{{forloop.counter}}{{year}}">{{k}}</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- modal -->
+					{% for k,v in value.3.items %}
+						<div class="modal fade" id="situacion_modal{{forloop.counter}}{{year}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4>Año {{year}}</h4>
+										<h4>Organizaciones que dijeron que '{{k}}' tienen:</h4>
+									</div>
+									<div class="modal-body">
+										<table class="table table-bordered table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Solvencia tributaria</th>
+													<th>Junta directiva certificada</th>
+													<th>Lista socias y socias actualizada</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													{% for x in v %}
+													<td>
+														{% for org in x  %}
+														<li><a href="{% url 'detail-org' org.organizacion.slug %}">{{org}}</a></li>
+														{% endfor %}
+													</td>
+													{% endfor %}
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- end modal -->
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  {% for year,value in years.items %}
+  $('#miembros{{year}}').highcharts({
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Número de miembros del Consejo de Administración para Organizaciones'
+          },
+          xAxis: {
+              categories: ['ONG', 'Cooperativas', 'Unión de Cooperativas']
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Total de hombres y mujeres'
+              }
+          },
+
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+          series: [
+          {% for k,v in value.0.items %}
+
+            {
+                name: '{{k}}',
+                data: [{% for x in v %}{{x.1}},{% endfor %}]
+            },
+
+          {% endfor %}
+        ]
+      });
+
+      $('#juridica{{year}}').highcharts({
+  			chart: {
+  				plotBackgroundColor: null,
+  				plotBorderWidth: null,
+  				plotShadow: false,
+  				type: 'pie'
+  			},
+  			title: {
+  				text: 'Personeria Juridica'
+  			},
+  			tooltip: {
+  				pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+  			},
+  			plotOptions: {
+  				pie: {
+  					allowPointSelect: true,
+  					cursor: 'pointer',
+  					dataLabels: {
+  						enabled: true,
+  						format: '{point.percentage:.2f}%',
+  						color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+  						style: {
+  							textShadow: '0 0 3px white'
+  						}
+  					},
+  					showInLegend: true
+  				}
+
+  			},
+  			series: [{
+  				name: "Porcentajes",
+  				colorByPoint: true,
+  				data: [
+  				{% for x,y in value.1.items %}
+  				{
+  					name: "{{x}}",
+  					y: {{y}}
+  				},
+  				{% endfor %}
+
+
+  				]
+  			}]
+  		});
+
+      $('#aspectos_juridicos{{year}}').highcharts({
+    		chart: {
+    			type: 'column'
+    		},
+    		title: {
+    			text: 'Situación legal de las Organizaciones/Instituciones'
+    		},
+    		xAxis: {
+    			categories: ['Cuenta con Registro Tributario Nacional Numérico', 'Junta Directiva certificada', 'Lista socias y socias actualizada']
+    		},
+    		yAxis: {
+    			title: {
+    				text: 'Porcentajes'
+    			}
+
+    		},
+    		credits: {
+    			enabled: false
+    		},
+    		plotOptions: {
+    			series: {
+    				borderWidth: 0,
+    				dataLabels: {
+    					enabled: true,
+    					format: '{point.y:.2f}%'
+    				}
+    			}
+    		},
+
+    		tooltip: {
+    			headerFormat: '<span style="font-size:11px">{series.name}</span>',
+    			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%'
+    		},
+    		series: [
+    		{% for k,v in value.2.items %}
+    		{
+    			name: '{{k}}',
+    			data: [{% for x in v %}{{x}},{% endfor %}]
+    		},
+    		{% endfor %}
+
+    		]
+    	});
+  {% endfor %}
+});
+</script>
+{% endblock %}
