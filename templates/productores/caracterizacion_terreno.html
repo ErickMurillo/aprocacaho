@@ -9,15 +9,27 @@
 
 {% endblock extra_css %}
 {% block content %}
-
+{% include "productores/menu_productores.html" %}
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>                    
-            <li class="active">Dashboard</li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/dashboard/">Dashboard</a></li>
+            <li class="active">Caracterización de terreno</li>
         </ul>
         <!-- END BREADCRUMB -->                       
-        
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
+
+            {% for year in years.keys %}
+            <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+              <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+            </li>
+            {% endfor %}
+        </ul>  
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
             
@@ -403,6 +415,7 @@
         <!-- END PAGE CONTENT WRAPPER -->   
     </div>
 
+{% include "productores/footer.html" %}
 
 
 
@@ -414,22 +427,7 @@
 
 
 
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
 
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-
-  </div>
 {% endblock content %}
 
 {% block extra_js %}

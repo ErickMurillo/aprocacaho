@@ -9,15 +9,27 @@
 
 {% endblock extra_css %}
 {% block content %}
-
+{% include "productores/menu_productores.html" %}
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>                    
-            <li class="active">Dashboard</li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/dashboard/">Dashboard</a></li>
+            <li class="active">Producción</li>
         </ul>
         <!-- END BREADCRUMB -->                       
-        
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
+
+            {% for year in years.keys %}
+            <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+              <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+            </li>
+            {% endfor %}
+        </ul> 
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
             
@@ -107,7 +119,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
-                                        <h3>Medidas de mitigación</h3>
+                                        <h3>Producción total de cacao</h3>
                                         <span>Porcentaje </span>
                                         
                                     </div>
@@ -127,7 +139,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
-                                        <h3>Cuenta con un contrato de venta</h3>
+                                        <h3>Meses de mayor producción de cacao</h3>
                                         <span>Frecuencia </span>
                                         
                                     </div>
@@ -165,22 +177,8 @@
             
         </div>
         <!-- END PAGE CONTENT WRAPPER -->   
-    </div>}
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
-
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  </div>
+    </div>
+    {% include "productores/footer.html" %}
 {% endblock content %}
 
 {% block extra_js %}

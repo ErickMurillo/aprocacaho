@@ -9,15 +9,27 @@
 
 {% endblock extra_css %}
 {% block content %}
-
+{% include "productores/menu_productores.html" %}
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>                    
-            <li class="active">Dashboard</li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/dashboard/">Dashboard</a></li>
+            <li class="active">Género</li>
         </ul>
         <!-- END BREADCRUMB -->                       
-        
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
+
+            {% for year in years.keys %}
+            <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+              <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+            </li>
+            {% endfor %}
+        </ul> 
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
             
@@ -25,7 +37,39 @@
             <div class="tab-content">
                 {% for year,value in years.items %}
                 <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+                    <!-- START WIDGETS -->                    
+                    <div class="row">
+                        
+                        <div class="col-md-offset-2 col-md-4">
+                            
+                            <!-- START WIDGET MESSAGES -->
+                            <div class="item widget widget-default widget-item-icon" >
+                                <div>                              
+                                    <div class="widget-title">Ingreso mensual de solo cacao</div>            
+                                    <div class="widget-subtitle">Promedio</div>
+                                    <div class="widget-int">{{value.4}} </div>
+                                </div>      
+                            </div>                        
+                            <!-- END WIDGET MESSAGES -->
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <!-- START WIDGET MESSAGES -->
+                            <div class="item widget widget-default widget-item-icon" >
+                                <div>                              
+                                    <div class="widget-title">Ingreso mensual todas las actividades</div>            
+                                    <div class="widget-subtitle">Promedio</div>
+                                    <div class="widget-int">{{value.5}}</div>
+                                </div> 
 
+                            </div>                        
+                            <!-- END WIDGET MESSAGES -->
+                            
+                            
+                        </div>
+                        
+                    </div>
+                    <!-- END WIDGETS -->
                     <div class="row">
                 
                         <div class="col-md-6">
@@ -153,37 +197,9 @@
         </div>
         <!-- END PAGE CONTENT WRAPPER -->   
     </div>
+{% include "productores/footer.html" %}
 
 
-
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
-
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      
-      
-      
-      
-      <p>Ingreso promedio mensual recibido solo cacao: {{value.4}}</p>
-      <p>Ingreso promedio mensual recibido de todas las actividades: {{value.5}}</p>
-      
-    </div>
-  </div>
-    {% endfor %}
-  </div>
 {% endblock content %}
 
 {% block extra_js %}

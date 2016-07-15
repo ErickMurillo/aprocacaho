@@ -2168,12 +2168,13 @@ strong{
 }
 .dropdown-menu-large > li > ul > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 3px 5px;
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
   color: #333333;
   white-space: normal;
+  font-size: 12px;
 }
 .dropdown-menu-large > li ul > li > a:hover,
 .dropdown-menu-large > li ul > li > a:focus {

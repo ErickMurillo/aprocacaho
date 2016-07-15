@@ -13,8 +13,10 @@
 <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>                    
-            <li class="active">Dashboard</li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/dashboard/">Dashboard</a></li>
+            <li class="active">Educación</li>
         </ul>
         <!-- END BREADCRUMB -->                       
         <ul class="select-annos" >
@@ -210,44 +212,10 @@
         </div>
         <!-- END PAGE CONTENT WRAPPER -->   
 </div>
+{% include "productores/footer.html" %}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% include "productores/filtros.html" %}
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
-
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-
-  </div>
 {% endblock content %}
 
 {% block extra_js %}
