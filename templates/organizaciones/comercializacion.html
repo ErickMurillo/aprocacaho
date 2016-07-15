@@ -18,7 +18,58 @@
   <div class="tab-content">
     {% for year,value in years.items %}
     <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <div id="estado{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div class="col-md-6">
+        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <caption>Cacao corriente</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Socios</th>
+                    <th>Promedio</th>
+                    <th>Socias</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+              {%for fila in value.0 %}
+              <tr>
+                  {%for celda in fila %}
+                  <td>{{celda|default:'0'}}</td>
+                  {%endfor%}
+              </tr>
+              {%endfor%}
+            </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <caption>Cacao fermentado</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Socios</th>
+                    <th>Promedio</th>
+                    <th>Socias</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+              {%for fila in value.1 %}
+              <tr>
+                  {%for celda in fila %}
+                  <td>{{celda|default:'0'}}</td>
+                  {%endfor%}
+              </tr>
+              {%endfor%}
+            </tbody>
+        </table>
+      </div>
+
+      <div id="comercio{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="certificacion{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+      <div id="destino{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+
     </div>
     {% endfor %}
   </div>
@@ -29,7 +80,164 @@
 <script type="text/javascript">
 $(function () {
   {% for year,value in years.items %}
+      $('#comercio{{year}}').highcharts({
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Cacao comercializado'
+          },
+          yAxis: {
+              title: {
+                  text: 'Valores'
+              }
 
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Quintales'
+              }
+          },
+          xAxis: {
+              categories: [
+              'Quintales',
+
+              ],
+              crosshair: true
+          },
+          tooltip: {
+              formatter: function() {
+                  return ''+
+                  this.series.name +': '+ this.y ;
+              }
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+          },
+          plotOptions: {
+              series: {
+                  borderWidth: 0,
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.y}',
+                      color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                      style: {
+                          textShadow: '0 0 3px white'
+                      }
+                  }
+              }
+          },
+          series: [
+                  {
+                      name: "Corriente",
+                      data: [{{value.2|default:'0'}}],
+                  },
+                  {
+                      name: "Fermentado",
+                      data: [{{value.3|default:'0'}}],
+                  }
+          ]
+      });
+
+      $('#certificacion{{year}}').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Certificación utilizada para comercializar cacao'
+        },
+        xAxis: {
+            categories: ['Corriente','Fermentado']
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Porcentajes'
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.series.name +': '+ this.y +'%';
+            }
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}%',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    style: {
+                        textShadow: '0 0 3px white'
+                    }
+                }
+            }
+        },
+        series: [
+          {% for k,v in value.4.items%}
+            {
+              name: '{{k}}',
+              data: [{{v.0}},{{v.1}}]
+            },
+          {% endfor %}
+           ]
+    });
+
+    $('#destino{{year}}').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Destino de la producción de cacao'
+      },
+      xAxis: {
+          categories: ['Corriente','Fermentado']
+      },
+      credits: {
+          enabled: false
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Porcentajes'
+          }
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+              this.series.name +': '+ this.y +'%';
+          }
+      },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: '{point.y}%',
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                  style: {
+                      textShadow: '0 0 3px white'
+                  }
+              }
+          }
+      },
+      series: [
+        {% for k,v in value.5.items%}
+          {
+            name: '{{k}}',
+            data: [{{v.0}},{{v.1}}]
+          },
+        {% endfor %}
+         ]
+  });
   {% endfor %}
 });
 </script>
