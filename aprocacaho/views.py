@@ -8,6 +8,14 @@ def index(request,template="index.html"):
     socios_mujeres = Encuesta.objects.filter(organizacionasociada__socio = '1',entrevistado__sexo = '1').count()
     socios_hombres = Encuesta.objects.filter(organizacionasociada__socio = '1',entrevistado__sexo = '2').count()
 
-    organizaciones = Encuesta.objects.all().order_by('organizacion__nombre').distinct('organizacion__nombre').count()
+    organizaciones = Encuesta.objects.all().order_by('organizacion__nombre').distinct().count()
+
+    #areas cacao
+    areas_cacao = Encuesta.objects.all().aggregate(total = Sum('plantacion__area'))['total']
+    areas_mujeres = Encuesta.objects.filter(entrevistado__sexo = '1').aggregate(total = Sum('plantacion__area'))['total']
+    areas_hombres = Encuesta.objects.filter(entrevistado__sexo = '2').aggregate(total = Sum('plantacion__area'))['total']
+
+    #ProduccionCacao
+    produccion = Encuesta.objects.all().aggregate(total = Sum('produccioncacao__cacao_baba'))['total']
 
     return render(request, template, locals())
