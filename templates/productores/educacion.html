@@ -4,10 +4,8 @@
     <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
-
-
-
 {% endblock extra_css %}
+
 {% block content %}
 {% include "productores/menu_productores.html" %}
 <div class="fondo">
@@ -37,7 +35,6 @@
             <div class="tab-content">
                 {% for year,value in years.items %}
                 <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-
                     <div class="row">
 
                         <div class="col-md-6">

@@ -49,81 +49,75 @@
             <div class="tab-content">
                 {% for year,value in years.items %}
                 <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-                    <!-- START WIDGETS -->
-                    <div class="row">
+                  <!-- START WIDGETS -->
+                  <div class="row">
+                      <div class="col-md-3">
+                          <!-- START WIDGET MESSAGES -->
+                          <div class="item widget widget-default widget-item-icon" >
+                              <div>
+                                  <div class="widget-title">Organizaciones</div>
+                                  <div class="widget-subtitle">Total</div>
+                                  <div class="widget-int">{{value.13}}</div>
+                              </div>
+                          </div>
+                          <!-- END WIDGET MESSAGES -->
+                      </div>
+                      <div class="col-md-3">
 
-                        <div class="col-md-3">
+                          <!-- START WIDGET SLIDER -->
+                          <div class="widget widget-default widget-carousel">
+                              <div class="owl-carousel" id="owl-example">
+                                  <div>
+                                      <div class="widget-title">Productores</div>
+                                      <div class="widget-subtitle">Total</div>
+                                      <div class="widget-int">{{value.14}}</div>
+                                  </div>
+                                  <div>
+                                      <div class="widget-title">Mujeres</div>
+                                      <div class="widget-subtitle">Porcentaje</div>
+                                      <div class="widget-int">{{value.15}}%</div>
+                                  </div>
+                                  <div>
+                                      <div class="widget-title">Hombres</div>
+                                      <div class="widget-subtitle">Porcentaje</div>
+                                      <div class="widget-int">{{value.16}}%</div>
+                                  </div>
+                              </div>
 
-                            <!-- START WIDGET MESSAGES -->
-                            <div class="item widget widget-default widget-item-icon" >
-                                <div>
-                                    <div class="widget-title">Organizaciones</div>
-                                    <div class="widget-subtitle">Total</div>
-                                    <div class="widget-int">{{value.13}}</div>
-                                </div>
-                            </div>
-                            <!-- END WIDGET MESSAGES -->
+                          </div>
+                          <!-- END WIDGET SLIDER -->
 
-                        </div>
-                        <div class="col-md-3">
+                      </div>
+                      <div class="col-md-3">
 
-                            <!-- START WIDGET SLIDER -->
-                            <div class="widget widget-default widget-carousel">
-                                <div class="owl-carousel" id="owl-example">
-                                    <div>
-                                        <div class="widget-title">Productores</div>
-                                        <div class="widget-subtitle">Total</div>
-                                        <div class="widget-int">{{value.14}}</div>
-                                    </div>
-                                    <div>
-                                        <div class="widget-title">Mujeres</div>
-                                        <div class="widget-subtitle">Porcentaje</div>
-                                        <div class="widget-int">{{value.15}}%</div>
-                                    </div>
-                                    <div>
-                                        <div class="widget-title">Hombres</div>
-                                        <div class="widget-subtitle">Porcentaje</div>
-                                        <div class="widget-int">{{value.16}}%</div>
-                                    </div>
-                                </div>
+                          <!-- START WIDGET MESSAGES -->
+                          <div class="item widget widget-default widget-item-icon" >
+                              <div>
+                                  <div class="widget-title">Áreas de Cacao</div>
+                                  <div class="widget-subtitle">Total</div>
+                                  <div class="widget-int">{{value.17}} mz</div>
+                              </div>
 
-                            </div>
-                            <!-- END WIDGET SLIDER -->
-
-                        </div>
-                        <div class="col-md-3">
-
-                            <!-- START WIDGET MESSAGES -->
-                            <div class="item widget widget-default widget-item-icon" >
-                                <div>
-                                    <div class="widget-title">Áreas de Cacao</div>
-                                    <div class="widget-subtitle">Total</div>
-                                    <div class="widget-int">{{value.17}} mz</div>
-                                </div>
-
-                            </div>
-                            <!-- END WIDGET MESSAGES -->
+                          </div>
+                          <!-- END WIDGET MESSAGES -->
 
 
-                        </div>
-                        <div class="col-md-3">
+                      </div>
+                      <div class="col-md-3">
 
-                            <!-- START WIDGET CLOCK -->
-                            <div class="item widget widget-default widget-item-icon" >
-                                <div>
-                                    <div class="widget-title">Áreas de cacao por productor</div>
-                                    <div class="widget-subtitle">Promedio</div>
-                                    <div class="widget-int">{{value.18}} mz</div>
-                                </div>
-                            </div>
-                            <!-- END WIDGET CLOCK -->
+                          <!-- START WIDGET CLOCK -->
+                          <div class="item widget widget-default widget-item-icon" >
+                              <div>
+                                  <div class="widget-title">Áreas de cacao por productor</div>
+                                  <div class="widget-subtitle">Promedio</div>
+                                  <div class="widget-int">{{value.18}} mz</div>
+                              </div>
+                          </div>
+                          <!-- END WIDGET CLOCK -->
 
-                        </div>
-                    </div>
-                    <!-- END WIDGETS -->
-
-
-
+                      </div>
+                  </div>
+                  <!-- END WIDGETS -->
                     <div class="row">
 
                         <div class="col-md-6">
@@ -287,89 +281,18 @@
     </div>
 {% include "productores/footer.html" %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock content %}
 
 {% block extra_js %}
-
-
-
-    <!-- START SCRIPTS -->
-        <!-- START PLUGINS -->
-
-        <script type="text/javascript" src="/static/adminjs/plugins/jquery/jquery-ui.min.js"></script>
-
-        <!-- END PLUGINS -->
-
-        <!-- START THIS PAGE PLUGINS-->
-
-        <script type="text/javascript" src="/static/adminjs/plugins/owl/owl.carousel.min.js"></script>
-        <!-- END THIS PAGE PLUGINS-->
-
-        <!-- START TEMPLATE -->
-
-
-        <script type="text/javascript" src="/static/adminjs/plugins.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- START SCRIPTS -->
+<!-- START PLUGINS -->
+<script type="text/javascript" src="/static/adminjs/plugins/jquery/jquery-ui.min.js"></script>
+<!-- END PLUGINS -->
+<!-- START THIS PAGE PLUGINS-->
+<script type="text/javascript" src="/static/adminjs/plugins/owl/owl.carousel.min.js"></script>
+<!-- END THIS PAGE PLUGINS-->
+<!-- START TEMPLATE -->
+<script type="text/javascript" src="/static/adminjs/plugins.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>

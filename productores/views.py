@@ -530,7 +530,7 @@ def produccion(request,template="productores/produccion.html"):
 		edades = collections.OrderedDict()
 		for obj in EDAD_PLANTA_CHOICES:
 			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(total = Sum('plantacion__area'))['total']
-			
+
 			if area_total == None:
 				area_total = 0
 			#----------------------------------------------------------------------------------------------------
