@@ -403,12 +403,25 @@ def financiamiento_produccion(request,template="organizaciones/financiamiento_pr
 
     years = collections.OrderedDict()
     for year in years_encuesta:
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+
         financiamiento = {}
         for obj in SI_NO_CHOICES:
             conteo = EncuestaOrganicacion.objects.filter(financiamiento__financiamiento = obj[0],anno = year).count()
             financiamiento[obj[1]] = conteo
 
-        years[year] = (financiamiento,financiamiento)
+        tipo_financiamiento = {}
+        monto = []
+        for obj in TIPO_FINANCIAM_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(financiamientoproductores__tipo = obj[0],anno = year).count()
+            tipo_financiamiento[obj[1]] = saca_porcentajes(conteo,count_org,False)
+
+            calc_monto = EncuestaOrganicacion.objects.filter(financiamientoproductores__tipo = obj[0],anno = year).aggregate(
+                                                            total = Sum('financiamientoproductores__monto'),
+                                                            avg = Avg('financiamientoproductores__monto'))
+            monto.append((obj[1],calc_monto['total'],calc_monto['avg']))
+
+        years[year] = (financiamiento,tipo_financiamiento,monto)
 
     return render(request, template, locals())
 
@@ -417,12 +430,14 @@ def financiamiento_organizacion(request,template="organizaciones/financiamiento_
 
     years = collections.OrderedDict()
     for year in years_encuesta:
-        financiamiento = {}
-        for obj in SI_NO_CHOICES:
-            conteo = EncuestaOrganicacion.objects.filter(financiamiento__financiamiento = obj[0],anno = year).count()
-            financiamiento[obj[1]] = conteo
+        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
 
-        years[year] = (financiamiento,financiamiento)
+        financiamiento_org = {}
+        for obj in FINANACIA_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(infofinanciamiento__seleccion = obj[0],anno = year).count()
+            financiamiento_org[obj[1]] = saca_porcentajes(conteo,count_org,False)
+
+        years[year] = financiamiento_org
 
     return render(request, template, locals())
 
