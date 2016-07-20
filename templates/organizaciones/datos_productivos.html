@@ -1,72 +1,205 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
+{% include "organizaciones/menu_organizaciones.html" %}
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/organizaciones/">Organizaciones</a></li>                      
+            <li class="active">Datos productivos</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
 
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
+            {% for year in years.keys %}
+                <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+                  <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+                </li>
+            {% endfor %}
+        </ul>
 
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-        <div id="socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-        <div id="no_socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
-            <caption>Áreas de productores socios en cacao</caption>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Socios</th>
-                    <th>Promedio</th>
-                    <th>Socias</th>
-                    <th>Promedio</th>
-                </tr>
-            </thead>
-            <tbody>
-              {%for fila in value.1 %}
-              <tr>
-                  {%for celda in fila %}
-                  <td>{{celda|default:'0'}}</td>
-                  {%endfor%}
-              </tr>
-              {%endfor%}
-            </tbody>
-        </table>
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+            
+                    <div class="row">
+                
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Número de socias y socios con cacao</h3>
+                                        <span>Totales</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Número de No-socias y No-socios con cacao</h3>
+                                        <span>Totales</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="no_socios{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
 
-        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
-            <caption>Áreas de productores no socios en cacao</caption>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>No socios</th>
-                    <th>Promedio</th>
-                    <th>No socias</th>
-                    <th>Promedio</th>
-                </tr>
-            </thead>
-            <tbody>
-              {%for fila in value.2 %}
-              <tr>
-                  {%for celda in fila %}
-                  <td>{{celda|default:'0'}}</td>
-                  {%endfor%}
-              </tr>
-              {%endfor%}
-            </tbody>
-        </table>
+                        <div class="col-md-12">
+                            
+                            <!-- START DATATABLE EXPORT -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Áreas de productores socios en cacao</h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
+                                            <ul class="dropdown-menu">
+                                              
+                                                <li><a href="#" onclick="exportarXLS('modalidad'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
+                                                
+                                                
+                                            </ul>
+                                        </div>                                    
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                   
+                                        <div class="table-responsive" id="modalidad">
+                                        <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+                                        
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Socios</th>
+                                                    <th>Promedio</th>
+                                                    <th>Socias</th>
+                                                    <th>Promedio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              {%for fila in value.1 %}
+                                              <tr>
+                                                  {%for celda in fila %}
+                                                  <td>{{celda|default:'0'}}</td>
+                                                  {%endfor%}
+                                              </tr>
+                                              {%endfor%}
+                                            </tbody>
+                                        </table>
+                                            
+                                      </div>                                    
+                                        
+                                    </div>
+                                </div>
+                                <!-- END DATATABLE EXPORT -->   
+                            
+                        </div>
+                        <div class="col-md-12">
+                            
+                            <!-- START DATATABLE EXPORT -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Áreas de productores no socios en cacao</h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
+                                            <ul class="dropdown-menu">
+                                              
+                                                <li><a href="#" onclick="exportarXLS('modalidad'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
+                                                
+                                                
+                                            </ul>
+                                        </div>                                    
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                   
+                                        <div class="table-responsive" id="modalidad">
+                                            <table class="table table-bordered table-hover" cellspacing="0" width="100%">
+                                            
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>No socios</th>
+                                                    <th>Promedio</th>
+                                                    <th>No socias</th>
+                                                    <th>Promedio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              {%for fila in value.2 %}
+                                              <tr>
+                                                  {%for celda in fila %}
+                                                  <td>{{celda|default:'0'}}</td>
+                                                  {%endfor%}
+                                              </tr>
+                                              {%endfor%}
+                                            </tbody>
+                                        </table>
+                                            
+                                        </div>                                    
+                                        
+                                    </div>
+                                </div>
+                                <!-- END DATATABLE EXPORT -->   
+                            
+                        </div>
+
+                    </div>
+                
+                  
+                  
+
+                </div>
+
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
     </div>
-    {% endfor %}
-  </div>
-</div>
+
+
+{% include "productores/footer.html" %}
+
 {% endblock %}
 
 {% block extra_js %}

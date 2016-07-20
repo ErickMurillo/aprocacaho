@@ -1,82 +1,171 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
+{% include "organizaciones/menu_organizaciones.html" %}
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/organizaciones/">Organizaciones</a></li>                      
+            <li class="active">Documentación</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
 
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-        <div id="documentacion{{year}}" style="min-width: 1000px; width: 540px; margin: 0 auto;"></div>
-        <table class="table table-bordered table-striped table-hover">
-          <caption>Organizaciones</caption>
-          <thead>
-            <tr>
-              <th>Poseen documentación legal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for k in value.1.keys %}
-            <tr>
-              <td><a href="" data-toggle="modal" data-target="#doc_modal{{forloop.counter}}{{year}}">{{k}}</a></td>
-            </tr>
+            {% for year in years.keys %}
+                <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+                  <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+                </li>
             {% endfor %}
-          </tbody>
-        </table>
-        <!-- modal -->
-      {% for k,v in value.1.items %}
+        </ul>
 
-      <div class="modal fade" id="doc_modal{{forloop.counter}}{{year}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4>Año {{year}}</h4>
-              <h4>Organizaciones que dijeron que '{{k}}':</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table table-bordered table-striped table-hover">
-                <thead>
-                  <tr>
-                    {% for x,y in v.items %}
-                    <th>{{x}}</th>
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+            
+                    <div class="row">
+                
+                        <div class="col-md-8">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Documentación legal y estratégica</h3>
+                                        <span>Porcentaje</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="documentacion{{year}}" style="min-width: 345px; width: 800px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+
+                        <div class="col-md-4">
+                            
+                            <!-- START DATATABLE EXPORT -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Organizaciones</h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
+                                            <ul class="dropdown-menu">
+                                              
+                                                <li><a href="#" onclick="exportarXLS('modalidad'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
+                                                
+                                                
+                                            </ul>
+                                        </div>                                    
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                   
+                                        <div class="table-responsive" id="modalidad">
+                                        <table class="table table-bordered table-striped table-hover">
+                                              <thead>
+                                                <tr>
+                                                  <th>Poseen documentación legal</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                {% for k in value.1.keys %}
+                                                <tr>
+                                                  <td><a href="" data-toggle="modal" data-target="#doc_modal{{forloop.counter}}{{year}}">{{k}}</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                              </tbody>
+                                        </table>
+                                            
+                                      </div>                                    
+                                        
+                                    </div>
+                                </div>
+                                <!-- END DATATABLE EXPORT -->   
+                            
+                        </div>
+
+                    </div>
+                
+                  
+                  
+
+                </div>
+                <!-- modal -->
+                {% for k,v in value.1.items %}
+
+                <div class="modal fade" id="doc_modal{{forloop.counter}}{{year}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <div class="panel-title-box">
+                                        <h3>Organizaciones que dijeron que '{{k}}':</h3>
+                                        <span>Año {{year}}</span>
+                                        
+                                    </div>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            {% for x,y in v.items %}
+                                            <th>{{x}}</th>
+                                            {% endfor %}
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            {% for x in v.values %}
+                                            <td>
+                                                {% for org in x  %}
+                                                <li><a href="{% url 'detail-org' org.organizacion.slug %}">{{org}}</a></li>
+                                                {% endfor %}</td>
+                                                {% endfor %}
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
+                <!-- end modal --> 
+                {% endfor %}
+            </div>                    
+            
+            
+            
 
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    {% for x in v.values %}
-                    <td>
-                      {% for org in x  %}
-                      <li><a href="{% url 'detail-org' org.organizacion.slug %}">{{org}}</a></li>
-                      {% endfor %}</td>
-                      {% endfor %}
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+            
         </div>
-        {% endfor %}
-        <!-- end modal -->
+        <!-- END PAGE CONTENT WRAPPER -->   
     </div>
-    {% endfor %}
-  </div>
-</div>
+
+
+{% include "productores/footer.html" %}
+
 {% endblock %}
 
 {% block extra_js %}

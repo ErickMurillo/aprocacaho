@@ -2267,3 +2267,38 @@ strong{
 .multiselect-container.dropdown-menu>.active>a, .multiselect-container.dropdown-menu>.active>a:hover, .multiselect-container.dropdown-menu>.active>a:focus{
     color: black !important;
 }
+
+
+
+.lista-org li {
+    line-height: 20px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #eee;
+    display: block;
+    color: #555;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+}
+.a-org{
+  font-size: 13px;
+  font-weight: bold;
+}
+.modal-body table>tbody>tr>td>li{ list-style: none;}
+
+.modal-header .panel-title-box h3 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #1b1e24;
+    padding: 0px;
+    margin: 0px;
+}
+.consulta-org {
+  padding-left: 10px;
+}
+.consulta-org label{
+  padding-top: 12px;
+}
+.consulta-org input{
+  margin-top: 7px;
+}

@@ -1,65 +1,168 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
+    
+
+{% endblock extra_css %}
 {% block content %}
-<div id="tabs">
-  <!-- Nav tabs -->
-  <ul class="nav" role="navegacion">
-    <li role="titulo">
-      <a >Años:</a>
-    </li>
+{% include "organizaciones/menu_organizaciones.html" %}
+    <div class="fondo">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="/organizaciones/">Organizaciones</a></li>                      
+            <li class="active">Instalaciones y equipos</li>
+        </ul>
+        <!-- END BREADCRUMB -->                       
+        <ul class="select-annos" >
+            <li>
+              <a >Años:</a>
+            </li>
 
-    {% for year in years.keys %}
-    <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
-      <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  <div class="tab-content">
-    {% for year,value in years.items %}
-    <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-      <table class="table table-bordered table-striped table-hover">
-        <caption>Instalaciones</caption>
-        <thead>
-          <tr>
-            <th>Tipo de infraestructura</th>
-            <th>Cantidad</th>
-            <th>Capacidad (qq)</th>
-            <th>Capacidad promedio (qq)</th>
-            <th colspan="3">Estado (%)</th>
-          </tr>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Bueno</th>
-            <th>Malo</th>
-            <th>Regular</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for v in value.0 %}
-          <tr>
-            <td>{{v.0|default:"0"}}</td>
-            <td>{{v.1|default:"0"}}</td>
-            <td>{{v.2|default:"0"}}</td>
-            <td>{{v.3|default:"0"}}</td>
-            {% for x in v.4 %}
-              <td>{{x}}</td>
+            {% for year in years.keys %}
+                <li role="annos" class="{% if forloop.counter == 1 %}active{% endif %}" id="{{forloop.counter}}">
+                  <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
+                </li>
             {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        </ul>
 
-      <div id="transporte{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-      <div id="estado{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            
+            
+            <div class="tab-content">
+                {% for year,value in years.items %}
+                <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
+            
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <!-- START DATATABLE EXPORT -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Instalaciones</h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
+                                            <ul class="dropdown-menu">
+                                              
+                                                <li><a href="#" onclick="exportarXLS('modalidad'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
+                                                
+                                                
+                                            </ul>
+                                        </div>                                    
+                                        
+                                    </div>
+                                    <div class="panel-body">
+                                   
+                                        <div class="table-responsive" id="modalidad">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                              <tr>
+                                                <th>Tipo de infraestructura</th>
+                                                <th>Cantidad</th>
+                                                <th>Capacidad (qq)</th>
+                                                <th>Capacidad promedio (qq)</th>
+                                                <th colspan="3">Estado (%)</th>
+                                              </tr>
+                                              <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Bueno</th>
+                                                <th>Malo</th>
+                                                <th>Regular</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for v in value.0 %}
+                                              <tr>
+                                                <td>{{v.0|default:"0"}}</td>
+                                                <td>{{v.1|default:"0"}}</td>
+                                                <td>{{v.2|default:"0"}}</td>
+                                                <td>{{v.3|default:"0"}}</td>
+                                                {% for x in v.4 %}
+                                                  <td>{{x}}</td>
+                                                {% endfor %}
+                                              </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                          </table>
+                                            
+                                      </div>                                    
+                                        
+                                    </div>
+                                </div>
+                                <!-- END DATATABLE EXPORT -->   
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Organizaciones que cuentan con medios de transporte</h3>
+                                        <span>Porcentaje</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="transporte{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <!-- START SALES BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="panel-title-box">
+                                        <h3>Estado mecánico de medios de transporte</h3>
+                                        <span>Porcentaje</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="panel-body">                                    
+                                    <div class="row stacked">
+                                        <div id="estado{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <!-- END SALES BLOCK -->
+                            
+                        </div>
 
+                        
+
+                    </div>
+                
+                  
+                  
+
+                </div>
+
+                {% endfor %}
+            </div>                    
+            
+            
+            
+
+            
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->   
     </div>
-    {% endfor %}
-  </div>
-</div>
+
+
+{% include "productores/footer.html" %}
+
 {% endblock %}
 
 {% block extra_js %}
