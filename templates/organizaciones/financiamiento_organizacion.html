@@ -29,6 +29,52 @@
 <script type="text/javascript">
 $(function () {
   {% for year,value in years.items %}
+  $('#financiamiento{{year}}').highcharts({
+     chart: {
+         type: 'column'
+     },
+     title: {
+         text: '¿Quién financia la organización?'
+     },
+     yAxis: {
+         title: {
+             text: 'Valores'
+         }
+     },
+     credits: {
+         enabled: false
+     },
+     yAxis: {
+             min: 0,
+             title: {
+                 text: 'Porcentajes (%)'
+             }
+         },
+         tooltip: {
+             formatter: function() {
+                 return ''+
+                     this.series.name +': '+ this.y +'%';
+             }
+         },
+     series: [
+             {% for k,v in value.items %}
+             {
+                 name: '{{k}}',
+                 data: [{{v}}],
+                 dataLabels: {
+                     enabled: true,
+                     rotation: 0,
+                     align: 'center',
+                     x: -3,
+                     y: 0,
+                         formatter: function() {
+                             return this.y + '%';
+                                               },
+                             }
+             },
+             {% endfor %}
+             ]
+  });
   {% endfor %}
 });
 </script>

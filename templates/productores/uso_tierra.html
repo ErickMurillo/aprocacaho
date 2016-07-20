@@ -3,9 +3,6 @@
 		<link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
 		<link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
-
-		
-
 {% endblock extra_css %}
 {% block content %}
 {% include "productores/menu_productores.html" %}
@@ -13,11 +10,11 @@
 				<!-- START BREADCRUMB -->
 				<ul class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-			            <li><a href="/productores/">Productores</a></li>                      
+			            <li><a href="/productores/">Productores</a></li>
 			            <li><a href="/productores/dashboard/">Dashboard</a></li>
 			            <li class="active">Uso de tierra</li>
 				</ul>
-				<!-- END BREADCRUMB -->                       
+				<!-- END BREADCRUMB -->
 				<ul class="select-annos" >
 		            <li>
 		              <a >Años:</a>
@@ -28,44 +25,38 @@
 		              <a href="#{{year}}" class="update" aria-controls="{{year}}" role="tab" data-toggle="tab">{{year}}</a>
 		            </li>
 		            {% endfor %}
-		        </ul> 
+		        </ul>
 				<!-- PAGE CONTENT WRAPPER -->
 				<div class="page-content-wrap">
-						
-						
 						<div class="tab-content">
 								{% for year,value in years.items %}
 								<div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-
-
-
 										<div class="row">
-								
 												<div class="col-md-12">
-														
+
 														<!-- START SALES BLOCK -->
 														<div class="panel panel-default">
 																<div class="panel-heading">
 																		<div class="panel-title-box">
 																				<h3>Distribución de la tierra</h3>
 																				<span>Porcentaje </span>
-																				
+
 																		</div>
 																</div>
-																<div class="panel-body">                                    
+																<div class="panel-body">
 																		<div class="row stacked">
 																				<div id="container{{year}}" style="min-width: 1000px; width: 1200px; margin: 0 auto;"></div>
-																		</div>                                    
+																		</div>
 																</div>
 														</div>
 														<!-- END SALES BLOCK -->
-														
+
 												</div>
 
 										</div>
 										<div class="row">
 												<div class="col-md-12">
-														
+
 														<!-- START DATATABLE EXPORT -->
 														<div class="panel panel-default">
 																<div class="panel-heading">
@@ -73,17 +64,17 @@
 																		<div class="btn-group pull-right">
 																				<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
 																				<ul class="dropdown-menu">
-																					
+
 																						<li><a onclick="exportarXLS('modalidad1'); return false;" href="#"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
-																						
+
 																				</ul>
-																		</div>                                    
-																		
+																		</div>
+
 																</div>
 																<div class="panel-body">
 																			<div class="table-responsive" id="modalidad1">
 																				<table id="customers2" class="table table-bordered table-hover" cellspacing="0" width="100%">
-																						
+
 																						<thead>
 																								<tr>
 																										<th></th>
@@ -101,48 +92,37 @@
 																								{%endfor%}
 																						</tbody>
 																				</table>
-																		</div>                              
-																		
+																		</div>
+
 																</div>
 														</div>
-														<!-- END DATATABLE EXPORT -->                            
-														
+														<!-- END DATATABLE EXPORT -->
+
 
 												</div>
 										</div>
-									
-									
-									
+
+
+
 								 <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
 									Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
-									
-									
-									
+
+
+
 
 								</div>
 								{% endfor %}
-						</div>                    
-						
-						
-						
+						</div>
 
-						
+
+
+
+
 				</div>
-				<!-- END PAGE CONTENT WRAPPER -->   
+				<!-- END PAGE CONTENT WRAPPER -->
 		</div>
 
 {% include "productores/footer.html" %}
-
-
-
-
-
-
-
-
-
-
-
 {% endblock content %}
 
 {% block extra_js %}
