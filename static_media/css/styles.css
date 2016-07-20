@@ -2302,3 +2302,14 @@ strong{
 .consulta-org input{
   margin-top: 7px;
 }
+#siteNotice {
+    list-style: none;
+    padding-left: 0px;
+}
+#siteNotice li{
+  padding-left: 5px;
+}
+#siteNotice li:first-child{
+  font-weight: bold;
+  padding-left: 0px;
+}

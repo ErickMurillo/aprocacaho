@@ -84,7 +84,17 @@ def dashboard(request,template="productores/dashboard.html"):
 	years = collections.OrderedDict()
 
 	for year in request.session['year']:
+		organizaciones = filtro.filter(year = year).order_by('organizacion__nombre').distinct('organizacion__nombre').count()
 		productores = filtro.filter(year = year).count()
+
+		mujeres = filtro.filter(year = year,entrevistado__sexo = 1).count()
+		percentage_mujeres = saca_porcentajes(mujeres,productores,False)
+
+		hombres = filtro.filter(year = year,entrevistado__sexo = 2).count()
+		percentage_hombres = saca_porcentajes(hombres,productores,False)
+
+		areas_cacao = filtro.filter(year = year).aggregate(total = Sum('plantacion__area'))['total']
+		avg_areas_cacao = filtro.filter(year = year).aggregate(total = Avg('plantacion__area'))['total']
 
 		#plantacion cacao
 		areas = collections.OrderedDict()
@@ -186,7 +196,8 @@ def dashboard(request,template="productores/dashboard.html"):
 
 		#diccionario de los años
 		years[year] = (areas,rendimiento_conv,rendimiento_ferm,convencional,fermentado,area_total,promedio_productor,
-						socio,no_socio,certificados,no_certificados,lista_certificaciones,prod_depto)
+						socio,no_socio,certificados,no_certificados,lista_certificaciones,prod_depto,
+						organizaciones,productores,percentage_mujeres,percentage_hombres,areas_cacao,avg_areas_cacao)
 
 	return render(request, template, locals())
 
@@ -518,8 +529,8 @@ def produccion(request,template="productores/produccion.html"):
 		productores = filtro.filter(year = year).count()
 		edades = collections.OrderedDict()
 		for obj in EDAD_PLANTA_CHOICES:
-			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											total = Sum('plantacion__area'))['total']
+			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(total = Sum('plantacion__area'))['total']
+			
 			if area_total == None:
 				area_total = 0
 			#----------------------------------------------------------------------------------------------------
@@ -532,6 +543,7 @@ def produccion(request,template="productores/produccion.html"):
 			#----------------------------------------------------------------------------------------------------
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
+			print improductivas
 
 			plant_improd = saca_porcentajes(improductivas,numero_plantas,False)
 			#----------------------------------------------------------------------------------------------------

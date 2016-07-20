@@ -6,8 +6,10 @@ import json as simplejson
 from django.http import HttpResponse,HttpResponseRedirect
 from django.db.models import Sum, Count, Avg
 import collections
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def consulta_org(request,template="organizaciones/consulta.html"):
     if request.method == 'POST':
         mensaje = None
@@ -21,7 +23,7 @@ def consulta_org(request,template="organizaciones/consulta.html"):
 
             status = request.session['status']
             if status != '':
-                list_municipio = Organizacion.objects.filter(status = status).values_list('municipio', flat = True).distinct('municipio')
+                list_municipio = Organizacion.objects.filter(status = status).values_list('municipio', flat = True).distinct()
                 lista = []
                 for x in list_municipio:
                     municipio = Municipio.objects.filter(id = x)
@@ -30,7 +32,7 @@ def consulta_org(request,template="organizaciones/consulta.html"):
                         lista.append((y,float(y.latitud),float(y.longitud),organizaciones))
                 municipios = lista
             else:
-                list_municipio = Organizacion.objects.values_list('municipio', flat=True).distinct('municipio')
+                list_municipio = Organizacion.objects.values_list('municipio', flat=True).distinct()
                 lista = []
                 for x in list_municipio:
                     municipio = Municipio.objects.filter(id = x)
@@ -44,7 +46,7 @@ def consulta_org(request,template="organizaciones/consulta.html"):
         mensaje = "Existen alguno errores"
         centinela = 0
 
-        list_municipio = Organizacion.objects.values_list('municipio', flat = True).distinct('municipio')
+        list_municipio = Organizacion.objects.values_list('municipio', flat = True).distinct()
         lista = []
         for x in list_municipio:
             municipio = Municipio.objects.filter(id = x)
@@ -60,11 +62,12 @@ def consulta_org(request,template="organizaciones/consulta.html"):
 
     return render(request, template, locals())
 
+@login_required
 def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
     object = Organizacion.objects.filter(slug = slug)
     years = collections.OrderedDict()
 
-    years_list = EncuestaOrganicacion.objects.filter(organizacion__slug = slug).order_by('anno').values_list('anno', flat=True).distinct('anno')
+    years_list = EncuestaOrganicacion.objects.filter(organizacion__slug = slug).order_by('anno').values_list('anno', flat=True).distinct()
 
     for year in years_list:
         aspectos_juridicos = []
@@ -159,6 +162,7 @@ def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
 
     return render(request, template, locals())
 
+@login_required
 def estatus_legal(request,template="organizaciones/estatus_legal.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -180,6 +184,7 @@ def estatus_legal(request,template="organizaciones/estatus_legal.html"):
 
     return render(request, template, locals())
 
+@login_required
 def aspectos_juridicos(request,template="organizaciones/aspectos_juridicos.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -242,6 +247,7 @@ def aspectos_juridicos(request,template="organizaciones/aspectos_juridicos.html"
 
     return render(request, template, locals())
 
+@login_required
 def documentacion(request,template="organizaciones/documentacion.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -266,6 +272,7 @@ def documentacion(request,template="organizaciones/documentacion.html"):
 
     return render(request, template, locals())
 
+@login_required
 def datos_productivos(request,template="organizaciones/datos_productivos.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -295,6 +302,7 @@ def datos_productivos(request,template="organizaciones/datos_productivos.html"):
 
     return render(request, template, locals())
 
+@login_required
 def instalaciones(request,template="organizaciones/instalaciones.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -328,6 +336,7 @@ def instalaciones(request,template="organizaciones/instalaciones.html"):
 
     return render(request, template, locals())
 
+@login_required
 def comercializacion(request,template="organizaciones/comercializacion.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
 
@@ -386,6 +395,34 @@ def comercializacion(request,template="organizaciones/comercializacion.html"):
                 destino_prod[obj[1]] = (saca_porcentajes(destino_corriente,count_org,False),saca_porcentajes(destino_fermentado,count_org,False))
 
         years[year] = (lista_corriente,lista_fermentado,corriente,fermentado,certificacion,destino_prod)
+
+    return render(request, template, locals())
+
+def financiamiento_produccion(request,template="organizaciones/financiamiento_produccion.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        financiamiento = {}
+        for obj in SI_NO_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(financiamiento__financiamiento = obj[0],anno = year).count()
+            financiamiento[obj[1]] = conteo
+
+        years[year] = (financiamiento,financiamiento)
+
+    return render(request, template, locals())
+
+def financiamiento_organizacion(request,template="organizaciones/financiamiento_organizacion.html"):
+    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+
+    years = collections.OrderedDict()
+    for year in years_encuesta:
+        financiamiento = {}
+        for obj in SI_NO_CHOICES:
+            conteo = EncuestaOrganicacion.objects.filter(financiamiento__financiamiento = obj[0],anno = year).count()
+            financiamiento[obj[1]] = conteo
+
+        years[year] = (financiamiento,financiamiento)
 
     return render(request, template, locals())
 

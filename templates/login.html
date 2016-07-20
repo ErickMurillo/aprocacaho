@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block extra_css %}
+
+<link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-default.css"/>
+<style>
+    .page-container .page-footer{
+            border-top: 0px solid #F5F5F5 !important;
+    }
+</style>
+<link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    
+
+{% endblock extra_css %}
+{% block extra_js %}
+    <script type="text/javascript">
+        $( "#id_username" ).addClass( "form-control" );
+        $("#id_username").attr("placeholder", "Usuario");
+        $( "#id_password" ).addClass( "form-control" );
+        $("#id_password").attr("placeholder", "Contraseña");
+        var alto=screen.height-162;
+        $(".login-container").height(alto);
+    </script>
+{% endblock extra_js %}
+{% block content %}
+        <div class="login-container">
+        
+            <div class="login-box animated fadeInDown">
+                <div class="login-logo"></div>
+                <div class="login-body">
+                    <div class="login-title"><strong>Bienvenido</strong></div>
+                    <form class="form-horizontal" method="post">{% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                           
+                            
+                            {{ form.password }}
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class=" col-md-offset-6 col-md-6">
+                        
+                            <input class="btn btn-info btn-block" type="submit" value="Iniciar Sesión" class="btn btn-default">
+                            
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <div class="pull-left">
+                        &copy; 2016 Aprocacaho
+                    </div>
+                    <div class="pull-right">
+                        <a href="/">Inicio</a> |
+                        <a href="/productores/">Productores</a>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+{% include "productores/footer.html" %}  
+{% endblock %}

@@ -200,12 +200,10 @@ $( "#id_status" ).addClass( "form-control select" );
  			{% for municipio in municipios %}
 
 		var contentString{{forloop.counter}} = '<div id="content">'+
-		'<div id="siteNotice">'+
-		'<h6 id="firstHeading" class="firstHeading">{{municipio.0}}</h6>'+
-		'</div>'+
-		'<div id="bodyContent">'+
-		'<ul>{% for org in municipio.3 %}<li><a href="{% url "detail-org" org.slug %}">{{org}}</a></li>{% endfor %}</ul>'+
-		'</div>'+
+		'<ul id="siteNotice">'+
+		'<li class="menu-header">{{municipio.0}}</li>'+
+		'{% for org in municipio.3 %}<li><a href="{% url "detail-org" org.slug %}">{{org}}</a></li>{% endfor %}'+
+		'</ul>'+
 		'</div>';
 
 		var infowindow{{forloop.counter}} = new google.maps.InfoWindow({
@@ -216,8 +214,8 @@ $( "#id_status" ).addClass( "form-control select" );
 			position: {lat: {{municipio.1|safe}}, lng: {{municipio.2|safe}}},
 			map: map,
 			title: '{{municipio.0}}',
-			icon: ' ',
-			labelContent: '<i class="fa fa-map-marker fa-4x" style="color:#F47317;"></i>',
+			icon: ' /static/img/marca.png',
+			labelContent: '',
        		labelAnchor: new google.maps.Point(10, 35),
 		});
 

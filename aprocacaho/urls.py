@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import *
 from utils import *
+from django.contrib.auth import views as auth_views
 
 admin.site.site_header = "Administración Aprocacaho"
 admin.site.site_title = "Administración Aprocacaho"
@@ -31,4 +32,6 @@ urlpatterns = [
     url(r'^productores/', include('productores.urls')),
     url(r'^organizaciones/', include('organizacion.urls')),
     url(r'^xls/$', save_as_xls),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}),
+    url(r'^logout/$', auth_views.logout,{'next_page': '/'}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

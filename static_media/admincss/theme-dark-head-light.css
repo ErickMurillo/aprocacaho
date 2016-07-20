@@ -3878,7 +3878,7 @@ td.dataTables_empty {
   float: left;
   width: 100%;
   min-height: 100%;
-  background: url("../img/bg.png") left top repeat #1b1e24;
+  background: url("../img/bg.png") left top repeat #f5f5f5 ;
 }
 .login-container .login-box {
   width: 400px;
@@ -3895,7 +3895,7 @@ td.dataTables_empty {
 .login-container .login-box .login-body {
   width: 100%;
   float: left;
-  background: rgba(255, 255, 255, 0.1);
+  background: url("../img/bg.png") left top repeat rgba(39,22,4,0.8);
   padding: 20px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -3980,7 +3980,7 @@ td.dataTables_empty {
   color: #333;
 }
 .login-container.lightmode .login-box .login-subtitle a {
-  color: #1b1e24;
+  color: #33414e;
 }
 /* END LOGIN */
 /* TIMELINE */
