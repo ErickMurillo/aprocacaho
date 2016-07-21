@@ -2326,7 +2326,7 @@ strong{
       border-top-color: #33414e;
       border-radius: 4px;
 }
-.panel-indicadores .panel-heading{
+.panel-indicadores .panel-heading, .panel-detalle .panel-heading{
     color: #434a54;
     font-size: 14px;
     font-weight: 400;
@@ -2349,4 +2349,42 @@ strong{
   font-size: 12px;
   line-height: 20px;
   font-weight: bold;
+}
+.nav-detalle{
+  margin-top: 0px;
+}
+.nav-detalle li {
+  position: inherit;
+  float: inherit;
+}
+.nav-detalle li a{
+
+  background: #F5F5F5;
+  border: 2px solid transparent;
+  border-bottom-color: #eee;
+  color: #555;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: bold;
+}
+.nav-detalle li a:hover{
+  
+  border: 2px solid transparent;
+  border-left-color: #33414e;
+  cursor:pointer;
+
+
+}
+.nav-detalle>li.active>a, .nav-detalle>li.active>a:hover, .nav-detalle>li.active>a:focus {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 2px solid transparent;
+    border-left-color: #33414e;
+    
+
+}
+.logo-detalle img{
+  width: 100%;
 }
