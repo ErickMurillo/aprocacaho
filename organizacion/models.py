@@ -51,7 +51,7 @@ class Organizacion(models.Model):
 
 class EncuestaOrganicacion(models.Model):
 		fecha = models.DateField()
-		organizacion = models.ForeignKey(Organizacion,related_name='Organizacion')
+		organizacion = models.ForeignKey(Organizacion,related_name='Organización')
 		anno = models.IntegerField(editable=False)
 		usuario = models.ForeignKey(User,related_name='User',editable=False)
 
@@ -112,8 +112,8 @@ DOCUMENTOS_CHOICES = (
 class Documentacion(models.Model):
 	documentos = models.IntegerField(choices=DOCUMENTOS_CHOICES)
 	si_no = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Si/No')
-	tramite = models.BooleanField(default=False)
-	fecha = models.DateField(verbose_name='Fecha de elaboración u actualización')
+	tramite = models.BooleanField(default=False,verbose_name='Trámite')
+	fecha = models.DateField(verbose_name='Fecha de elaboración o actualización')
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
