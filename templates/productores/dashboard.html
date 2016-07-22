@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 {% endblock extra_css %}
 
@@ -25,7 +24,7 @@
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Inicio</a></li>
             <li><a href="/productores/">Productores</a></li>
             <li class="active">Dashboard</li>
         </ul>
@@ -226,7 +225,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Número de productores certificados</h3>
-                                        <span>Productores</span>
+                                        <span>Total</span>
                                     </div>
                                 </div>
                                 <div class="panel-body">
@@ -245,7 +244,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>No de productores con uno o más sellos</h3>
-                                        <span>Productores</span>
+                                        <span>Total</span>
                                     </div>
                                 </div>
                                 <div class="panel-body">
@@ -296,7 +295,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
-<!--<script type="text/javascript" src="/static/js/infobox.js"></script>-->
+
 <script src="/static/js/markerwithlabel.js"></script>
 
 {% for year,value in years.items %}
