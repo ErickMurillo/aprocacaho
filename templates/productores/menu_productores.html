@@ -8,14 +8,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" alt=""></a>
+            <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt=""></a>
         </div>
         <ul class="nav navbar-nav">
                 <li class="dropdown dropdown-large">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filtros Seleccionados<b class="caret"></b></a>
-                
+
                 <ul class="dropdown-menu-large dropdown-menu  row animated zoomIn xn-drop-left">
-                    
+
                         <li class="col-sm-2">
                             <ul>
                                 {% if request.session.year %}
@@ -28,8 +28,8 @@
                                     <li class="disabled"><a href="#">Todos</a></li>
                                 {% endif %}
                                 {% if request.session.socio %}
-   
-                                    <li class="dropdown-header">Socio</li>  
+
+                                    <li class="dropdown-header">Socio</li>
                                     {% if request.session.socio == "1" %}
                                         <li class="disabled"><a href="#">Si</a></li>
                                     {% else %}
@@ -41,14 +41,14 @@
 
                                 {% endif %}
 
-                                
-                                  
+
+
                             </ul>
                         </li>
                         <li class="col-sm-3">
                             <ul>
                                 {% if request.session.departamento %}
-   
+
                                     <li class="dropdown-header">Departamento</li>
                                     {% for depto in request.session.departamento %}
                                         <li class="disabled"><a href="#">{{ depto }}</a></li>
@@ -57,7 +57,7 @@
                                     <li class="dropdown-header">Departamento</li>
                                     <li class="disabled"><a href="#">Todos</a></li>
 
-                                {% endif %} 
+                                {% endif %}
                             </ul>
                         </li>
 
@@ -72,8 +72,8 @@
                                     <li class="dropdown-header">Municipio</li>
                                     <li class="disabled"><a href="#">Todos</a></li>
                                 {% endif %}
-                                
-                                   
+
+
                             </ul>
                         </li>
                         <li class="col-sm-3">
@@ -86,15 +86,15 @@
                                     {% else %}
                                     <li class="dropdown-header">Organizacion</li>
                                     <li class="disabled"><a href="#">Todos</a></li>
-                                {% endif %} 
-                                
-                                   
+                                {% endif %}
+
+
                             </ul>
                         </li>
-                    
-                    
+
+
                 </ul>
-                
+
             </li>
         </ul>
 
@@ -103,12 +103,11 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/organizaciones/">Organizaciones</a></li>
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
                     <div class="dropdown-menu menu-indicadores panel panel-default animated zoomIn xn-drop-left">
                         <div class="panel-heading titulo-indicador">
-                            <h3 class="panel-title"><span class="fa fa-tasks"></span> Indicadores</h3>                                
+                            <h3 class="panel-title"><span class="fa fa-tasks"></span> Indicadores</h3>
                             <div class="pull-right">
                                 <span class="label label-warning">16 Indicadores</span>
                             </div>
@@ -120,7 +119,7 @@
                                 </li>
                                 <li>
                                     <a href="/productores/tenencia-propiedad/">
-                                        <strong>Tenencia de la Propiedad</strong> 
+                                        <strong>Tenencia de la Propiedad</strong>
                                     </a>
                                 </li>
                                 <li>
@@ -140,32 +139,32 @@
                                 </li>
                                 <li>
                                     <a href="/productores/riesgos-finca/">
-                                        <strong>Riesgos en la Finca</strong> 
+                                        <strong>Riesgos en la Finca</strong>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/productores/mitigacion-riesgos/">
-                                        <strong>Mitigación de riesgos</strong> 
+                                        <strong>Mitigación de riesgos</strong>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/productores/organizacion-productiva/">
-                                        <strong>Organización Productiva-Comercial</strong> 
+                                        <strong>Organización Productiva-Comercial</strong>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/productores/produccion/">
-                                        <strong>Producción</strong> 
+                                        <strong>Producción</strong>
                                     </a>
                                 </li>
                                 <li>
                                 <a href="/productores/certificacion/">
-                                    <strong>Certificación</strong> 
+                                    <strong>Certificación</strong>
                                 </a>
                                 </li>
                                 <li>
                                     <a href="/productores/tecnicas-aplicadas/">
-                                        <strong>Técnicas aplicadas</strong> 
+                                        <strong>Técnicas aplicadas</strong>
                                     </a>
                                 </li>
                                 <li>
@@ -175,10 +174,10 @@
                                 </li>
                                 <li>
                                     <a href="/productores/capacitaciones/">
-                                        <strong>Capacitaciones</strong> 
+                                        <strong>Capacitaciones</strong>
                                     </a>
                                 </li>
-                                <li>    
+                                <li>
                                     <a href="/productores/problemas-areas-cacao/">
                                         <strong>Problemas áreas cacao</strong>
                                     </a>
@@ -193,18 +192,19 @@
                                         <strong>Ampliar áreas de cacao</strong>
                                     </a>
                                 </li>
-                            </ul>  
+                            </ul>
                         </div>
-                        
+
                     </div>
 
                 </li>
                 {% if user.is_authenticated %}
+                {% if user.is_superuser %}<li><a href="/organizaciones/">Organizaciones</a></li>{% endif %}
                     <li><a href="/admin">Administrar</a></li>
                     <li><a href="">Manual PDF</a></li>
                     <li>
                         <a href="/logout/">
-                            <span class="fa fa-sign-out"></span> Cerrar Sesión 
+                            <span class="fa fa-sign-out"></span> Cerrar Sesión
                         </a>
                     </li>
                 {% else %}
@@ -212,6 +212,6 @@
 
                 {% endif %}
             </ul>
-        </div>  
+        </div>
     </div>
 </nav>
