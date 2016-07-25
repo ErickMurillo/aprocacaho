@@ -8,10 +8,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" alt=""></a>
+            <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt=""></a>
         </div>
         <ul class="nav navbar-nav">
-                <li class="dropdown dropdown-large">
+                <li class="hidden-xs dropdown dropdown-large">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filtros Seleccionados<b class="caret"></b></a>
                 
                 <ul class="dropdown-menu-large dropdown-menu  row animated zoomIn xn-drop-left">
@@ -104,7 +104,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Inicio</a></li>
                 <li><a href="/organizaciones/">Organizaciones</a></li>
-                <li class="dropdown ">
+                <li class="hidden-xs dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
                     <div class="dropdown-menu menu-indicadores panel panel-default animated zoomIn xn-drop-left">
                         <div class="panel-heading titulo-indicador">
@@ -199,6 +199,7 @@
                     </div>
 
                 </li>
+                <li class="visible-xs"><a href="/productores/indicadores/">Indicadores</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="/admin">Administrar</a></li>
                     <li><a href="">Manual PDF</a></li>

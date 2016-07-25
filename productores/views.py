@@ -968,3 +968,6 @@ def obtener_lista(request):
 
 		serializado = simplejson.dumps(lista)
 		return HttpResponse(serializado, content_type = 'application/json')
+		
+def indicadores(request, template="productores/indicadores.html"):
+	return render(request, template, locals())

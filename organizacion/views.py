@@ -454,3 +454,6 @@ def saca_porcentajes(dato, total, formato=True):
 			return '%.2f' % porcentaje
 	else:
 		return 0
+
+def indicadores(request, template="organizaciones/indicadores.html"):
+    return render(request, template, locals())

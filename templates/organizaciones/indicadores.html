@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
+{% endblock extra_css %}
+{% block content %}
+<div class="menu-indicadores panel panel-default animated zoomIn xn-drop-left">
+        <div class="panel-heading titulo-indicador">
+            <h3 class="panel-title"><span class="fa fa-tasks"></span> Indicadores</h3>                                
+            <div class="pull-right">
+                <span class="label label-warning">8 Indicadores</span>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li>
+                    <a href="/organizaciones/estatus-legal/"><strong>Estatus legal</strong></a>
+                </li>
+                <li>
+                    <a href="/organizaciones/aspectos-juridicos/">
+                        <strong>Aspectos jurídicos</strong> 
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/documentacion/">
+                        <strong>Documentación</strong> 
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/datos-productivos/">
+                        <strong>Datos productivos</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/instalaciones-y-equipos/">
+                        <strong>Instalaciones y equipos</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/comercializacion/">
+                        <strong>Comercialización</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/financiamiento-produccion/">
+                        <strong>Financiamiento para la producción</strong> 
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizaciones/financiamiento-organizacion/">
+                        <strong>Financiamiento de la organización</strong> 
+                    </a>
+                </li>
+            
+            </ul>  
+        </div>
+    
+</div>
+{% endblock content %}
