@@ -113,7 +113,7 @@ class Documentacion(models.Model):
 	documentos = models.IntegerField(choices=DOCUMENTOS_CHOICES)
 	si_no = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Si/No')
 	tramite = models.BooleanField(default=False)
-	fecha = models.DateField(verbose_name='Fecha de elaboración u actualización')
+	fecha = models.DateField(verbose_name='Fecha de elaboración o actualización')
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:

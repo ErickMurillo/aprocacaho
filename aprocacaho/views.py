@@ -8,7 +8,7 @@ def index(request,template="index.html"):
     socios_mujeres = Encuesta.objects.filter(organizacionasociada__socio = '1',entrevistado__sexo = '1').count()
     socios_hombres = Encuesta.objects.filter(organizacionasociada__socio = '1',entrevistado__sexo = '2').count()
 
-    organizaciones = Encuesta.objects.all().order_by('organizacion__nombre').distinct().count()
+    organizaciones = Encuesta.objects.all().order_by('organizacion__nombre').distinct('organizacion__nombre').count()
 
     #areas cacao
     areas_cacao = Encuesta.objects.all().aggregate(total = Sum('plantacion__area'))['total']

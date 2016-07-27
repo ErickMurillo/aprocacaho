@@ -11,38 +11,36 @@
         <!-- END META SECTION -->
         <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
         {% block extra_css %}{% endblock extra_css %}
-    
+
     </head>
     <body>
-    
+
         <div class="page-container">
             <!-- page header -->
                     <div class="page-header">
-                        
-                        
-                        
+            
                     </div>
             <!-- ./page header -->
         {% block content %}{% endblock content %}
-        </div>  
-        
-        
-        
+        </div>
+
+
+
         <!-- page scripts -->
         <script type="text/javascript" src="/static/js/jquery-2.2.1.min.js"></script>
         <script type="text/javascript" src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
         <script type="text/javascript" src="/static/adminjs/plugins.js"></script>
         <script type="text/javascript" src="/static/js/actions.js"></script>
-          
-        
 
-        
+
+
+
         <script type="text/javascript" src="/static/js/highcharts.js"></script>
         <script type="text/javascript" src="/static/js/exporting.js"></script>
         <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/static/js/table.exporting.js"></script>
         {% block extra_js %}{% endblock extra_js %}
-        
+
         <!-- ./page scripts -->
     </body>
 </html>
