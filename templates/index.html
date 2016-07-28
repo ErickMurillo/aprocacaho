@@ -143,9 +143,9 @@
 		                        <div class="col-md-4">
 		                            <div class="item widget widget-default widget-item-icon" >
 		                                <div>
-		                                    <div class="widget-title">Capacidad de acopio</div>
-		                                    <div class="widget-subtitle">Promedio</div>
-		                                    <div class="widget-int">48 t</div>
+		                                    <div class="widget-title">Encuestas</div>
+		                                    <div class="widget-subtitle">Total</div>
+		                                    <div class="widget-int">{{encuestas|default:"0"}}</div>
 		                                </div>
 		                            </div>
 		                        </div>
@@ -193,9 +193,9 @@
 		                        <div class="col-md-4">
 		                            <div class="item widget widget-default widget-item-icon" >
 		                                <div>
-		                                    <div class="widget-title">Ingreso</div>
+		                                    <div class="widget-title">Miembros familia</div>
 		                                    <div class="widget-subtitle">Promedio</div>
-		                                    <div class="widget-int">5,360 L</div>
+		                                    <div class="widget-int">{{miembros|floatformat:"0"}}</div>
 		                                </div>
 		                            </div>
 		                        </div>
@@ -384,8 +384,6 @@
 		                        </div>
 		                    </div>
 
-
-
 		                </div>
 		                <!-- ./contacts -->
 
@@ -416,10 +414,6 @@
 				            <!-- ./social links -->
 						</div>
 					</div>
-		            
-
-		            
-
 		        </div>
 		        <!-- ./page footer holder -->
 		    </div>
@@ -427,10 +421,6 @@
 
 		</div>
 		<!-- ./page footer -->
-
-
-
-
 {% endblock content %}
 
 {% block extra_js %}

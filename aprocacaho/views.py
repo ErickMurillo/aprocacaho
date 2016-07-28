@@ -18,4 +18,10 @@ def index(request,template="index.html"):
     #ProduccionCacao
     produccion = Encuesta.objects.all().aggregate(total = Sum('produccioncacao__cacao_baba'))['total']
 
+    #total encuestas
+    encuestas = Encuesta.objects.all().count()
+
+    #miembros familia
+    miembros = Encuesta.objects.all().aggregate(avg = Avg('familia__miembros'))['avg']
+
     return render(request, template, locals())
