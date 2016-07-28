@@ -2,14 +2,14 @@
 {% extends "base.html" %}
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
+    <link rel="stylesheet" href="/static/css/bootstrap-multiselect.css" type="text/css"/>
 
     
 
 {% endblock extra_css %}
 {% block extra_js %}
-    <link rel="stylesheet" href="/static/css/bootstrap-multiselect.css" type="text/css"/>
+    
     <script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
       <script>
   $(document).ready(function() {
@@ -183,20 +183,6 @@
   </script>
 
 
-<!-- START SCRIPTS -->
-        <!-- START PLUGINS -->
-             
-        <!-- END PLUGINS -->
-
-        <script type="text/javascript" src="/static/adminjs/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="/static/adminjs/plugins/bootstrap/bootstrap-select.js"></script>
-
-
-        <!-- END THIS PAGE PLUGINS-->        
-
-        <!-- START TEMPLATE -->
-
-    <!-- END SCRIPTS -->
 {% endblock extra_js %}
 
   {% block content %}
