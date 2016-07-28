@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
-    
+
 
 {% endblock extra_css %}
 {% block extra_js %}
@@ -185,14 +185,14 @@
 
 <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
-             
+
         <!-- END PLUGINS -->
 
         <script type="text/javascript" src="/static/adminjs/plugins/moment.min.js"></script>
         <script type="text/javascript" src="/static/adminjs/plugins/bootstrap/bootstrap-select.js"></script>
 
 
-        <!-- END THIS PAGE PLUGINS-->        
+        <!-- END THIS PAGE PLUGINS-->
 
         <!-- START TEMPLATE -->
 
@@ -211,7 +211,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" alt=""></a>
+            <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt=""></a>
         </div>
         <ul class="nav navbar-nav">
         </ul>
@@ -221,13 +221,13 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/organizaciones/">Organizaciones</a></li>
                 {% if user.is_authenticated %}
+                {% if user.is_superuser %}<li><a href="/organizaciones/">Organizaciones</a></li>{% endif %}
                     <li><a href="/admin">Administrar</a></li>
                     <li><a href="">Manual PDF</a></li>
                     <li>
                         <a href="/logout/">
-                            <span class="fa fa-sign-out"></span> Cerrar Sesión 
+                            <span class="fa fa-sign-out"></span> Cerrar Sesión
                         </a>
                     </li>
                 {% else %}
@@ -236,100 +236,93 @@
                 {% endif %}
 
             </ul>
-        </div>  
+        </div>
     </div>
-</nav>      
-            
-
-                 
-
-                                    
-                
+</nav>
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-                
+
                     <div class="row fondo">
                     <!-- START BREADCRUMB -->
                     <ul class="breadcrumb">
-                        <li><a href="/">Inicio</a></li>                    
+                        <li><a href="/">Inicio</a></li>
                         <li class="active">Productores</li>
                     </ul>
-                    <!-- END BREADCRUMB -->   
+                    <!-- END BREADCRUMB -->
                         <div class="col-md-12 consulta">
-                            
+
                             <form class="form-horizontal" action="." method="post">{% csrf_token %}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><strong>Consulta Productor</strong></h3>
-                                  
+
                                 </div>
- 
-                                <div class="panel-body">                                                                        
-                                    
+
+                                <div class="panel-body">
+
                                     <div class="row">
-                                        
+
                                         <div class="col-md-6">
-                                            
-                                            <div class="form-group">                                        
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label"><strong>Años *</strong></label>
-                                                <div class="col-md-9">                                                                                
-                                                    {{form.year}}   
+                                                <div class="col-md-9">
+                                                    {{form.year}}
                                                 </div>
                                             </div>
-                                            
-                                            <div class="form-group">                                        
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Departamento</label>
-                                                <div class="col-md-9">                                                                                
-                                                    {{form.departamento}}  
+                                                <div class="col-md-9">
+                                                    {{form.departamento}}
                                                 </div>
                                             </div>
-                                            
-                                            <div class="form-group">                                        
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Municipio</label>
-                                                <div class="col-md-9">                                                                                
-                                                    {{form.municipio}}    
+                                                <div class="col-md-9">
+                                                    {{form.municipio}}
                                                 </div>
                                             </div>
-                                         
-                                            
+
+
                                         </div>
                                         <div class="col-md-6">
-                                            
-                                            <div class="form-group">                                        
+
+                                            <div class="form-group">
                                                 <label class="col-md-3 control-label">Organización</label>
-                                                <div class="col-md-9">                                                                                
-                                                    {{form.organizacion}}   
+                                                <div class="col-md-9">
+                                                    {{form.organizacion}}
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Socio</label>
-                                                <div class="col-md-9">                                        
-                                                    {{form.socio}} 
+                                                <div class="col-md-9">
+                                                    {{form.socio}}
                                                 </div>
                                             </div>
-                                            
 
-                                            
+
+
                                         </div>
-                                        
+
                                     </div>
 
                                 </div>
                                 <div class="panel-footer">
-                                    <button class="btn btn-default">Limpiar</button>                                    
-                                   
+                                    <a class="btn btn-default" href="/productores/">Limpiar</a>
                                     <input class="btn btn-primary pull-right" type="submit" value="Consultar" name="consulta"/>
                                 </div>
                             </div>
                             </form>
-                            
+
                         </div>
-                    </div>                    
-                    
+                    </div>
+
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
                 <!-- ./page container -->
 {% include "productores/footer.html" %}
 
-  {% endblock content %}
+{% endblock content %}

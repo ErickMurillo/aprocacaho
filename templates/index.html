@@ -65,7 +65,7 @@
 		                            <h4>Sistema de Información</h4>
 		                            <div class="text-column-info">
 		                                <p>Contar con un sistema de información que permita acercarse a instituciones gubernamentales y no gubernamentales para proponer el diseño y la implementación de políticas y programas encaminados a crear condiciones favorables para el desarrollo y aumento de la competitividad del sector cacaotero, de las organizaciones y las familias productoras.</p>
-		                                
+
 		                                <a id="miLink" class="link" href="#">Leer más..</a>
 
 		                            </div>
@@ -108,21 +108,21 @@
 		                                    <div>
 		                                        <div class="widget-title">Socios</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{socios}}</div>
+		                                        <div class="widget-int">{{socios|default:"0"}}</div>
 		                                    </div>
 		                                </div>
 		                                <div class="widget widget-default widget-item-icon" >
 		                                    <div>
 		                                        <div class="widget-title">Mujeres</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{socios_mujeres}}</div>
+		                                        <div class="widget-int">{{socios_mujeres|default:"0"}}</div>
 		                                    </div>
 		                                </div>
 		                                <div class="widget widget-default widget-item-icon" >
 		                                    <div>
 		                                        <div class="widget-title">Hombres</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{socios_hombres}}</div>
+		                                        <div class="widget-int">{{socios_hombres|default:"0"}}</div>
 		                                    </div>
 		                                </div>
 
@@ -136,7 +136,7 @@
 		                                <div>
 		                                    <div class="widget-title">Organizaciones</div>
 		                                    <div class="widget-subtitle">Total</div>
-		                                    <div class="widget-int">{{organizaciones}}</div>
+		                                    <div class="widget-int">{{organizaciones|default:"0"}}</div>
 		                                </div>
 		                            </div>
 		                        </div>
@@ -157,21 +157,21 @@
 		                                    <div>
 		                                        <div class="widget-title">Áreas cacao</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{areas_cacao}} mz</div>
+		                                        <div class="widget-int">{{areas_cacao|default:"0"}} mz</div>
 		                                    </div>
 		                                </div>
 		                                <div class="widget widget-default widget-item-icon" >
 		                                    <div>
 		                                        <div class="widget-title">Mujeres</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{areas_mujeres}} mz</div>
+		                                        <div class="widget-int">{{areas_mujeres|default:"0"}} mz</div>
 		                                    </div>
 		                                </div>
 		                                <div class="widget widget-default widget-item-icon" >
 		                                    <div>
 		                                        <div class="widget-title">Hombres</div>
 		                                        <div class="widget-subtitle">Total</div>
-		                                        <div class="widget-int">{{areas_hombres}} mz</div>
+		                                        <div class="widget-int">{{areas_hombres|default:"0"}} mz</div>
 		                                    </div>
 		                                </div>
 
@@ -185,7 +185,7 @@
 		                                <div>
 		                                    <div class="widget-title">Producción cacao</div>
 		                                    <div class="widget-subtitle">Total</div>
-		                                    <div class="widget-int">{{produccion}} qq</div>
+		                                    <div class="widget-int">{{produccion|default:"0"}} qq</div>
 		                                </div>
 		                            </div>
 		                        </div>
