@@ -990,7 +990,6 @@ a:hover {
 .page-container .page-footer .page-footer-wrap .page-footer-holder .copyright {
   line-height: 30px;
   padding: 10px 0px;
-  float: left;
   font-size: 11px;
   color: white;
 }
@@ -1923,15 +1922,15 @@ a:link, a:visited {
     text-decoration: none;
 }
 .simas{
-  float: right;
   padding: 10px 0px;
   font-size: 11px;
-  line-height: 30px;
-  font-weight: bold;
+  line-height: 20px;
+  
   color: white;
 }
 .simas a{
   color: white !important;
+  font-weight: bold;
 }
 .simas a:hover{
   color: #00A750 !important;
