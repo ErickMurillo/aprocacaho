@@ -545,7 +545,7 @@ def produccion(request,template="productores/produccion.html"):
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
 			try:
-				plant_improd = (numero_plantas_total / improductivas) * 100
+				plant_improd = (numero_plantas_total / improductivas)
 			except:
 				plant_improd = 0
 
