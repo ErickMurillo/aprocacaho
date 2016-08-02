@@ -544,7 +544,11 @@ def produccion(request,template="productores/produccion.html"):
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
-			plant_improd = (numero_plantas_total / improductivas) * 100
+			try:
+				plant_improd = (numero_plantas_total / improductivas) * 100
+			except:
+				plant_improd = 0
+
 			#----------------------------------------------------------------------------------------------------
 			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											semillas = Sum('plantacion__plantas_semilla'))['semillas']
