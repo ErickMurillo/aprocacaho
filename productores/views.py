@@ -542,20 +542,20 @@ def produccion(request,template="productores/produccion.html"):
 				numero_plantas = 0
 			#----------------------------------------------------------------------------------------------------
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
-			print improductivas
+											improductivas = Avg('plantacion__plantas_improductivas'))['improductivas']
 
-			plant_improd = saca_porcentajes(improductivas,numero_plantas,False)
+
+			plant_improd = improductivas
 			#----------------------------------------------------------------------------------------------------
 			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											semillas = Sum('plantacion__plantas_semilla'))['semillas']
+											semillas = Avg('plantacion__plantas_semilla'))['semillas']
 
-			plantas_semillas = saca_porcentajes(semillas,numero_plantas,False)
+			plantas_semillas = semillas
 			#----------------------------------------------------------------------------------------------------
 			injerto = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											injerto = Sum('plantacion__plantas_injerto'))['injerto']
+											injerto = Avg('plantacion__plantas_injerto'))['injerto']
 
-			plantas_injerto = saca_porcentajes(injerto,numero_plantas,False)
+			plantas_injerto = injerto
 			#----------------------------------------------------------------------------------------------------
 
 			edades[obj[1]] = (area_total, numero_plantas, plant_improd, plantas_semillas, plantas_injerto)
@@ -968,6 +968,6 @@ def obtener_lista(request):
 
 		serializado = simplejson.dumps(lista)
 		return HttpResponse(serializado, content_type = 'application/json')
-		
+
 def indicadores(request, template="productores/indicadores.html"):
 	return render(request, template, locals())

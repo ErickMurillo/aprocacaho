@@ -730,7 +730,7 @@ class Genero(models.Model):
 	ingreso_mesual = models.FloatField(null=True,blank=True,verbose_name='Ingreso mensual aproximado percibido (incluyendo todas las actividades)')
 	destino_ingresos = models.ManyToManyField(DestinoIngresos,verbose_name='Destino de los ingresos percibidos',blank=True)
 	decisiones = MultiSelectField(choices=DECISIONES_CHOICES,verbose_name='Decisiones sobre destino de la producción',blank=True,null=True)
-	otros_ingresos = models.ManyToManyField(OtrosIngresos,verbose_name='Sobre otros Ingresos')
+	otros_ingresos = models.ManyToManyField(OtrosIngresos,verbose_name='Sobre otros Ingresos',blank=True,null=True)
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
