@@ -534,17 +534,17 @@ def produccion(request,template="productores/produccion.html"):
 			if area_total == None:
 				area_total = 0
 			#----------------------------------------------------------------------------------------------------
-			numero_plantas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
+			numero_plantas_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											plantas=Sum('plantacion__numero_plantas'))['plantas']
 			try:
-				numero_plantas = numero_plantas / area_total
+				numero_plantas = numero_plantas_total / area_total
 			except:
 				numero_plantas = 0
 			#----------------------------------------------------------------------------------------------------
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
-			plant_improd = (numero_plantas / improductivas) * 100
+			plant_improd = (numero_plantas_total / improductivas) * 100
 			#----------------------------------------------------------------------------------------------------
 			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											semillas = Sum('plantacion__plantas_semilla'))['semillas']
