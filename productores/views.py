@@ -528,6 +528,7 @@ def produccion(request,template="productores/produccion.html"):
 	for year in request.session['year']:
 		productores = filtro.filter(year = year).count()
 		edades = collections.OrderedDict()
+		total =  filtro.filter(year = year).aggregate(plantas=Sum('plantacion__numero_plantas'))['plantas']
 		for obj in EDAD_PLANTA_CHOICES:
 			area_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(total = Sum('plantacion__area'))['total']
 
@@ -545,7 +546,7 @@ def produccion(request,template="productores/produccion.html"):
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
 			try:
-				plant_improd = (improductivas / numero_plantas_total) * 100
+				plant_improd = (improductivas / total) * 100
 			except:
 				plant_improd = 0
 
@@ -554,7 +555,7 @@ def produccion(request,template="productores/produccion.html"):
 											semillas = Sum('plantacion__plantas_semilla'))['semillas']
 
 			try:
-				plantas_semillas = (semillas / numero_plantas_total) * 100
+				plantas_semillas = (semillas / total) * 100
 			except:
 				plantas_semillas = 0
 
@@ -562,7 +563,10 @@ def produccion(request,template="productores/produccion.html"):
 			injerto = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											injerto = Sum('plantacion__plantas_injerto'))['injerto']
 
-			plantas_injerto = saca_porcentajes(injerto,numero_plantas,False)
+			try:
+				plantas_injerto = (injerto / total) * 100
+			except:
+				plantas_injerto = 0
 			#----------------------------------------------------------------------------------------------------
 
 			edades[obj[1]] = (area_total, numero_plantas, plant_improd, plantas_semillas, plantas_injerto)
