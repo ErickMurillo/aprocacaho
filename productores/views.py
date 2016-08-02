@@ -545,7 +545,7 @@ def produccion(request,template="productores/produccion.html"):
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
 			try:
-				plant_improd = (numero_plantas_total / improductivas)
+				plant_improd = (improductivas / numero_plantas_total) * 100
 			except:
 				plant_improd = 0
 
@@ -553,7 +553,11 @@ def produccion(request,template="productores/produccion.html"):
 			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											semillas = Sum('plantacion__plantas_semilla'))['semillas']
 
-			plantas_semillas = saca_porcentajes(semillas,numero_plantas,False)
+			try:
+				plantas_semillas = (semillas / numero_plantas_total) * 100
+			except:
+				plantas_semillas = 0
+
 			#----------------------------------------------------------------------------------------------------
 			injerto = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											injerto = Sum('plantacion__plantas_injerto'))['injerto']
