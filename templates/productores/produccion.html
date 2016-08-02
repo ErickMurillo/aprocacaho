@@ -75,31 +75,31 @@
                                                   <tr>
                                                       <td>Área total en mz</td>
                                                       {% for v in value.0.values %}
-                                                      <td>{{v.0}}</td>
+                                                      <td>{{v.0|floatformat:2}}</td>
                                                       {% endfor %}
                                                   </tr>
                                                   <tr>
                                                       <td>No. de plantas por mz</td>
                                                       {% for v in value.0.values %}
-                                                      <td>{{v.1}}</td>
+                                                      <td>{{v.1|floatformat:2}}</td>
                                                       {% endfor %}
                                                   </tr>
                                                   <tr>
                                                       <td>% de plantas improductivas</td>
                                                       {% for v in value.0.values %}
-                                                      <td>{{v.2}}</td>
+                                                      <td>{{v.2|floatformat:2}}</td>
                                                       {% endfor %}
                                                   </tr>
                                                   <tr>
                                                       <td>% de plantas establecidas con semilla</td>
                                                       {% for v in value.0.values %}
-                                                      <td>{{v.3}}</td>
+                                                      <td>{{v.3|floatformat:2}}</td>
                                                       {% endfor %}
                                                   </tr>
                                                   <tr>
                                                       <td>% de plantas establecidas por injerto</td>
                                                       {% for v in value.0.values %}
-                                                      <td>{{v.4}}</td>
+                                                      <td>{{v.4|floatformat:2}}</td>
                                                       {% endfor %}
                                                   </tr>
                                               </tbody>
