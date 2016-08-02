@@ -137,7 +137,7 @@ class Genero_Inline(admin.StackedInline):
 	max_num = 1
 	can_delete = False
 	fieldsets = [(None,
-				{'fields' : (('actividades'),('ingresos','ingreso_mesual'),('destino_ingresos',),('decisiones',))}),
+				{'fields' : (('actividades'),('ingresos','ingreso_mesual_cacao','ingreso_mesual'),('destino_ingresos',),('decisiones',))}),
 	]
 
 class AmpliarAreasCacao_Inline(admin.TabularInline):
