@@ -542,20 +542,19 @@ def produccion(request,template="productores/produccion.html"):
 				numero_plantas = 0
 			#----------------------------------------------------------------------------------------------------
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											improductivas = Avg('plantacion__plantas_improductivas'))['improductivas']
+											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
 
-
-			plant_improd = improductivas
+			plant_improd = (numero_plantas / improductivas) * 100
 			#----------------------------------------------------------------------------------------------------
 			semillas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											semillas = Avg('plantacion__plantas_semilla'))['semillas']
+											semillas = Sum('plantacion__plantas_semilla'))['semillas']
 
-			plantas_semillas = semillas
+			plantas_semillas = saca_porcentajes(semillas,numero_plantas,False)
 			#----------------------------------------------------------------------------------------------------
 			injerto = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
-											injerto = Avg('plantacion__plantas_injerto'))['injerto']
+											injerto = Sum('plantacion__plantas_injerto'))['injerto']
 
-			plantas_injerto = injerto
+			plantas_injerto = saca_porcentajes(injerto,numero_plantas,False)
 			#----------------------------------------------------------------------------------------------------
 
 			edades[obj[1]] = (area_total, numero_plantas, plant_improd, plantas_semillas, plantas_injerto)
