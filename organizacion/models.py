@@ -12,8 +12,9 @@ from multiselectfield import MultiSelectField
 # Create your models here.
 STATUS_CHOICES = (
 	(1,'ONG'),
-	(2, 'Cooperativa'),
-	(3, 'Unión de Cooperativa'),
+	(2,'Cooperativa'),
+	(3,'Asociación'),
+	(4,'Proyectos'),
 	)
 
 class Organizacion(models.Model):

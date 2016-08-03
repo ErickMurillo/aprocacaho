@@ -521,7 +521,7 @@ def produccion(request,template="productores/produccion.html"):
 
 	EDAD_PLANTA_CHOICES = (
 		(3,'De 4 a 10 años'),
-		(4,'De 10 a 20 años'),
+		(4,'De 11 a 20 años'),
 		(5,'Mayores de 20 años'),
 	)
 
@@ -537,16 +537,21 @@ def produccion(request,template="productores/produccion.html"):
 			#----------------------------------------------------------------------------------------------------
 			numero_plantas_total = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											plantas=Sum('plantacion__numero_plantas'))['plantas']
+			if numero_plantas_total == None:
+				numero_plantas_total = 0
 			try:
 				numero_plantas = numero_plantas_total / area_total
 			except:
 				numero_plantas = 0
+
 			#----------------------------------------------------------------------------------------------------
 			improductivas = filtro.filter(year = year,plantacion__edad = obj[0]).aggregate(
 											improductivas = Sum('plantacion__plantas_improductivas'))['improductivas']
+			if improductivas == None:
+				improductivas = 0
 
 			try:
-				plant_improd = (improductivas / total) * 100
+				plant_improd = (improductivas / float(numero_plantas_total)) * 100
 			except:
 				plant_improd = 0
 
@@ -555,7 +560,7 @@ def produccion(request,template="productores/produccion.html"):
 											semillas = Sum('plantacion__plantas_semilla'))['semillas']
 
 			try:
-				plantas_semillas = (semillas / total) * 100
+				plantas_semillas = (semillas / float(numero_plantas_total)) * 100
 			except:
 				plantas_semillas = 0
 
@@ -564,7 +569,7 @@ def produccion(request,template="productores/produccion.html"):
 											injerto = Sum('plantacion__plantas_injerto'))['injerto']
 
 			try:
-				plantas_injerto = (injerto / total) * 100
+				plantas_injerto = (injerto / float(numero_plantas_total)) * 100
 			except:
 				plantas_injerto = 0
 			#----------------------------------------------------------------------------------------------------
@@ -583,12 +588,12 @@ def produccion(request,template="productores/produccion.html"):
 			fermentado = 0
 
 		#meses de produccion
-		meses_prod = collections.OrderedDict()
-		for obj in MESES_CHOICES:
-			frecuencia = filtro.filter(year = year,produccioncacao__meses__icontains = obj[0]).count()
-			meses_prod[obj[1]] = frecuencia
+		# meses_prod = collections.OrderedDict()
+		# for obj in MESES_CHOICES:
+		# 	frecuencia = filtro.filter(year = year,produccioncacao__meses__icontains = obj[0]).count()
+		# 	meses_prod[obj[1]] = frecuencia
 
-		years[year] = (edades,convencional,fermentado,meses_prod)
+		years[year] = (edades,convencional,fermentado)
 
 	return render(request, template, locals())
 
@@ -737,7 +742,7 @@ def comercializacion(request,template="productores/comercializacion.html"):
 		#grafico venta
 		PRODUCTOS = (
 			(3,'Cacao en baba (qq)'),
-			(4,'Cacao rojo sin fermentar (qq)'),
+			(4,'Cacao seco corriente (qq)'),
 			(5,'Cacao fermentado (qq)'),
 			)
 

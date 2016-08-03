@@ -181,7 +181,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 				ComercializacionCacao_Inline,DistanciaComercioCacao_Inline,CapacitacionesTecnicas_Inline,
 				CapacitacionesSocioeconomicas_Inline,ProblemasAreaCacao_Inline,Genero_Inline,AmpliarAreasCacao_Inline]
 
-	list_display = ('entrevistado','organizacion','encuestador','fecha')
+	list_display = ('id','entrevistado','organizacion','encuestador','fecha')
 	list_display_links = ('organizacion','entrevistado')
 	search_fields = ['entrevistado__nombre','encuestador__nombre']
 

@@ -261,7 +261,7 @@ class AreaFinca(models.Model):
 
 CHOICE_TIERRA = (
     (1,'Bosque'),
-    (2,'Tacotal o regeneración natural'),
+    (2,'Guamil o regeneración natural'),
     (3,'Cultivo anual (que produce en el año)'),
     (4,'Plantación forestal (madera y leña)'),
     (5,'Área de pastos abierto'),
@@ -307,6 +307,7 @@ TEXTURA_CHOICES = (
 	(2,'Limoso'),
 	(3,'Arenoso'),
 	(4,'Franco'),
+	(5,'Franco Arenoso')
 	)
 
 PENDIENTE_CHOICES = (
@@ -420,9 +421,9 @@ class MitigacionRiesgos(models.Model):
 	almacenamiento_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Cuenta con obras para almacenamiento de agua?')
 	distribucion_cacao = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Participan en cadena de distribución de producto cacao?')
 	venta_cacao = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Cuenta con un contrato para la venta de cacao?')
-	si_venta_cacao = models.IntegerField(choices=VENTA_CHOICES,verbose_name='Si responde Si: favor indicar si el contrato lo hace')
+	si_venta_cacao = models.IntegerField(choices=VENTA_CHOICES,verbose_name='Si responde Si: favor indicar si el contrato lo hace',null=True,blank=True)
 	tecnologia_secado = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Dispone de tecnología para el secado y almacenamiento de cosecha?')
-	si_tecnologia_secado = models.IntegerField(choices=TECNOLOGIA_CHOICES,verbose_name='Si responde Si: favor indicar si la tecnología de secado y almacenamiento es')
+	si_tecnologia_secado = models.IntegerField(choices=TECNOLOGIA_CHOICES,verbose_name='Si responde Si: favor indicar si la tecnología de secado y almacenamiento es',null=True,blank=True)
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
@@ -466,7 +467,7 @@ EDAD_PLANTA_CHOICES = (
 	(1,'Menor de un año'),
 	(2,'De 1 a 3 años'),
 	(3,'De 4 a 10 años'),
-	(4,'De 10 a 20 años'),
+	(4,'De 11 a 20 años'),
 	(5,'Mayores de 20 años'),
 	)
 
@@ -500,8 +501,8 @@ MESES_CHOICES = (
 	)
 
 class ProduccionCacao(models.Model):
-	cacao_baba = models.FloatField(verbose_name='Producción cacao en baba (qq baba/fresco)')
-	meses = MultiSelectField(choices=MESES_CHOICES,verbose_name='Meses de mayor producción de cacao')
+	cacao_baba = models.FloatField(verbose_name='Producción cacao en baba (lb baba/fresco)')
+	# meses = MultiSelectField(choices=MESES_CHOICES,verbose_name='Meses de mayor producción de cacao')
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
@@ -510,14 +511,20 @@ class ProduccionCacao(models.Model):
 
 CERTIFICACIONES_CHOICES = (
 	(1,'Convencional'),
-	(2,'Orgánico'),
-	(3,'UTZ/Sello'),
-	(4,'FAIR TRADE'),
+	(2,'Orgánico T1'),
+	(3,'Orgánico T2'),
+	(4,'Orgánico T3'),
+	(5,'Orgánico Ecológico'),
+	(6,'UTZ/Sello'),
+	(7,'Comercio Justo'),
 	)
 
 PAGA_CERT_CHOICES = (
 	(1,'Productor'),
-	(2,'Cooperativa'),
+	(2,'Mercado'),
+	(3,'Asociación Nacional'),
+	(4,'Cooperante'),
+	(5,'Organización local'),
 	)
 
 class Certificacion(models.Model):
@@ -616,15 +623,13 @@ class TecnicasAplicadas(models.Model):
 PRODUCTO_CHOICES = (
 	(1,'Mazorca de cacao (unidad)'),
 	(2,'Semilla para siembra (unidad)'),
-	(3,'Cacao en baba (qq)'),
-	(4,'Cacao rojo sin fermentar (qq)'),
-	(5,'Cacao fermentado (qq)'),
+	(3,'Cacao en baba (lb)'),
+	(4,'Cacao seco corriente (lb)'),
+	(5,'Cacao fermentado (lb)'),
 	(6,'Chocolate artesanal (lb)'),
-	(7,'Cacao en polvo (lb)'),
-	(8,'Cacao procesado (lb)'),
-	(9,'Cajeta de cacao (lb)'),
-	(10,'Pasta de cacao (lb)'),
-	(11,'Vino de cacao (lt)'),
+	(7,'Pinol (lb)'),
+	(8,'Cacao artesanal (lb)'),
+	(9,'Vino de cacao (lt)'),
 	)
 
 QUIEN_VENDE_CHOICES = (
@@ -639,8 +644,8 @@ class ComercializacionCacao(models.Model):
 	auto_consumo = models.FloatField(verbose_name='Auto-consumo',blank=True, null=True)
 	venta =  models.FloatField(blank=True, null=True)
 	precio_venta = models.FloatField(verbose_name='Precio venta por unidad',blank=True, null=True)
-	quien_vende = MultiSelectField(choices=QUIEN_VENDE_CHOICES,verbose_name='¿A quién le vende?',blank=True, null=True)
-	donde_vende = models.ManyToManyField(Municipio,verbose_name='¿Dónde lo vende? Municipios',blank=True)
+	quien_vende = models.IntegerField(choices=QUIEN_VENDE_CHOICES,verbose_name='¿A quién le vende?',blank=True, null=True)
+	donde_vende = models.ForeignKey(Municipio,verbose_name='¿Dónde lo vende? Municipios',blank=True, null=True)
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
@@ -707,9 +712,9 @@ class CapacitacionesSocioeconomicas(models.Model):
 		verbose_name_plural = "13.2 Capacitaciones socioeconómico/org"
 
 class ProblemasAreaCacao(models.Model):
-	area_1 = models.ManyToManyField(ProblemasArea1,verbose_name='En áreas de 1 a 3 años')
-	area_2 = models.ManyToManyField(ProblemasArea2,verbose_name='En áreas de 4 a 10 años')
-	area_3 = models.ManyToManyField(ProblemasArea3,verbose_name='En áreas de 10 a 20 años')
+	area_1 = models.ManyToManyField(ProblemasArea1,verbose_name='En áreas de 1 a 3 años',blank=True)
+	area_2 = models.ManyToManyField(ProblemasArea2,verbose_name='En áreas de 4 a 10 años',blank=True)
+	area_3 = models.ManyToManyField(ProblemasArea3,verbose_name='En áreas de 10 a 20 años',blank=True)
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
@@ -730,7 +735,7 @@ class Genero(models.Model):
 	ingreso_mesual = models.FloatField(null=True,blank=True,verbose_name='Ingreso mensual aproximado percibido (incluyendo todas las actividades)')
 	destino_ingresos = models.ManyToManyField(DestinoIngresos,verbose_name='Destino de los ingresos percibidos',blank=True)
 	decisiones = MultiSelectField(choices=DECISIONES_CHOICES,verbose_name='Decisiones sobre destino de la producción',blank=True,null=True)
-	otros_ingresos = models.ManyToManyField(OtrosIngresos,verbose_name='Sobre otros Ingresos',blank=True,null=True)
+	otros_ingresos = models.ManyToManyField(OtrosIngresos,verbose_name='Sobre otros Ingresos',blank=True)
 	encuesta = models.ForeignKey(Encuesta)
 
 	class Meta:
