@@ -110,7 +110,7 @@
 									                <tr>
 									                    {% for celda in fila %}
 									                    <td>
-									                    	{% if celda == None %}0{% else %}{{celda|floatformat:"2"}}{% endif %}
+									                    	{% if celda == None %}0{% else %}{{celda}}{% endif %}
 									                    </td>
 									                    {% endfor %}
 									                </tr>
