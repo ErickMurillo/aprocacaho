@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
 
-    
+
 
 {% endblock extra_css %}
 {% block content %}
@@ -14,11 +14,11 @@
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
             <li><a href="/">Inicio</a></li>
-            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/">Productores</a></li>
             <li><a href="/productores/dashboard/">Dashboard</a></li>
             <li class="active">Organización Productiva-Comercial</li>
         </ul>
-        <!-- END BREADCRUMB -->                       
+        <!-- END BREADCRUMB -->
         <ul class="select-annos" >
             <li>
               <a >Años:</a>
@@ -32,78 +32,78 @@
         </ul>
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
-            
-            
+
+
             <div class="tab-content">
                 {% for year,value in years.items %}
                 <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
 
                     <div class="row">
-                
-                        <div class="col-md-6">
-                            
+
+                        <div class="col-md-12">
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Servicios que reciben productoras y productores de las organizaciones</h3>
                                         <span>Porcentaje </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                        <div id="servicios{{year}}"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
-                        <div class="col-md-6">
-                            
+                        <div class="col-md-12">
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Beneficios de estar asociados</h3>
                                         <span>Porcentaje </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="beneficios{{year}}"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
 
-                    
-                    
-                        
+
+
+
                     </div>
-                  
-                  
-                  
+
+
+
                  <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
                   Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
-                  
-                  
-                  
+
+
+
 
                 </div>
                 {% endfor %}
-            </div>                    
-            
-            
-            
+            </div>
 
-            
+
+
+
+
         </div>
-        <!-- END PAGE CONTENT WRAPPER -->   
+        <!-- END PAGE CONTENT WRAPPER -->
     </div>
 {% include "productores/footer.html" %}
 
