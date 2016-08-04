@@ -143,7 +143,7 @@ def dashboard(request,template="productores/dashboard.html"):
 			rendimiento_conv = (convencional) / area_no_cert
 		except:
 			rendimiento_conv = 0
-			
+
 		try:
 			rendimiento_ferm = (fermentado) / area_cert
 		except:
@@ -602,10 +602,20 @@ def produccion(request,template="productores/produccion.html"):
 		if convencional == None:
 			convencional = 0
 
+		try:
+			convencional = convencional / 100
+		except:
+			pass
+
 		fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
 											fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
 		if fermentado == None:
 			fermentado = 0
+
+		try:
+			fermentado = fermentado / 100
+		except:
+			pass
 
 		#meses de produccion
 		# meses_prod = collections.OrderedDict()
@@ -772,6 +782,12 @@ def comercializacion(request,template="productores/comercializacion.html"):
 											total = Sum('comercializacioncacao__venta'))['total']
 			if qq == None:
 				qq = 0
+
+			try:
+				qq = qq / 100
+			except:
+				pass
+				
 			venta[obj[1]] = qq
 
 		years[year] = (distancia,comercio,venta)
