@@ -50,6 +50,17 @@ class Organizacion(models.Model):
 		verbose_name = "Organización"
 		verbose_name_plural = "Organizaciones"
 
+class EscuelaCampo(models.Model):
+	nombre = models.CharField(max_length=200)
+	organizacion = models.ForeignKey(Organizacion)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = "Escuela de campo"
+		verbose_name_plural = "Escuelas de campo"
+
 class EncuestaOrganicacion(models.Model):
 		fecha = models.DateField()
 		organizacion = models.ForeignKey(Organizacion,related_name='Organizacion')

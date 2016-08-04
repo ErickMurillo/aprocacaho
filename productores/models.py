@@ -130,6 +130,7 @@ class Entrevistados(models.Model):
 	sexo = models.IntegerField(choices=CHOICE_SEXO)
 	profesion = models.ForeignKey(Profesiones,verbose_name='Profesión u oficio')
 	organizacion = models.ForeignKey(Organizacion,verbose_name='A que Organización pertenece')
+	escuela_campo = models.ForeignKey(EscuelaCampo,null=True,blank=True)
 	departamento = models.ForeignKey(Departamento)
 	municipio = ChainedForeignKey(
                                 Municipio,

@@ -2,6 +2,15 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
+#organizacion
+class InlineEscuelaCampo(admin.TabularInline):
+    model = EscuelaCampo
+    extra = 1
+
+class OrganizacionAdmin(admin.ModelAdmin):
+    inlines = [InlineEscuelaCampo]
+
+#encuesta organizacion
 class InlineAspectosJuridicos(admin.TabularInline):
     model = AspectosJuridicos
     max_num = 1
@@ -105,5 +114,5 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
         js = ('js/admin_org.js',)
 
 
-admin.site.register(Organizacion)
+admin.site.register(Organizacion,OrganizacionAdmin)
 admin.site.register(EncuestaOrganicacion,EncuestaOrganicacionAdmin)
