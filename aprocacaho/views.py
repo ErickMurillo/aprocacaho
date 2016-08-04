@@ -19,7 +19,7 @@ def index(request,template="index.html"):
     areas_hombres = Encuesta.objects.filter(entrevistado__sexo = '2').aggregate(total = Sum('plantacion__area'))['total']
 
     #ProduccionCacao
-    produccion = Encuesta.objects.all().aggregate(total = Sum('produccioncacao__cacao_baba'))['total']
+    produccion = Encuesta.objects.all().aggregate(total = Sum('produccioncacao__cacao_baba'))['total'] * 0.00453592
 
     #total encuestas
     encuestas = Encuesta.objects.all().count()
