@@ -120,14 +120,24 @@ def dashboard(request,template="productores/dashboard.html"):
 			area_no_cert = 0
 
 		convencional = filtro.filter(year = year,certificacion__cacao_certificado = '2').aggregate(
-									convencional = Sum('produccioncacao__cacao_baba'))['convencional'] / 100
+									convencional=Sum('produccioncacao__cacao_baba'))['convencional']
 		if convencional == None:
 			convencional = 0
 
+		try:
+			convencional = convencional / 100
+		except:
+			pass
+
 		fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
-									fermentado=Sum('produccioncacao__cacao_baba'))['fermentado'] / 100
+									fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
 		if fermentado == None:
 			fermentado = 0
+
+		try:
+			fermentado = fermentado / 100
+		except:
+			pass
 
 		try:
 			rendimiento_conv = (convencional * 100) / area_no_cert
@@ -143,9 +153,14 @@ def dashboard(request,template="productores/dashboard.html"):
 		area_total = filtro.filter(year = year).aggregate(area_total = Sum('plantacion__area'))['area_total']
 
 		#promedio mz x productor
-		promedio_productor = filtro.filter(year = year).aggregate(avg_cacao = Avg('areacacao__area'))['avg_cacao'] / 100
+		promedio_productor = filtro.filter(year = year).aggregate(avg_cacao = Avg('areacacao__area'))['avg_cacao']
 		if promedio_productor == None:
 			promedio_productor = 0
+
+		try:
+			promedio_productor = promedio_productor / 100
+		except:
+			pass
 
 		#productores socios y no socios
 		try:
@@ -187,9 +202,14 @@ def dashboard(request,template="productores/dashboard.html"):
 		prod_depto = {}
 		for depto in Departamento.objects.all():
 			produccion = filtro.filter(year = year,entrevistado__departamento = depto).aggregate(
-											total = Sum('produccioncacao__cacao_baba'))['total'] / 100
+											total = Sum('produccioncacao__cacao_baba'))['total']
 			if produccion == None:
 				produccion = 0
+
+			try:
+				produccion = produccion / 100
+			except:
+				pass
 
 			if produccion != 0:
 				prod_depto[depto] = (depto.latitud_1,depto.longitud_1,produccion)
