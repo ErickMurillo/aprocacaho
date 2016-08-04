@@ -120,12 +120,12 @@ def dashboard(request,template="productores/dashboard.html"):
 			area_no_cert = 0
 
 		convencional = filtro.filter(year = year,certificacion__cacao_certificado = '2').aggregate(
-									convencional=Sum('produccioncacao__cacao_baba'))['convencional']
+									convencional = Sum('produccioncacao__cacao_baba'))['convencional'] / 100
 		if convencional == None:
 			convencional = 0
 
 		fermentado = filtro.filter(year = year,certificacion__cacao_certificado = '1').aggregate(
-									fermentado=Sum('produccioncacao__cacao_baba'))['fermentado']
+									fermentado=Sum('produccioncacao__cacao_baba'))['fermentado'] / 100
 		if fermentado == None:
 			fermentado = 0
 
@@ -143,7 +143,7 @@ def dashboard(request,template="productores/dashboard.html"):
 		area_total = filtro.filter(year = year).aggregate(area_total = Sum('plantacion__area'))['area_total']
 
 		#promedio mz x productor
-		promedio_productor = filtro.filter(year = year).aggregate(avg_cacao = Avg('areacacao__area'))['avg_cacao']
+		promedio_productor = filtro.filter(year = year).aggregate(avg_cacao = Avg('areacacao__area'))['avg_cacao'] / 100
 		if promedio_productor == None:
 			promedio_productor = 0
 
@@ -187,7 +187,7 @@ def dashboard(request,template="productores/dashboard.html"):
 		prod_depto = {}
 		for depto in Departamento.objects.all():
 			produccion = filtro.filter(year = year,entrevistado__departamento = depto).aggregate(
-											total = Sum('produccioncacao__cacao_baba'))['total']
+											total = Sum('produccioncacao__cacao_baba'))['total'] / 100
 			if produccion == None:
 				produccion = 0
 
