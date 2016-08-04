@@ -76,7 +76,6 @@
 					$('#certificacion_set-0 .field-costo_certificacion').hide()
 				};
 			});
-
 	});
 
 })(jQuery || django.jQuery);

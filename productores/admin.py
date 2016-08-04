@@ -191,6 +191,10 @@ class EncuestaAdmin(admin.ModelAdmin):
 			'all': ('css/admin.css',)
 		}
 
+class EntrevistadosAdmin(admin.ModelAdmin):
+	class Media:
+		js = ('js/entrevistados.js',)
+
 admin.site.register(Profesiones)
 admin.site.register(SituacionesPropiedad)
 admin.site.register(Beneficios)
@@ -202,6 +206,6 @@ admin.site.register(OtrosIngresos)
 admin.site.register(ProblemasArea1)
 admin.site.register(ProblemasArea2)
 admin.site.register(ProblemasArea3)
-admin.site.register(Entrevistados)
+admin.site.register(Entrevistados,EntrevistadosAdmin)
 admin.site.register(Encuestadores)
 admin.site.register(Encuesta,EncuestaAdmin)
