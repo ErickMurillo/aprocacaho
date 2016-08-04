@@ -140,12 +140,12 @@ def dashboard(request,template="productores/dashboard.html"):
 			pass
 
 		try:
-			rendimiento_conv = (convencional * 100) / area_no_cert
+			rendimiento_conv = (convencional) / area_no_cert
 		except:
 			rendimiento_conv = 0
-
+			
 		try:
-			rendimiento_ferm = (fermentado * 100) / area_cert
+			rendimiento_ferm = (fermentado) / area_cert
 		except:
 			rendimiento_ferm = 0
 
