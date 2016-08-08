@@ -292,11 +292,8 @@
 <!-- END THIS PAGE PLUGINS-->
 <!-- START TEMPLATE -->
 <script type="text/javascript" src="/static/adminjs/plugins.js"></script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKom6HhoeYfQaG66eks_-bdbps3X25dTw&callback=initMap"
-  type="text/javascript"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKF1eeIxFVU6yBaTPmlefAVGnnW1y3Fgg" type="text/javascript"></script>
 <script type="text/javascript" src="/static/js/markerclusterer.js"></script>
-
 <script src="/static/js/markerwithlabel.js"></script>
 
 {% for year,value in years.items %}
@@ -398,7 +395,7 @@
 				colorByPoint: true,
 				data: [
 			{
-				name: "Fermentado convencional",
+				name: "Seco Corriente",
 				y: {{value.1}},
 			}, {
 				name: "Fermentado Orgánico",
@@ -454,7 +451,7 @@ $(function () {
       colorByPoint: true,
       data: [
     {
-      name: "Fermentado convencional",
+      name: "Seco Corriente",
       y: {{value.3}},
     }, {
       name: "Fermentado Orgánico",

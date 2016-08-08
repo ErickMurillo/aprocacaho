@@ -1,15 +1,18 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
-
-
-
 {% endblock extra_css %}
 {% block content %}
 {% include "productores/menu_productores.html" %}
+<style media="screen">
+.widget-subtitle, .widget-int {
+  width: 50% !important;
+}
+</style>
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
@@ -45,9 +48,9 @@
                             <!-- START WIDGET MESSAGES -->
                             <div class="item widget widget-default widget-item-icon" >
                                 <div>
-                                    <div class="widget-title">Ingreso mensual de solo cacao</div>
-                                    <div class="widget-subtitle">Promedio</div>
-                                    <div class="widget-int">{{value.4}}</div>
+                                    <div class="widget-title">Ingreso mensual de solo cacao (Lps)</div>
+                                    <div class="widget-subtitle">Total</div><div class="widget-subtitle">Promedio</div>
+                                    <div class="widget-int">{{value.4|floatformat:2|intcomma}}</div><div class="widget-int">{{value.5|floatformat:2|intcomma}}</div>
                                 </div>
                             </div>
                             <!-- END WIDGET MESSAGES -->
@@ -57,9 +60,9 @@
                             <!-- START WIDGET MESSAGES -->
                             <div class="item widget widget-default widget-item-icon" >
                                 <div>
-                                    <div class="widget-title">Ingreso mensual todas las actividades</div>
-                                    <div class="widget-subtitle">Promedio</div>
-                                    <div class="widget-int">{{value.5}}</div>
+                                    <div class="widget-title">Ingreso mensual todas las actividades (Lps)</div>
+                                    <div class="widget-subtitle">Total</div><div class="widget-subtitle">Promedio</div>
+                                    <div class="widget-int">{{value.6|floatformat:2|intcomma}}</div><div class="widget-int">{{value.7|floatformat:2|intcomma}}</div>
                                 </div>
 
                             </div>
@@ -436,7 +439,7 @@ $('#destino{{year}}').highcharts({
           }
       },
   series: [
-          {% for k,v in value.6.items %}
+          {% for k,v in value.8.items %}
           {
               name: '{{k}} ({{v.0}})',
               data: [{{v.1}}],

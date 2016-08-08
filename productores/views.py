@@ -787,7 +787,7 @@ def comercializacion(request,template="productores/comercializacion.html"):
 				qq = qq / 100
 			except:
 				pass
-				
+
 			venta[obj[1]] = qq
 
 		years[year] = (distancia,comercio,venta)
@@ -904,7 +904,10 @@ def genero(request,template="productores/genero.html"):
 			ingresos[obj[1]] = (conteo,saca_porcentajes(conteo,productores,False))
 
 		#avg ingresos
+		total_ingreso_mesual_cacao = filtro.filter(year = year).aggregate(sum = Sum('genero__ingreso_mesual_cacao'))['sum']
 		ingreso_mesual_cacao = filtro.filter(year = year).aggregate(avg = Avg('genero__ingreso_mesual_cacao'))['avg']
+
+		total_ingreso_mesual = filtro.filter(year = year).aggregate(sum = Sum('genero__ingreso_mesual'))['sum']
 		ingreso_mesual = filtro.filter(year = year).aggregate(avg = Avg('genero__ingreso_mesual'))['avg']
 
 		#destino ingresos
@@ -913,7 +916,8 @@ def genero(request,template="productores/genero.html"):
 			conteo = filtro.filter(year = year,genero__destino_ingresos = obj).count()
 			destino_ingresos[obj] = (conteo,saca_porcentajes(conteo,productores,False))
 
-		years[year] = (participacion,decisiones,otros_ingresos,ingresos,ingreso_mesual_cacao,ingreso_mesual,destino_ingresos)
+		years[year] = (participacion,decisiones,otros_ingresos,ingresos,total_ingreso_mesual_cacao,ingreso_mesual_cacao,
+						total_ingreso_mesual,ingreso_mesual,destino_ingresos)
 
 	return render(request, template, locals())
 
