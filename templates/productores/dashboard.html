@@ -541,17 +541,17 @@ $(function () {
       enabled: false
     },
     plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y}',
-                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
-                style: {
-                    textShadow: '0 0 3px white'
-                }
-            }
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}',
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          style: {
+            textShadow: '0 0 3px black'
+          }
         }
+      }
     },
 
     tooltip: {
