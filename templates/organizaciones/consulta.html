@@ -4,14 +4,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-
-    
-
 {% endblock extra_css %}
 
-
-
-  {% block content %}
+{% block content %}
 <!-- START PAGE CONTAINER -->
 <nav class="navbar navbar-default navbar-fixed-top main-menu" role="navigation">
     <div class="container-fluid">
@@ -39,7 +34,7 @@
                     <li><a href="">Manual PDF</a></li>
                     <li>
                         <a href="/logout/">
-                            <span class="fa fa-sign-out"></span> Cerrar Sesión 
+                            <span class="fa fa-sign-out"></span> Cerrar Sesión
                         </a>
                     </li>
                 {% else %}
@@ -48,43 +43,38 @@
                 {% endif %}
 
             </ul>
-        </div>  
+        </div>
     </div>
-</nav>      
-            
+</nav>
 
-                 
-
-                                    
-                
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-                
+
                     <div class="row fondo">
                     <!-- START BREADCRUMB -->
                     <ul class="breadcrumb">
-                        <li><a href="/">Inicio</a></li>                    
+                        <li><a href="/">Inicio</a></li>
                         <li class="active">Organizaciones</li>
                     </ul>
-                    <!-- END BREADCRUMB -->   
+                    <!-- END BREADCRUMB -->
                         <div class="col-md-12 consulta">
-                            
+
                             <form class="form-horizontal" action="." method="post">{% csrf_token %}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><strong>Consulta Organización</strong></h3>
-                                  
+
                                 </div>
- 
-                                <div class="panel-body">                                                                        
-                                    
+
+                                <div class="panel-body">
+
                                     <div class="row">
 
                                         <div class="col-md-4">
                                            <p>
                                            	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 											consequat.
-											</p> 
+											</p>
 											<p>
 											Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 											Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -92,38 +82,38 @@
                                            </p>
                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                             <div class="panel panel-indicadores">
-                                               
-                                                    
+
+
                                                 <a class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                     Indicadores de las Organizaciones
                                                 </a>
-                                                   
-                                             
+
+
                                                 <div id="collapseOne " class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                     <div class="panel-body">
                                                         <ul class="list-group">
-                                              
+
                                                             <a class="list-group-item" href="/organizaciones/estatus-legal/" role="button">Estatus legal</a>
-                                                         
-                                                          
+
+
                                                             <a class="list-group-item" href="/organizaciones/aspectos-juridicos/" role="button">Aspectos jurídicos</a>
-                                                         
-                                                          
+
+
                                                             <a class="list-group-item" href="/organizaciones/documentacion/" role="button">Documentación</a>
-                                                         
-                                                          
-                                                            <a class="list-group-item" href="/organizaciones/datos-productivos/" role="button">Datos productivos</a>
-                                                         
-                                                          
+
+
+                                                            <!--<a class="list-group-item" href="/organizaciones/datos-productivos/" role="button">Datos productivos</a>-->
+
+
                                                             <a class="list-group-item" href="/organizaciones/instalaciones-y-equipos/" role="button">Instalaciones y equipos</a>
-                                                         
-                                                          
-                                                            <a class="list-group-item" href="/organizaciones/comercializacion/" role="button">Comercialización</a>
-                                                         
-                                                          
+
+
+                                                            <!--<a class="list-group-item" href="/organizaciones/comercializacion/" role="button">Comercialización</a>-->
+
+
                                                             <a class="list-group-item" href="#" role="button">Financiamiento para la producción</a>
-                                                         
-                                                          
+
+
                                                             <a class="list-group-item" href="#" role="button">Financiamiento de la organización</a>
                                                         </ul>
                                                     </div>
@@ -131,34 +121,34 @@
                                             </div>
 
                                         </div>
-                                            
+
                                         </div>
                                         <div class="col-md-8">
-	                                        <div class="form-group consulta-org">                                        
+	                                        <div class="form-group consulta-org">
 	                                             <label class="col-md-4 ">Estatus legal de las organizaciones:</label>
-	                                            <div class="col-md-4 control-label">                                                                                
-	                                                    {{ form.status }}  
+	                                            <div class="col-md-4 control-label">
+	                                                    {{ form.status }}
 	                                            </div>
-	                                            <div class="col-md-2">                                                                                
+	                                            <div class="col-md-2">
 	                                                    <input class="btn btn-primary pull-right" type="submit" value="Consultar" name="consulta"/>
 	                                            </div>
 
 	                                        </div>
-	                                        <div id="map" style="height: 500px"></div>   
-                                            
+	                                        <div id="map" style="height: 500px"></div>
 
-                                            
+
+
                                         </div>
-                                        
+
                                     </div>
 
                                 </div>
                             </div>
                             </form>
-                            
+
                         </div>
-                    </div>                    
-                    
+                    </div>
+
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
                 <!-- ./page container -->
@@ -173,19 +163,19 @@
 
 <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
-             
+
         <!-- END PLUGINS -->
 
         <script type="text/javascript" src="/static/adminjs/plugins/moment.min.js"></script>
         <script type="text/javascript" src="/static/adminjs/plugins/bootstrap/bootstrap-select.js"></script>
 
 
-        <!-- END THIS PAGE PLUGINS-->        
+        <!-- END THIS PAGE PLUGINS-->
 
         <!-- START TEMPLATE -->
 
     <!-- END SCRIPTS -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH2mRYZjJhNFP_4ul0akb8GNkyI4KDXn8" type="text/javascript"></script>
 <script type="text/javascript" src="/static/js/markerwithlabel.js"></script>
 <script>
 $( "#id_status" ).addClass( "form-control select" );

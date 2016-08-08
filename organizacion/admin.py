@@ -25,20 +25,24 @@ class InlineDocumentacion(admin.TabularInline):
     extra = 1
     max_num = 7
 
+class InlineProduccionComercializacion(admin.TabularInline):
+    model = ProduccionComercializacion
+    extra = 1
+
 class InlineNivelCumplimiento(admin.TabularInline):
     model = NivelCumplimiento
     extra = 1
     max_num = 7
 
-class InlineDatosProductivos(admin.TabularInline):
-    model = DatosProductivos
-    extra = 1
-    max_num = 4
-
-class InlineDatosProductivosTabla(admin.TabularInline):
-    model = DatosProductivosTabla
-    extra = 1
-    max_num = 2
+# class InlineDatosProductivos(admin.TabularInline):
+#     model = DatosProductivos
+#     extra = 1
+#     max_num = 4
+#
+# class InlineDatosProductivosTabla(admin.TabularInline):
+#     model = DatosProductivosTabla
+#     extra = 1
+#     max_num = 2
 
 class InlineInfraestructura(admin.TabularInline):
     model = Infraestructura
@@ -49,15 +53,15 @@ class InlineTransporte(admin.TabularInline):
     max_num = 1
     can_delete = False
 
-class InlineComercializacion(admin.TabularInline):
-    model = Comercializacion
-    extra = 1
-    max_num = 3
-
-class InlineCacaoComercializado(admin.TabularInline):
-    model = CacaoComercializado
-    max_num = 1
-    can_delete = False
+# class InlineComercializacion(admin.TabularInline):
+#     model = Comercializacion
+#     extra = 1
+#     max_num = 3
+#
+# class InlineCacaoComercializado(admin.TabularInline):
+#     model = CacaoComercializado
+#     max_num = 1
+#     can_delete = False
 
 class InlineCertificacionOrg(admin.TabularInline):
     model = CertificacionOrg
@@ -100,8 +104,8 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
         obj.save()
 
     inlines = [InlineAspectosJuridicos,InlineListaMiembros,InlineDocumentacion,
-                InlineNivelCumplimiento,InlineDatosProductivos,InlineDatosProductivosTabla,
-                InlineInfraestructura,InlineTransporte,InlineComercializacion,InlineCacaoComercializado,
+                InlineNivelCumplimiento,InlineProduccionComercializacion,
+                InlineInfraestructura,InlineTransporte,
                 InlineCertificacionOrg,InlineDestinoProdCorriente,InlineDestinoProdFermentado,
                 InlineFinanciamiento,InlineFinanciamientoProductores,InlineInfoFinanciamiento]
 

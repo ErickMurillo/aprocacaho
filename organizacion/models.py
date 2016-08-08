@@ -106,6 +106,7 @@ class ListaMiembros(models.Model):
 	nombre = models.CharField(max_length=100,verbose_name='Nombre y apellido')
 	cargo = models.CharField(max_length=100)
 	telefonos = models.CharField(max_length=100)
+	email = models.CharField(max_length=100,blank=True,null=True)
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
@@ -152,30 +153,69 @@ DATOS_PROD_CHOICES = (
 	(4,'Área convencional (Mz)'),
 )
 
-class DatosProductivos(models.Model):
-	pregunta = models.IntegerField(choices=DATOS_PROD_CHOICES)
-	productores_socios = models.IntegerField()
-	productoras_socias = models.IntegerField()
-	productores_no_socios = models.IntegerField()
-	productoras_no_socias = models.IntegerField()
-	encuesta = models.ForeignKey(EncuestaOrganicacion)
-
-	class Meta:
-		verbose_name_plural = 'IV- Información sobre datos productivos'
-
-DATOS_CHOICES = (
-	(1,'Rendimiento promedio de cacao en baba por Mz'),
-	(2,'Rendimiento promedio de cacao seco por Mz'),
+ESTADO_PROD_CHOICES = (
+	(1,'Baba'),
+	(2,'Seco')
 )
 
-class DatosProductivosTabla(models.Model):
-	pregunta = models.IntegerField(choices=DATOS_CHOICES)
-	productores_socios = models.FloatField()
-	productores_no_socios = models.FloatField()
+TIPO_CACAO_CHOICES = (
+	(1,'Convencional'),
+	(2,'T1'),
+	(3,'T2'),
+	(4,'T3'),
+	(5,'Ecológico'),
+)
+
+CALIDAD_CHOICES = (
+	(1,'A'),
+	(2,'B'),
+	(3,'C'),
+)
+
+DESTINO_CHOICES = (
+	(1,'Intermediario local'),
+	(2,'APROCACAHO'),
+	(3,'Chocolats Halba'),
+	(4,'Otros'),
+)
+
+class ProduccionComercializacion(models.Model):
+	fecha = models.DateField()
+	cantidad = models.FloatField(verbose_name='Cantidad (lbs)')
+	estado = models.IntegerField(choices=ESTADO_PROD_CHOICES)
+	tipo_cacao = models.IntegerField(choices=TIPO_CACAO_CHOICES)
+	calidad = models.IntegerField(choices=CALIDAD_CHOICES)
+	precio = models.FloatField(blank=True,null=True,verbose_name='Precio (Lps)')
+	mercado = models.IntegerField(choices=DESTINO_CHOICES)
 	encuesta = models.ForeignKey(EncuestaOrganicacion)
 
 	class Meta:
-		verbose_name_plural = 'IV- Información sobre datos productivos'
+		verbose_name_plural = "Producción y comercialización cacao"
+
+# class DatosProductivos(models.Model):
+# 	pregunta = models.IntegerField(choices=DATOS_PROD_CHOICES)
+# 	productores_socios = models.IntegerField()
+# 	productoras_socias = models.IntegerField()
+# 	productores_no_socios = models.IntegerField()
+# 	productoras_no_socias = models.IntegerField()
+# 	encuesta = models.ForeignKey(EncuestaOrganicacion)
+#
+# 	class Meta:
+# 		verbose_name_plural = 'IV- Información sobre datos productivos'
+#
+# DATOS_CHOICES = (
+# 	(1,'Rendimiento promedio de cacao en baba por Mz'),
+# 	(2,'Rendimiento promedio de cacao seco por Mz'),
+# )
+#
+# class DatosProductivosTabla(models.Model):
+# 	pregunta = models.IntegerField(choices=DATOS_CHOICES)
+# 	productores_socios = models.FloatField()
+# 	productores_no_socios = models.FloatField()
+# 	encuesta = models.ForeignKey(EncuestaOrganicacion)
+	#
+	# class Meta:
+	# 	verbose_name_plural = 'IV- Información sobre datos productivos'
 
 INFRAESTRUCTURA_CHOICES = (
 	(1,'Centro de Acopio central'),
@@ -219,24 +259,24 @@ COMERCIO_CHOICES = (
 	(3,'Cantidad de cacao en baba acopiado por la organización'),
 )
 
-class Comercializacion(models.Model):
-	seleccion = models.IntegerField(choices=COMERCIO_CHOICES)
-	socias_corriente = models.FloatField(verbose_name="Mujeres (Corriente)")
-	socios_corriente = models.FloatField(verbose_name="Hombres (Corriente)")
-	no_socias_corriente = models.FloatField(verbose_name="Mujeres (Fermentado)")
-	no_socios_corriente = models.FloatField(verbose_name="Hombres (Fermentado)")
-	encuesta = models.ForeignKey(EncuestaOrganicacion)
-
-	class Meta:
-		verbose_name_plural = "VI. Información sobre la Comercialización"
-
-class CacaoComercializado(models.Model):
-	corriente = models.FloatField()
-	fermentado = models.FloatField()
-	encuesta = models.ForeignKey(EncuestaOrganicacion)
-
-	class Meta:
-		verbose_name_plural = "Cacao seco comercializado"
+# class Comercializacion(models.Model):
+# 	seleccion = models.IntegerField(choices=COMERCIO_CHOICES)
+# 	socias_corriente = models.FloatField(verbose_name="Mujeres (Corriente)")
+# 	socios_corriente = models.FloatField(verbose_name="Hombres (Corriente)")
+# 	no_socias_corriente = models.FloatField(verbose_name="Mujeres (Fermentado)")
+# 	no_socios_corriente = models.FloatField(verbose_name="Hombres (Fermentado)")
+# 	encuesta = models.ForeignKey(EncuestaOrganicacion)
+#
+# 	class Meta:
+# 		verbose_name_plural = "VI. Información sobre la Comercialización"
+#
+# class CacaoComercializado(models.Model):
+# 	corriente = models.FloatField()
+# 	fermentado = models.FloatField()
+# 	encuesta = models.ForeignKey(EncuestaOrganicacion)
+#
+# 	class Meta:
+# 		verbose_name_plural = "Cacao seco comercializado"
 
 CERTIFICACION_CHOICES = (
 	(1,'Orgánico'),
@@ -251,13 +291,6 @@ class CertificacionOrg(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Tipo de certificación"
-
-DESTINO_CHOICES = (
-	(1,'Intermediario local'),
-	(2,'APROCACAHO'),
-	(3,'Chocolats Halba'),
-	(4,'Otros'),
-)
 
 class DestinoProdCorriente(models.Model):
 	destino = models.IntegerField(choices=DESTINO_CHOICES)

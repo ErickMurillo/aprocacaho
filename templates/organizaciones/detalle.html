@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
-    
+
 
 {% endblock extra_css %}
 {% block content %}
@@ -16,17 +16,17 @@
     {% for obj in object %}
         <ul class="breadcrumb">
             <li><a href="/">Inicio</a></li>
-            <li><a href="/organizaciones/">Organizaciones</a></li>                      
+            <li><a href="/organizaciones/">Organizaciones</a></li>
             <li class="active">{{obj.nombre}}</li>
         </ul>
-        <!-- END BREADCRUMB -->                       
+        <!-- END BREADCRUMB -->
         <div class="panel panel-detalle">
 
             <div class="panel-body">
                <div class="row">
                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                        <div class="logo-detalle">
-                           {% if obj.logo %} 
+                           {% if obj.logo %}
                             <img src="/media/{{obj.logo}}" alt="" />
                           {% else %}
                             <img class="center-block img-detail img-responsive" src="http://placehold.it/300x200?text=No+Imagen">
@@ -52,12 +52,12 @@
                                     <li class="list-group-item">
                                     <strong>Dirección: </strong>{{obj.direccion}}</li>
                                 {% endif %}
-                                
+
                                 <li class="list-group-item">
                                     <strong>Departamento: </strong>{{obj.departamento}}
                                 </li>
                                 <li class="list-group-item">
-                                    <strong>Municipio: </strong>{{obj.municipio}}  
+                                    <strong>Municipio: </strong>{{obj.municipio}}
                                 </li>
                             </ul>
                         </div>
@@ -65,8 +65,8 @@
                    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                         <div class="info-detalle">
                             <ul class="list-group">
-                                
-                                
+
+
                                 <li class="list-group-item">
                                     <strong>Estatus Legal: </strong>{{obj.get_status_display}}
                                 </li>
@@ -77,38 +77,38 @@
                                 {% endif %}
                                 {% if obj.email %}
                                     <li class="list-group-item">
-                                        <strong>Email: </strong>{{obj.email}} 
+                                        <strong>Email: </strong>{{obj.email}}
                                     </li>
                                 {% endif %}
                                 {% if obj.web %}
                                     <li class="list-group-item">
-                                        <strong>Sitio web: </strong>{{obj.web}}      
+                                        <strong>Sitio web: </strong>{{obj.web}}
                                     </li>
                                 {% endif %}
                                 {% if obj.contacto %}
                                     <li class="list-group-item">
                                         <strong>Persona de contacto #1: </strong>{{obj.contacto}}
                                     </li>
-                                {% endif %} 
+                                {% endif %}
                                 {% if obj.contacto_1 %}
                                     <li class="list-group-item">
                                         <strong>Persona de contacto #2: </strong>
                                         {{obj.contacto_1}}
-                                        
+
                                     </li>
                                 {% endif %}
                             </ul>
                         </div>
                    </div>
 
-               </div>                                
+               </div>
             </div>
         </div>
 
     {% endfor %}
 
 
-                            
+
 
 
 
@@ -161,22 +161,22 @@
                             </li>
                             <li role="presentation">
                                 <a href="#equipos{{year}}" aria-controls="equipos{{year}}" role="tab" data-toggle="tab">
-                                   Instalaciones y equipos 
+                                   Instalaciones y equipos
                                 </a>
                             </li>
                             <li role="presentation">
                                 <a href="#comercio{{year}}" aria-controls="comercio{{year}}" role="tab" data-toggle="tab">
-                                   Comercialización 
+                                   Comercialización
                                 </a>
                             </li>
                             <li role="presentation">
                                 <a href="#destino{{year}}" aria-controls="destino{{year}}" role="tab" data-toggle="tab">
-                                  Destino de la Producción  
+                                  Destino de la Producción
                                 </a>
                             </li>
                             <li role="presentation">
                                 <a href="#financiamiento{{year}}" aria-controls="financiamiento{{year}}" role="tab" data-toggle="tab">
-                                   Financiamiento 
+                                   Financiamiento
                                 </a>
                             </li>
                         </ul>
@@ -217,7 +217,7 @@
 
                                     {% if value.1 %}
                                         <div class="col-md-7">
-                                            
+
                                             <!-- START TABLE HOVER ROWS -->
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
@@ -252,7 +252,7 @@
                                 </div>
                             </div>
                             <div role="detalletabs" class="tab-pane" id="documentacion{{year}}">
-                                <div class="row">  
+                                <div class="row">
                                     {% if value.2 %}
                                         <div class="col-md-12">
                                             <!-- START TABLE HOVER ROWS -->
@@ -287,11 +287,11 @@
                                                             </tr>
                                                             {% endfor %}
                                                         </tbody>
-                                                    </table>                              
+                                                    </table>
                                                 </div>
                                             </div>
                                             <!-- END TABLE HOVER ROWS -->
-                                        
+
                                         </div>
                                       {% endif %}
 
@@ -319,19 +319,18 @@
                                                             </tr>
                                                             {% endfor %}
                                                         </tbody>
-                                                    </table>                              
+                                                    </table>
                                                 </div>
                                             </div>
                                             <!-- END TABLE HOVER ROWS -->
                                         </div>
                                       {% endif %}
-                                </div>  
+                                </div>
                             </div>
-                            <div role="detalletabs" class="tab-pane" id="productivos{{year}}">
+                            <!--<div role="detalletabs" class="tab-pane" id="productivos{{year}}">
                                 <div class="row">
                                     {% if value.4 %}
                                     <div class="col-md-12">
-                                        <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Información productiva</h3>
@@ -356,16 +355,14 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
 
                                     {% if value.5 %}
                                   <div class="col-md-12">
-                                        <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Información productiva</h3>
@@ -388,17 +385,16 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
-                                </div>  
-                            </div>
+                                </div>
+                            </div>-->
                             <div role="detalletabs" class="tab-pane" id="equipos{{year}}">
                                 <div class="row">
-                                
+
                                     <div class="col-md-12">
                                     <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
@@ -428,7 +424,7 @@
                                                 </table>
                                             {% endif %}
                                             {% if value.7 %}
-                                            
+
                                                 {% for v in value.7 %}
                                                 <div class="info-detalle">
                                                     <ul class="list-group">
@@ -442,20 +438,19 @@
                                                 </div>
                                                 {% endfor %}
 
-                                            {% endif %}                      
+                                            {% endif %}
                                             </div>
                                         </div>
                                     <!-- END TABLE HOVER ROWS -->
                                     </div>
                                 </div>
 
-                                      
+
                             </div>
-                            <div role="detalletabs" class="tab-pane" id="comercio{{year}}">
+                            <!--<div role="detalletabs" class="tab-pane" id="comercio{{year}}">
                                 <div class="row">
                                     {% if value.8 %}
                                     <div class="col-md-12">
-                                        <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Información de comercialización</h3>
@@ -480,16 +475,14 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
 
                                     {% if value.9 %}
                                     <div class="col-md-12">
-                                        <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Información de comercialización</h3>
@@ -515,14 +508,13 @@
                                                             <td>{% for v in value.10 %}{{v.1}}{% endfor %}</td>
                                                         </tr>
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
-                                </div>   
-                            </div>
+                                </div>
+                            </div>-->
                             <div role="detalletabs" class="tab-pane" id="destino{{year}}">
                                 <div class="row">
                                     {% if value.11 %}
@@ -549,14 +541,14 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
                                         <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
-                                
-                                  
+
+
 
                                     {% if value.12 %}
                                     <div class="col-md-6">
@@ -582,27 +574,27 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
                                         <!-- END TABLE HOVER ROWS -->
                                     </div>
                                     {% endif %}
-                                </div>   
+                                </div>
                             </div>
                             <div role="detalletabs" class="tab-pane" id="financiamiento{{year}}">
                                     {% if value.13 %}
                                         <div class="col-md-12">
                                             <h4>
                                                 <strong>
-                                                    Brinda financiamiento a productores de cacao: 
+                                                    Brinda financiamiento a productores de cacao:
                                                 </strong>
                                                     {{value.13}}
                                             </h4>
                                         </div>
                                     {% endif %}
                                     <div class="col-md-6">
-                                    
+
                                     {% if value.14 %}
                                         <!-- START TABLE HOVER ROWS -->
                                         <div class="panel panel-default">
@@ -626,7 +618,7 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
                                         <!-- END TABLE HOVER ROWS -->
@@ -658,21 +650,21 @@
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
-                                                </table>                              
+                                                </table>
                                             </div>
                                         </div>
                                         <!-- END TABLE HOVER ROWS -->
                                     </div>
-                                    {% endif %}   
+                                    {% endif %}
                             </div>
                         </div>
                     </div>
-            
-                
+
+
                 </div>
             </div>
 
-            
+
 
 
 

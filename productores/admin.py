@@ -93,6 +93,10 @@ class ProduccionCacao_Inline(admin.TabularInline):
 	max_num = 1
 	can_delete = False
 
+class DistribucionProduccionCacao_Inline(admin.TabularInline):
+	model = DistribucionProduccionCacao
+	extra = 1
+
 class Certificacion_Inline(admin.TabularInline):
 	model = Certificacion
 	max_num = 1
@@ -177,7 +181,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 				Reforestacion_Inline,CaracterizacionTerreno_Inline,FenomenosNaturales_Inline,RazonesAgricolas_Inline,
 				RazonesMercado_Inline,Inversion_Inline,MitigacionRiesgos_Inline,OrganizacionAsociada_Inline,
 				ServiciosOrganizado_Inline,BeneficiosOrganizado_Inline,AreaCacao_Inline,Plantacion_Inline,
-				ProduccionCacao_Inline,Certificacion_Inline,CostoProduccion_Inline,TecnicasAplicadas_Inline,
+				ProduccionCacao_Inline,DistribucionProduccionCacao_Inline,Certificacion_Inline,CostoProduccion_Inline,TecnicasAplicadas_Inline,
 				ComercializacionCacao_Inline,DistanciaComercioCacao_Inline,CapacitacionesTecnicas_Inline,
 				CapacitacionesSocioeconomicas_Inline,ProblemasAreaCacao_Inline,Genero_Inline,AmpliarAreasCacao_Inline]
 

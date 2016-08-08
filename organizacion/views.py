@@ -94,14 +94,14 @@ def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
         for obj in NivelCumplimiento.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
             cumplimiento.append((obj.get_documentos_display(),obj.get_cumplimiento_display()))
 
-        datos_productivos = []
-        for obj in DatosProductivos.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
-            datos_productivos.append((obj.get_pregunta_display(),
-                                        obj.productores_socios,
-                                        obj.productoras_socias,
-                                        obj.productores_no_socios,
-                                        obj.productoras_no_socias
-                                    ))
+        # datos_productivos = []
+        # for obj in DatosProductivos.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+        #     datos_productivos.append((obj.get_pregunta_display(),
+        #                                 obj.productores_socios,
+        #                                 obj.productoras_socias,
+        #                                 obj.productores_no_socios,
+        #                                 obj.productoras_no_socias
+        #                             ))
 
         datos = []
         for obj in DatosProductivosTabla.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
@@ -119,14 +119,14 @@ def detail_org(request,template = 'organizaciones/detalle.html',slug = None):
         for obj in Transporte.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
             transporte.append((obj.get_medio_transporte_display(),obj.get_estado_display))
 
-        comercio = []
-        for obj in Comercializacion.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
-            comercio.append((obj.get_seleccion_display,
-                            obj.socias_corriente,
-                            obj.socios_corriente,
-                            obj.no_socias_corriente,
-                            obj.no_socios_corriente
-                            ))
+        # comercio = []
+        # for obj in Comercializacion.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
+        #     comercio.append((obj.get_seleccion_display,
+        #                     obj.socias_corriente,
+        #                     obj.socios_corriente,
+        #                     obj.no_socias_corriente,
+        #                     obj.no_socios_corriente
+        #                     ))
 
         cacao_seco = []
         for obj in CacaoComercializado.objects.filter(encuesta__anno = year,encuesta__organizacion__slug = slug):
@@ -272,35 +272,35 @@ def documentacion(request,template="organizaciones/documentacion.html"):
 
     return render(request, template, locals())
 
-@login_required
-def datos_productivos(request,template="organizaciones/datos_productivos.html"):
-    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
-
-    years = collections.OrderedDict()
-    for year in years_encuesta:
-        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
-        areas_socios = []
-        areas_no_socios = []
-        for obj in DATOS_PROD_CHOICES:
-            conteo = EncuestaOrganicacion.objects.filter(datosproductivos__pregunta = obj[0],anno = year).aggregate(
-                                                        socios = Sum('datosproductivos__productores_socios'),
-                                                        avg_socios = Avg('datosproductivos__productores_socios'),
-                                                        socias = Sum('datosproductivos__productoras_socias'),
-                                                        avg_socias = Avg('datosproductivos__productoras_socias'),
-                                                        no_socios = Sum('datosproductivos__productores_no_socios'),
-                                                        avg_no_socios = Avg('datosproductivos__productores_no_socios'),
-                                                        no_socias = Sum('datosproductivos__productoras_no_socias'),
-                                                        avg_no_socias = Avg('datosproductivos__productoras_no_socias'))
-            if obj[0] == 1:
-                lista_socios = [conteo['socios'],conteo['socias'],conteo['no_socios'],conteo['no_socias']]
-            else:
-                areas_socios.append((obj[1],conteo['socios'],conteo['avg_socios'],conteo['socias'],conteo['avg_socias']))
-
-                areas_no_socios.append((obj[1],conteo['no_socios'],conteo['avg_no_socios'],conteo['no_socias'],conteo['avg_no_socias']))
-
-        years[year] = (lista_socios,areas_socios,areas_no_socios)
-
-    return render(request, template, locals())
+# @login_required
+# def datos_productivos(request,template="organizaciones/datos_productivos.html"):
+#     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+#
+#     years = collections.OrderedDict()
+#     for year in years_encuesta:
+#         count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+#         areas_socios = []
+#         areas_no_socios = []
+#         for obj in DATOS_PROD_CHOICES:
+#             conteo = EncuestaOrganicacion.objects.filter(datosproductivos__pregunta = obj[0],anno = year).aggregate(
+#                                                         socios = Sum('datosproductivos__productores_socios'),
+#                                                         avg_socios = Avg('datosproductivos__productores_socios'),
+#                                                         socias = Sum('datosproductivos__productoras_socias'),
+#                                                         avg_socias = Avg('datosproductivos__productoras_socias'),
+#                                                         no_socios = Sum('datosproductivos__productores_no_socios'),
+#                                                         avg_no_socios = Avg('datosproductivos__productores_no_socios'),
+#                                                         no_socias = Sum('datosproductivos__productoras_no_socias'),
+#                                                         avg_no_socias = Avg('datosproductivos__productoras_no_socias'))
+#             if obj[0] == 1:
+#                 lista_socios = [conteo['socios'],conteo['socias'],conteo['no_socios'],conteo['no_socias']]
+#             else:
+#                 areas_socios.append((obj[1],conteo['socios'],conteo['avg_socios'],conteo['socias'],conteo['avg_socias']))
+#
+#                 areas_no_socios.append((obj[1],conteo['no_socios'],conteo['avg_no_socios'],conteo['no_socias'],conteo['avg_no_socias']))
+#
+#         years[year] = (lista_socios,areas_socios,areas_no_socios)
+#
+#     return render(request, template, locals())
 
 @login_required
 def instalaciones(request,template="organizaciones/instalaciones.html"):
@@ -336,67 +336,67 @@ def instalaciones(request,template="organizaciones/instalaciones.html"):
 
     return render(request, template, locals())
 
-@login_required
-def comercializacion(request,template="organizaciones/comercializacion.html"):
-    years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
-
-    years = collections.OrderedDict()
-    for year in years_encuesta:
-        lista_corriente = []
-        lista_fermentado = []
-        count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
-        for obj in COMERCIO_CHOICES:
-            conteo = EncuestaOrganicacion.objects.filter(comercializacion__seleccion = obj[0],anno = year).aggregate(
-                                                        socias_corriente = Sum('comercializacion__socias_corriente'),
-                                                        avg_socias_corriente = Avg('comercializacion__socias_corriente'),
-                                                        socios_corriente = Sum('comercializacion__socios_corriente'),
-                                                        avg_socios_corriente = Avg('comercializacion__socios_corriente'),
-                                                        socias_fermentado = Sum('comercializacion__no_socias_corriente'),
-                                                        avg_socias_fermentado = Avg('comercializacion__no_socias_corriente'),
-                                                        socios_fermentado = Sum('comercializacion__no_socios_corriente'),
-                                                        avg_socios_fermentado = Avg('comercializacion__no_socios_corriente'))
-
-            lista_corriente.append((
-                                    obj[1],
-                                    conteo['socias_corriente'],
-                                    conteo['avg_socias_corriente'],
-                                    conteo['socios_corriente'],
-                                    conteo['avg_socios_corriente'],
-                                    ))
-
-            lista_fermentado.append((
-                                    obj[1],
-                                    conteo['socias_fermentado'],
-                                    conteo['avg_socias_fermentado'],
-                                    conteo['socios_fermentado'],
-                                    conteo['avg_socios_fermentado'],
-                                    ))
-            #--------------------------------------------------------
-            #comercio org, bar graf
-            corriente = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__corriente'))['total']
-            fermentado = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__fermentado'))['total']
-
-            #--------------------------------------------------------
-            #certificacion
-            certificacion = {}
-            for obj in CERTIFICACION_CHOICES:
-                cert_corriente = EncuestaOrganicacion.objects.filter(certificacionorg__corriente__icontains = obj[0],anno = year).count()
-                cert_fermentado = EncuestaOrganicacion.objects.filter(certificacionorg__fermentado__icontains = obj[0],anno = year).count()
-
-                certificacion[obj[1]] = (saca_porcentajes(cert_corriente,count_org,False),saca_porcentajes(cert_fermentado,count_org,False))
-
-            #--------------------------------------------------------
-            #destino produccion
-            destino_prod = {}
-            for obj in DESTINO_CHOICES:
-                destino_corriente = EncuestaOrganicacion.objects.filter(destinoprodcorriente__destino = obj[0],anno = year).count()
-                destino_fermentado = EncuestaOrganicacion.objects.filter(destinoprodfermentado__destino = obj[0],anno = year).count()
-
-                destino_prod[obj[1]] = (saca_porcentajes(destino_corriente,count_org,False),saca_porcentajes(destino_fermentado,count_org,False))
-
-        years[year] = (lista_corriente,lista_fermentado,corriente,fermentado,certificacion,destino_prod)
-
-    return render(request, template, locals())
+# @login_required
+# def comercializacion(request,template="organizaciones/comercializacion.html"):
+#     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)
+#
+#     years = collections.OrderedDict()
+#     for year in years_encuesta:
+#         lista_corriente = []
+#         lista_fermentado = []
+#         count_org = EncuestaOrganicacion.objects.filter(anno = year).distinct('organizacion__nombre').count()
+#         for obj in COMERCIO_CHOICES:
+#             conteo = EncuestaOrganicacion.objects.filter(comercializacion__seleccion = obj[0],anno = year).aggregate(
+#                                                         socias_corriente = Sum('comercializacion__socias_corriente'),
+#                                                         avg_socias_corriente = Avg('comercializacion__socias_corriente'),
+#                                                         socios_corriente = Sum('comercializacion__socios_corriente'),
+#                                                         avg_socios_corriente = Avg('comercializacion__socios_corriente'),
+#                                                         socias_fermentado = Sum('comercializacion__no_socias_corriente'),
+#                                                         avg_socias_fermentado = Avg('comercializacion__no_socias_corriente'),
+#                                                         socios_fermentado = Sum('comercializacion__no_socios_corriente'),
+#                                                         avg_socios_fermentado = Avg('comercializacion__no_socios_corriente'))
+#
+#             lista_corriente.append((
+#                                     obj[1],
+#                                     conteo['socias_corriente'],
+#                                     conteo['avg_socias_corriente'],
+#                                     conteo['socios_corriente'],
+#                                     conteo['avg_socios_corriente'],
+#                                     ))
+#
+#             lista_fermentado.append((
+#                                     obj[1],
+#                                     conteo['socias_fermentado'],
+#                                     conteo['avg_socias_fermentado'],
+#                                     conteo['socios_fermentado'],
+#                                     conteo['avg_socios_fermentado'],
+#                                     ))
+#             #--------------------------------------------------------
+#             #comercio org, bar graf
+#             corriente = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__corriente'))['total']
+#             fermentado = EncuestaOrganicacion.objects.filter(anno = year).aggregate(total = Sum('cacaocomercializado__fermentado'))['total']
+#
+#             #--------------------------------------------------------
+#             #certificacion
+#             certificacion = {}
+#             for obj in CERTIFICACION_CHOICES:
+#                 cert_corriente = EncuestaOrganicacion.objects.filter(certificacionorg__corriente__icontains = obj[0],anno = year).count()
+#                 cert_fermentado = EncuestaOrganicacion.objects.filter(certificacionorg__fermentado__icontains = obj[0],anno = year).count()
+#
+#                 certificacion[obj[1]] = (saca_porcentajes(cert_corriente,count_org,False),saca_porcentajes(cert_fermentado,count_org,False))
+#
+#             #--------------------------------------------------------
+#             #destino produccion
+#             destino_prod = {}
+#             for obj in DESTINO_CHOICES:
+#                 destino_corriente = EncuestaOrganicacion.objects.filter(destinoprodcorriente__destino = obj[0],anno = year).count()
+#                 destino_fermentado = EncuestaOrganicacion.objects.filter(destinoprodfermentado__destino = obj[0],anno = year).count()
+#
+#                 destino_prod[obj[1]] = (saca_porcentajes(destino_corriente,count_org,False),saca_porcentajes(destino_fermentado,count_org,False))
+#
+#         years[year] = (lista_corriente,lista_fermentado,corriente,fermentado,certificacion,destino_prod)
+#
+#     return render(request, template, locals())
 
 def financiamiento_produccion(request,template="organizaciones/financiamiento_produccion.html"):
     years_encuesta = EncuestaOrganicacion.objects.all().values_list('anno', flat=True)

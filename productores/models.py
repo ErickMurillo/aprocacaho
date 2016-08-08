@@ -510,6 +510,28 @@ class ProduccionCacao(models.Model):
 		verbose_name = "9.2 Producción de cacao último año"
 		verbose_name_plural = "9.2 Producción de cacao último año"
 
+PORCENTAJE_CHOICES = (
+	(0.1,'10%'),
+	(0.2,'20%'),
+	(0.3,'30%'),
+	(0.4,'40%'),
+	(0.5,'50%'),
+	(0.6,'60%'),
+	(0.7,'70%'),
+	(0.8,'80%'),
+	(0.9,'90%'),
+	(1,'100%')
+)
+
+class DistribucionProduccionCacao(models.Model):
+	porcentaje = models.FloatField(choices=PORCENTAJE_CHOICES)
+	mes = models.IntegerField(choices=MESES_CHOICES)
+	encuesta = models.ForeignKey(Encuesta)
+
+	class Meta:
+		verbose_name = "Producción de cacao último año"
+		verbose_name_plural = "Producción de cacao último año"
+
 CERTIFICACIONES_CHOICES = (
 	(1,'Convencional'),
 	(2,'Orgánico T1'),
