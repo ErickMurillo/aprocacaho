@@ -31,9 +31,11 @@ INSTALLED_APPS = [
     'organizacion',
     'productores',
     'lugar',
+    'configuracion',
     'sorl.thumbnail',
     'smart_selects',
     'multiselectfield',
+    'ckeditor',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -102,3 +104,5 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'

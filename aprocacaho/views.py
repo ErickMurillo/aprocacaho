@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from productores.models import *
 from organizacion.models import *
+from configuracion.models import *
 from django.db.models import Sum, Count, Avg
 from django.http import HttpResponse
 from django.views.generic import TemplateView
@@ -26,6 +27,13 @@ def index(request,template="index.html"):
 
     #miembros familia
     miembros = Encuesta.objects.all().aggregate(avg = Avg('familia__miembros'))['avg']
+
+    #textos
+    infogeneral = InfoGeneral.objects.all()[:1].get()
+    sistema = SistemaInfo.objects.all()[:1].get()
+    alcance = Alcance.objects.all()[:1].get()
+    objetivo = Objetivo.objects.all()[:1].get()
+    actualizacion = Actualizacion.objects.all()[:1].get()
 
     return render(request, template, locals())
 

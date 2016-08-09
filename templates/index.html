@@ -64,8 +64,7 @@
 		                        <div class="text-column this-animate" data-animate="fadeInLeft">
 		                            <h4>Sistema de Información</h4>
 		                            <div class="text-column-info">
-		                                <p>Contar con un sistema de información que permita acercarse a instituciones gubernamentales y no gubernamentales para proponer el diseño y la implementación de políticas y programas encaminados a crear condiciones favorables para el desarrollo y aumento de la competitividad del sector cacaotero, de las organizaciones y las familias productoras.</p>
-
+		                                {{sistema.texto|safe}}
 		                                <a id="miLink" class="link" href="#">Leer más..</a>
 
 		                            </div>
@@ -251,11 +250,7 @@
 
 		            <div class="this-animate" data-animate="fadeInDown">
 		                <h4>Sistema de la Asociación de Productores de Cacao de Honduras</h4>
-		                <p>La APROCACAHO es una organización gremial, sin fines de lucro, con Personería Jurídica y con cobertura nacional; la cual se encuentra conformada por personas naturales, cooperativas y agrupaciones dedicadas a la producción y comercialización del cacao en la República de Honduras.</p>
-
-		                <p>Para propiciar el beneficio social y económico de las familias productoras de cacao y de sus asociados, al fomentar mejores técnicas de cultivo, la industrialización y la comercialización del cacao; APROCACAHO se ha propuesto de manera estratégica contar con un sistema de información que permita conocer el estado actual del sector cacaotero, identificando potencialidades y limitantes en los eslabones de la cadena de valor y tomar decisiones para mejorar el desempeño oportuno del sector.</p>
-
-		                <p>El Sistema de Información fue posible gracias al apoyo financiero de VECO Mesoamérica y de Heifer Internacional.</p>
+		                {{infogeneral.texto|safe}}
 		            </div>
 
 		        </div>
@@ -279,7 +274,7 @@
 		                        </div>
 		                        <h4>Objetivo</h4>
 		                        <div class="text-column-info">
-		                            Compartir de manera oportuna datos e información a fin de tomar decisiones sobre la producción, inversión y fortalecimiento de capacidades técnicas requeridas para mejorar la productividad y las tendencias del mercado.
+		                          {{objetivo.texto|safe}}
 		                        </div>
 		                    </div>
 		                </div>
@@ -291,8 +286,8 @@
 		                        </div>
 		                        <h4>Alcance</h4>
 		                        <div class="text-column-info">
-		                            Impulsar el conocimiento y obtener datos estadísticos sobre estado actual de las familias productoras de cacao y del desempeño productivo de las organizaciones asociadas a APROCACAHO.
-		                        </div>
+                                {{alcance.texto|safe}}
+                            </div>
 		                    </div>
 		                </div>
 
@@ -303,9 +298,7 @@
 		                        </div>
 		                        <h4>Actualización</h4>
 		                        <div class="text-column-info">
-		                            <p>
-		                            	El Sistema de Información se actualiza anualmente, mediante la aplicación de encuestas a familias productoras de cacao en campo por las organizaciones socias de la APROCACAHO.
-		                            </p>
+		                          {{actualizacion.texto|safe}}
 		                        </div>
 		                    </div>
 		                </div>

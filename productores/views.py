@@ -4,7 +4,7 @@ from .models import *
 from .forms import *
 import json as simplejson
 from django.http import HttpResponse,HttpResponseRedirect
-from django.db.models import Sum, Count, Avg
+from django.db.models import Sum, Count, Avg, F
 import collections
 
 # Create your views here.
@@ -623,7 +623,64 @@ def produccion(request,template="productores/produccion.html"):
 		# 	frecuencia = filtro.filter(year = year,produccioncacao__meses__icontains = obj[0]).count()
 		# 	meses_prod[obj[1]] = frecuencia
 
-		years[year] = (edades,convencional,fermentado)
+		#Grafico edad plantacion, numero de productores y areas
+		# < 1
+		menor_1 = filtro.filter(year = year,plantacion__edad_real__range = (0,0.99))
+		prod_uno = menor_1.count()
+		areas_uno = menor_1.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#1-3
+		uno_tres = filtro.filter(year = year,plantacion__edad_real__range = (1,3.99))
+		prod_uno_tres = uno_tres.count()
+		areas_uno_tres = uno_tres.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#4-6
+		cuatro_seis = filtro.filter(year = year,plantacion__edad_real__range = (4,6.99))
+		prod_cuatro_seis = cuatro_seis.count()
+		areas_cuatro_seis = cuatro_seis.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#7-15
+		siete_quince = filtro.filter(year = year,plantacion__edad_real__range = (7,15.99))
+		prod_siete_quince = siete_quince.count()
+		areas_siete_quince = siete_quince.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#16-25
+		dieciseis_veintecinco = filtro.filter(year = year,plantacion__edad_real__range = (16,25.99))
+		prod_dieciseis_veintecinco = dieciseis_veintecinco.count()
+		areas_dieciseis_veintecinco = dieciseis_veintecinco.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#26-35
+		veinteseis_treintacinco = filtro.filter(year = year,plantacion__edad_real__range = (26,35.99))
+		prod_veinteseis_treintacinco = veinteseis_treintacinco.count()
+		areas_veinteseis_treintacinco = veinteseis_treintacinco.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		# > 40
+		cuarenta = filtro.filter(year = year,plantacion__edad_real__range = (40,1000))
+		prod_cuarenta = cuarenta.count()
+		areas_cuarenta = cuarenta.aggregate(suma = Sum('plantacion__area'))['suma']
+
+		#listas--------------------------------------------
+		productores = [prod_uno,prod_uno_tres,prod_cuatro_seis,prod_siete_quince,prod_dieciseis_veintecinco,
+						prod_veinteseis_treintacinco,prod_cuarenta]
+
+		areas = [areas_uno,areas_uno_tres,areas_cuatro_seis,areas_siete_quince,areas_dieciseis_veintecinco,
+					areas_veinteseis_treintacinco,areas_cuarenta]
+
+		#grafico de produccion por mes
+		produccion_mes = collections.OrderedDict()
+		for obj in MESES_CHOICES:
+			suma_mes = 0
+			mes = filtro.filter(year = year,distribucionproduccioncacao__mes = obj[0]).aggregate(
+						total = Sum(F('produccioncacao__cacao_baba')*F('distribucionproduccioncacao__porcentaje')))['total']
+
+			try:
+				mes = mes / 100
+			except:
+				pass
+				
+			produccion_mes[obj[1]] = mes
+
+		years[year] = (edades,convencional,fermentado,productores,areas,produccion_mes)
 
 	return render(request, template, locals())
 
