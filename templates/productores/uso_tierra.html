@@ -185,7 +185,7 @@ $(function () {
 			},
 		series: [
 		{% for k,v in value.items %}
-			{name: '{{k}} ({{v.0}})', data: [{% if v == None %}0{% else %}{{v.1}}{% endif %}]},
+			{name: '{{k}} ({{v.0}} mz)', data: [{% if v == None %}0{% else %}{{v.1}}{% endif %}]},
 		{% endfor %}
 		]
 	});

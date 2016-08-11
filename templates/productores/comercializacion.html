@@ -61,11 +61,6 @@
 
                         </div>
 
-
-
-
-
-
                     </div>
 
                   <div class="row">
@@ -78,10 +73,7 @@
                                       <div class="btn-group pull-right">
                                           <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos</button>
                                           <ul class="dropdown-menu">
-
                                               <li><a href="#" onclick="exportarXLS('modalidad'); return false;"><img src='/static/img/icons/xls.png' width="24"/> XLS</a></li>
-
-
                                           </ul>
                                       </div>
 
@@ -110,7 +102,7 @@
 									                <tr>
 									                    {% for celda in fila %}
 									                    <td>
-									                    	{% if celda == None %}0{% else %}{{celda}}{% endif %}
+                                        {% if celda.0 %}{{celda}}{% else %}{{celda|default:"0"|floatformat:2}}{% endif %}
 									                    </td>
 									                    {% endfor %}
 									                </tr>

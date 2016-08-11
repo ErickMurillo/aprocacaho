@@ -1,24 +1,24 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load helpertags %}
+
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" id="theme" href="/static/admincss/theme-dark-head-light.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/admin2.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen" />
-
-    
-
 {% endblock extra_css %}
+
 {% block content %}
 {% include "productores/menu_productores.html" %}
     <div class="fondo">
         <!-- START BREADCRUMB -->
         <ul class="breadcrumb">
             <li><a href="/">Inicio</a></li>
-            <li><a href="/productores/">Productores</a></li>                      
+            <li><a href="/productores/">Productores</a></li>
             <li><a href="/productores/dashboard/">Dashboard</a></li>
             <li class="active">Certificación</li>
         </ul>
-        <!-- END BREADCRUMB -->                       
+        <!-- END BREADCRUMB -->
         <ul class="select-annos" >
             <li>
               <a >Años:</a>
@@ -32,171 +32,171 @@
         </ul>
         <!-- PAGE CONTENT WRAPPER -->
         <div class="page-content-wrap">
-            
-            
+
+
             <div class="tab-content">
                 {% for year,value in years.items %}
                 <div role="tabpanel" class="tab-pane {% if forloop.counter == 1 %}active{% endif %}" id="{{year}}">
-                    <!-- START WIDGETS -->                    
+                    <!-- START WIDGETS -->
                     <div class="row">
-                        
+
                         <div class="col-md-offset-3 col-md-3">
-                            
+
                             <!-- START WIDGET MESSAGES -->
                             <div class="item widget widget-default widget-item-icon" >
-                                <div>                              
-                                    <div class="widget-title">Inversión para cacao</div>            
+                                <div>
+                                    <div class="widget-title">Inversión para cacao</div>
                                     <div class="widget-subtitle">Total</div>
-                                    <div class="widget-int">{{value.7}} </div>
-                                </div>      
-                            </div>                        
+                                    <div class="widget-int">{{value.7|floatformat:2|intcomma}} </div>
+                                </div>
+                            </div>
                             <!-- END WIDGET MESSAGES -->
-                            
+
                         </div>
                         <div class="col-md-3">
                             <!-- START WIDGET MESSAGES -->
                             <div class="item widget widget-default widget-item-icon" >
-                                <div>                              
-                                    <div class="widget-title">Inversión para finca</div>            
+                                <div>
+                                    <div class="widget-title">Inversión para finca</div>
                                     <div class="widget-subtitle">Total</div>
-                                    <div class="widget-int">{{value.8}}</div>
-                                </div> 
+                                    <div class="widget-int">{{value.8|floatformat:2|intcomma}}</div>
+                                </div>
 
-                            </div>                        
+                            </div>
                             <!-- END WIDGET MESSAGES -->
-                            
-                            
+
+
                         </div>
-                        
+
                     </div>
                     <!-- END WIDGETS -->
                     <div class="row">
-                
+
                         <div class="col-md-6">
-                            
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Tipos de certificación.</h3>
                                         <span>Porcentaje</span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="certificaciones{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
                         <div class="col-md-6">
-                            
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Número de productores certificados</h3>
                                         <span>Porcentaje </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="prod_cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
                         <div class="col-md-6">
-                            
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>Número de productores con uno o más sellos</h3>
                                         <span>Frecuencia </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="cert{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
                         <div class="col-md-6">
-                            
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>¿Quién certifica?</h3>
                                         <span>Porcentaje </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="certifica{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
                         <div class="col-md-6">
-                            
+
                             <!-- START SALES BLOCK -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <div class="panel-title-box">
                                         <h3>¿Quién paga la certificación?</h3>
                                         <span>Porcentaje </span>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="panel-body">                                    
+                                <div class="panel-body">
                                     <div class="row stacked">
                                         <div id="paga{{year}}" style="min-width: 310px; width: 540px; margin: 0 auto;"></div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                             <!-- END SALES BLOCK -->
-                            
+
                         </div>
 
 
-                    
-                    
-                        
+
+
+
                     </div>
-                  
-                  
-                  
+
+
+
                  <!--  Área total de cacao expresado en Manzanas: {{value.5}}<br>
                   Promedio de Mz de cacao cultivado por productor: {{value.6}}<br>-->
-                  
-                  
-                  
+
+
+
 
                 </div>
                 {% endfor %}
-            </div>                    
-            
-            
-            
+            </div>
 
-            
+
+
+
+
         </div>
-        <!-- END PAGE CONTENT WRAPPER -->   
+        <!-- END PAGE CONTENT WRAPPER -->
     </div>
 {% include "productores/footer.html" %}
 
