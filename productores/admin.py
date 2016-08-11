@@ -203,6 +203,11 @@ class EntrevistadosAdmin(admin.ModelAdmin):
 	class Media:
 		js = ('js/entrevistados.js',)
 
+class EncuestadoresAdmin(admin.ModelAdmin):
+	list_display = ('id','nombre','organizacion')
+	list_display_links = ('id','nombre')
+	search_fields = ['nombre','organizacion']
+
 admin.site.register(Profesiones)
 admin.site.register(SituacionesPropiedad)
 admin.site.register(Beneficios)
@@ -215,5 +220,5 @@ admin.site.register(ProblemasArea1)
 admin.site.register(ProblemasArea2)
 admin.site.register(ProblemasArea3)
 admin.site.register(Entrevistados,EntrevistadosAdmin)
-admin.site.register(Encuestadores)
+admin.site.register(Encuestadores,EncuestadoresAdmin)
 admin.site.register(Encuesta,EncuestaAdmin)
