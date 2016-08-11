@@ -22,8 +22,8 @@ from .views import *
 from utils import *
 from django.contrib.auth import views as auth_views
 
-admin.site.site_header = "Administración Aprocacaho"
-admin.site.site_title = "Administración Aprocacaho"
+admin.site.site_header = "Administración APROCACAHO"
+admin.site.site_title = "Administración APROCACAHO"
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

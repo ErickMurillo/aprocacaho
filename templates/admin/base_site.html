@@ -4,6 +4,13 @@
 <link href="/static/css/select2.min.css" rel="stylesheet" />
 <script src="/static/js/jquery-2.2.1.min.js"></script>
 <script src="/static/js/select2.min.js"></script>
+<style media="screen">
+.submit-row {
+  position: fixed;
+  bottom: -20px;
+  right: 10px;
+}
+</style>
 {% endblock %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
