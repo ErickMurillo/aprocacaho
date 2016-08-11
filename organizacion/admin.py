@@ -9,6 +9,8 @@ class InlineEscuelaCampo(admin.TabularInline):
 
 class OrganizacionAdmin(admin.ModelAdmin):
     inlines = [InlineEscuelaCampo]
+    list_display = ('id','nombre','siglas')
+    list_display_links = ('id','nombre','siglas')
 
 #encuesta organizacion
 class InlineAspectosJuridicos(admin.TabularInline):
@@ -109,7 +111,8 @@ class EncuestaOrganicacionAdmin(admin.ModelAdmin):
                 InlineCertificacionOrg,InlineDestinoProdCorriente,InlineDestinoProdFermentado,
                 InlineFinanciamiento,InlineFinanciamientoProductores,InlineInfoFinanciamiento]
 
-    list_display = ('organizacion','fecha')
+    list_display = ('id','organizacion','fecha')
+    list_display_links = ('id','organizacion')
 
     class Media:
         css = {

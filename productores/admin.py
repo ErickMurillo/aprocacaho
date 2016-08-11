@@ -196,6 +196,10 @@ class EncuestaAdmin(admin.ModelAdmin):
 		}
 
 class EntrevistadosAdmin(admin.ModelAdmin):
+	list_display = ('id','nombre','organizacion')
+	list_display_links = ('id','nombre')
+	search_fields = ['nombre','cedula','organizacion']
+
 	class Media:
 		js = ('js/entrevistados.js',)
 
