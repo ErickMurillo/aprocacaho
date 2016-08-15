@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load humanize %}
+
 {% block extra_css %}
 
 {% endblock extra_css %}
@@ -184,7 +186,7 @@
 		                                <div>
 		                                    <div class="widget-title">Producción cacao</div>
 		                                    <div class="widget-subtitle">Total</div>
-		                                    <div class="widget-int">{{produccion|floatformat:"2"|default:"0"}} qq</div>
+		                                    <div class="widget-int">{{produccion|floatformat:"2"|default:"0"|intcomma}} qq</div>
 		                                </div>
 		                            </div>
 		                        </div>
