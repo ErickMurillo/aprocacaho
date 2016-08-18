@@ -66,7 +66,7 @@ class MitigacionRiesgos_Inline(admin.TabularInline):
 class OrganizacionAsociada_Inline(admin.TabularInline):
 	model = OrganizacionAsociada
 	max_num = 1
-	can_delete = True
+	can_delete = False
 
 class ServiciosOrganizado_Inline(admin.TabularInline):
 	model = ServiciosOrganizado
