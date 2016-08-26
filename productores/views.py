@@ -6,6 +6,7 @@ import json as simplejson
 from django.http import HttpResponse,HttpResponseRedirect
 from django.db.models import Sum, Count, Avg, F
 import collections
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def _queryset_filtrado(request):
@@ -41,6 +42,7 @@ def _queryset_filtrado(request):
 
 	return Encuesta.objects.filter(**params).order_by('year')
 
+@login_required
 def consulta_productores(request,template="productores/consulta.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -78,6 +80,7 @@ def consulta_productores(request,template="productores/consulta.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def dashboard(request,template="productores/dashboard.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -221,6 +224,7 @@ def dashboard(request,template="productores/dashboard.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def educacion(request,template="productores/educacion.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -285,6 +289,7 @@ def educacion(request,template="productores/educacion.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def tenencia_propiedad(request,template="productores/tenencia_propiedad.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -308,6 +313,7 @@ def tenencia_propiedad(request,template="productores/tenencia_propiedad.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def uso_tierra(request,template="productores/uso_tierra.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -329,6 +335,7 @@ def uso_tierra(request,template="productores/uso_tierra.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def reforestacion(request,template="productores/reforestacion.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -344,6 +351,7 @@ def reforestacion(request,template="productores/reforestacion.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def caracterizacion_terreno(request,template="productores/caracterizacion_terreno.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -404,6 +412,7 @@ def caracterizacion_terreno(request,template="productores/caracterizacion_terren
 
 	return render(request, template, locals())
 
+@login_required
 def riesgos_finca(request,template="productores/riesgos_finca.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -468,6 +477,7 @@ def riesgos_finca(request,template="productores/riesgos_finca.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def mitigacion_riesgos(request,template="productores/mitigacion_riesgos.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -513,6 +523,7 @@ def mitigacion_riesgos(request,template="productores/mitigacion_riesgos.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def organizacion_productiva(request,template="productores/organizacion_productiva.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -534,6 +545,7 @@ def organizacion_productiva(request,template="productores/organizacion_productiv
 
 	return render(request, template, locals())
 
+@login_required
 def produccion(request,template="productores/produccion.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -677,13 +689,14 @@ def produccion(request,template="productores/produccion.html"):
 				mes = mes / 100
 			except:
 				pass
-				
+
 			produccion_mes[obj[1]] = mes
 
 		years[year] = (edades,convencional,fermentado,productores,areas,produccion_mes)
 
 	return render(request, template, locals())
 
+@login_required
 def certificacion(request,template="productores/certificacion.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -737,6 +750,7 @@ def certificacion(request,template="productores/certificacion.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def tecnicas_aplicadas(request,template="productores/tecnicas_aplicadas.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -794,6 +808,7 @@ def tecnicas_aplicadas(request,template="productores/tecnicas_aplicadas.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def comercializacion(request,template="productores/comercializacion.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -851,6 +866,7 @@ def comercializacion(request,template="productores/comercializacion.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def capacitaciones(request,template="productores/capacitaciones.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -896,6 +912,7 @@ def capacitaciones(request,template="productores/capacitaciones.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def problemas_areas_cacao(request,template="productores/problemas_cacao.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -922,6 +939,7 @@ def problemas_areas_cacao(request,template="productores/problemas_cacao.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def genero(request,template="productores/genero.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -978,6 +996,7 @@ def genero(request,template="productores/genero.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def ampliar_areas_cacao(request,template="productores/ampliar_areas.html"):
 	filtro = _queryset_filtrado(request)
 
@@ -1081,6 +1100,6 @@ def obtener_lista(request):
 
 		serializado = simplejson.dumps(lista)
 		return HttpResponse(serializado, content_type = 'application/json')
-
+@login_required
 def indicadores(request, template="productores/indicadores.html"):
 	return render(request, template, locals())

@@ -6,7 +6,9 @@ from django.db.models import Sum, Count, Avg
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request,template="index.html"):
     socios = Encuesta.objects.filter(organizacionasociada__socio = '1').count()
     socios_mujeres = Encuesta.objects.filter(organizacionasociada__socio = '1',entrevistado__sexo = '1').count()
