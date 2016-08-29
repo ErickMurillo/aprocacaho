@@ -828,8 +828,10 @@ def comercializacion(request,template="productores/comercializacion.html"):
 			lista = []
 			for x in QUIEN_VENDE_CHOICES:
 				conteo = filtro.filter(year = year,comercializacioncacao__producto = obj[0],
-										comercializacioncacao__quien_vende__icontains = x[0]).count()
-				lista.append(saca_porcentajes(conteo,productores,False))
+										comercializacioncacao__quien_vende__icontains = x[0]).aggregate(
+										venta = Sum('comercializacioncacao__venta'))['venta']
+
+				lista.append(saca_porcentajes(conteo,producto['venta'],False))
 
 			comercio.append(
 						(obj[1],
