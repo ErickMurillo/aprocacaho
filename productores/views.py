@@ -97,7 +97,7 @@ def dashboard(request,template="productores/dashboard.html"):
 		percentage_hombres = saca_porcentajes(hombres,productores,False)
 
 		areas_cacao = filtro.filter(year = year).aggregate(total = Sum('plantacion__area'))['total']
-		avg_areas_cacao = filtro.filter(year = year).aggregate(total = Avg('plantacion__area'))['total']
+		avg_areas_cacao = areas_cacao / float(productores)
 
 		#plantacion cacao
 		areas = collections.OrderedDict()
