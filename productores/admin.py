@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from .models import *
+from import_export import resources,fields
+from import_export.admin import ExportMixin
 
 # Register your models here.
 class Familia_Inline(admin.TabularInline):
@@ -195,7 +197,17 @@ class EncuestaAdmin(admin.ModelAdmin):
 			'all': ('css/admin.css',)
 		}
 
-class EntrevistadosAdmin(admin.ModelAdmin):
+class ProductorResource(resources.ModelResource):
+	class Meta:
+		model = Entrevistados
+		fields = ('id','nombre','cedula','fecha_nacimiento','sexo','profesion__nombre','organizacion__nombre',
+					'departamento__nombre','municipio__nombre','comunidad__nombre','latitud','longitud',)
+
+		export_order = ('id','nombre','cedula','fecha_nacimiento','sexo','profesion__nombre','organizacion__nombre',
+					'departamento__nombre','municipio__nombre','comunidad__nombre','latitud','longitud',)
+
+class EntrevistadosAdmin(ExportMixin, admin.ModelAdmin):
+	resource_class = ProductorResource
 	list_display = ('id','nombre','organizacion')
 	list_display_links = ('id','nombre')
 	search_fields = ['nombre','cedula','organizacion']
