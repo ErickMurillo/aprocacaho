@@ -1094,10 +1094,11 @@ def obtener_lista(request):
 	if request.is_ajax():
 		lista = []
 		for objeto in Encuesta.objects.all():
-			dicc = dict(nombre=objeto.entrevistado.municipio.nombre, id=objeto.id,
-						lon=float(objeto.entrevistado.municipio.longitud),
-						lat=float(objeto.entrevistado.municipio.latitud)
-						)
+			if objeto.entrevistado.municipio.longitud != None or objeto.entrevistado.municipio.latitud != None:
+				dicc = dict(nombre=objeto.entrevistado.municipio.nombre, id=objeto.id,
+							lon=float(objeto.entrevistado.municipio.longitud),
+							lat=float(objeto.entrevistado.municipio.latitud)
+							)
 			lista.append(dicc)
 
 		serializado = simplejson.dumps(lista)
