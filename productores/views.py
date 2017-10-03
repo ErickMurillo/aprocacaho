@@ -192,8 +192,9 @@ def dashboard(request,template="productores/dashboard.html"):
 		for obj in filtro.filter(year = year):
 			num_certif = 0
 			for cert in Certificacion.objects.filter(cacao_certificado = 1,encuesta = obj):
-				for tipo in cert.tipo:
-					num_certif += 1
+				if cert.tipo:
+					for tipo in cert.tipo:
+						num_certif += 1
 			if num_certif == 1:
 				x += 1
 			elif num_certif == 2:
